@@ -9,6 +9,6 @@ app.use(cors()); // Integración de CORS middleware
 app.use(express.json()); // Parsear requests en formato JSON
 
 // Ruta
-app.use('/', require('./routes/api'));
+app.use('/api', require('./routes/api'));
 
 module.exports = app;
