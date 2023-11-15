@@ -1,4 +1,3 @@
 # TeacherApp-Backend
 
 ### Creadores:
- - Javier
