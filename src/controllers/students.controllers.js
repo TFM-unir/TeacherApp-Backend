@@ -8,7 +8,8 @@ const getAllStudents = async (req, res) => {
         res.json({ fatal: error.message });
     }
 }
-const createStudents = async (req, res) => {
+
+const createStudent = async (req, res) => {
     try {
         const [result] = await StudentModel.insertStudent(req.body);
         const [student] = await StudentModel.selectStudentById(result.insertId);
@@ -30,7 +31,6 @@ const getStudentById = async (req, res) => {
 
 }
 
-
 const updateStudent = async (req, res) => {
     try {
         const { studentId } = req.params;
@@ -47,7 +47,6 @@ const updateStudent = async (req, res) => {
 
 }
 
-
 const deleteStudent = async (req, res) => {
     try {
         const { studentId } = req.params;
@@ -63,4 +62,4 @@ const deleteStudent = async (req, res) => {
     }
 }
 
-module.exports = { getAllStudents, createStudents, getStudentById, deleteStudent, updateStudent }
+module.exports = { getAllStudents, createStudent, getStudentById, deleteStudent, updateStudent }
