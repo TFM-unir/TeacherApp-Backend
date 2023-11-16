@@ -76,7 +76,7 @@ CREATE TABLE IF NOT EXISTS `teacher_app_db`.`users` (
   `phone` VARCHAR(20) NOT NULL COMMENT 'phone: campo destinado a contener el número de teléfono del usuario',
   `password` TINYTEXT NOT NULL COMMENT 'password: campo que contiene la contraseña del usuario encriptada (por eso decidimos colocar tinytext).',
   `creation_date` DATETIME NOT NULL DEFAULT Now() COMMENT 'creation_date: campo destinado a contener la fecha de creación del usuario con la formula (Now()).',
-  `update_date` DATETIME NOT NULL COMMENT 'update_date: campo que contiene la fecha de modificación de usuario.',
+  `update_date` DATETIME NOT NULL DEFAULT Now() COMMENT 'update_date: campo que contiene la fecha de modificación de usuario.',
   `age` INT NOT NULL COMMENT 'age: campo que indica la edad del usuario.',
   `status` TINYINT(1) NOT NULL COMMENT '“no validado” = 1\n“validado” = 2\n“baja” = 3',
   `photo` TINYTEXT NOT NULL COMMENT 'photo: campo que hace referencia a la URL de la imagen del usuario.',

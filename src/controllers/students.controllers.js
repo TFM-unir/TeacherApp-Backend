@@ -37,7 +37,7 @@ const updateStudent = async (req, res) => {
         const [result] = await StudentModel.updateStudentById(studentId, req.body);
 
         if (result.changedRows == 0) {
-            res.status(404).send('Student not found');
+            res.status(404).send('Student does not change ');
         } else {
             res.status(200).send("Student modified successfuly");
         }
