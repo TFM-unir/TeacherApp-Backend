@@ -84,7 +84,7 @@ CREATE TABLE `locations` (
   `latitude` double NOT NULL COMMENT 'latitude: campo que va a contener la latitud al ubicarse automáticamente',
   `longitude` double NOT NULL COMMENT 'longitude: campo que va a contener la latitud al ubicarse automáticamente',
   `address` varchar(120) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT 'address: campo que va a contener la dirección completa.',
-  `citie` varchar(80) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT 'citie: campo que contiene el nombre de la ciudad de residencia.',
+  `city` varchar(80) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT 'citie: campo que contiene el nombre de la ciudad de residencia.',
   `province` varchar(80) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT 'province: campo que contiene el nombre de la provincia de residencia.',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -206,9 +206,9 @@ CREATE TABLE `users` (
   `phone` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT 'phone: campo destinado a contener el número de teléfono del usuario',
   `password` tinytext CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT 'password: campo que contiene la contraseña del usuario encriptada (por eso decidimos colocar tinytext).',
   `creation_date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT 'creation_date: campo destinado a contener la fecha de creación del usuario con la formula (Now()).',
-  `update_date` datetime NOT NULL COMMENT 'update_date: campo que contiene la fecha de modificación de usuario.',
-  `age` int NOT NULL COMMENT 'age: campo que indica la edad del usuario.',
-  `active` tinytext CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT 'active: booleano que indica si se encuentra activo o no el usuario.',
+  `update_date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT 'update_date: campo que contiene la fecha de modificación de usuario.',
+  `date_of_birth` date NOT NULL COMMENT 'age: campo que indica la edad del usuario.',
+  `status` tinyint(1) NOT NULL COMMENT '“no validado” = 1\n“validado” = 2\n“baja” = 3',
   `photo` tinytext CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT 'photo: campo que hace referencia a la URL de la imagen del usuario.',
   `role_id` int NOT NULL,
   `location_id` int NOT NULL,
@@ -228,7 +228,7 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES (1,'Juan Pérez','juanito','juan.perez@example.com','123456789','contraseña','2023-11-15 08:00:00','2023-11-15 08:00:00',25,'true','url_foto_juan',1,1),(2,'María López','malopez','maria.lopez@example.com','987654321','password','2023-11-16 10:00:00','2023-11-16 10:00:00',28,'true','url_foto_maria',2,2),(3,'Carlos Gómez','carlitos','carlos.gomez@example.com','555444333','contraseña123','2023-11-17 12:00:00','2023-11-17 12:00:00',30,'true','url_foto_carlos',2,3),(4,'Laura Martínez','lau','laura.martinez@example.com','666777888','pass123','2023-11-18 14:00:00','2023-11-18 14:00:00',23,'true','url_foto_laura',1,4);
+INSERT INTO `users` VALUES (1,'Juan Pérez','juanito','juan.perez@example.com','123456789','contraseña','2023-11-15 08:00:00','2023-11-15 08:00:00','1990-05-15',2,'url_foto_juan',3,1),(2,'María López','malopez','maria.lopez@example.com','987654321','password','2023-11-16 10:00:00','2023-11-16 10:00:00','1985-03-05',1,'url_foto_maria',2,2),(3,'Carlos Gómez','carlitos','carlos.gomez@example.com','555444333','contraseña123','2023-11-17 12:00:00','2023-11-17 12:00:00','1978-08-03',2,'url_foto_carlos',2,3),(4,'Laura Martínez','lau','laura.martinez@example.com','666777888','pass123','2023-11-18 14:00:00','2023-11-18 14:00:00','1995-02-20',3,'url_foto_laura',1,4);
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -241,4 +241,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-11-15 22:54:53
+-- Dump completed on 2023-11-17 19:11:23
