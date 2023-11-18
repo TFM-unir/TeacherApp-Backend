@@ -12,7 +12,7 @@ VALUES
 ('Literatura', 'Departamento enfocado en la enseñanza de literatura y lenguaje.');
 
 -- Llenar tabla locations con direcciones de ejemplo
-INSERT INTO locations (latitude, longitude, address, citie, province)
+INSERT INTO locations (latitude, longitude, address, city, province)
 VALUES
 (40.416775, -3.703790, 'Calle Falsa 123', 'Madrid', 'Madrid'),
 (41.385063, 2.173404, 'Avinguda Diagonal 123', 'Barcelona', 'Barcelona'),
@@ -28,12 +28,12 @@ VALUES
 ('parent', 'Rol asignado a los padres de los estudiantes');
 
 -- Llenar tabla users con usuarios de ejemplo (pueden ser tanto estudiantes como profesores)
-INSERT INTO users (name, nickname, email, phone, password, creation_date, update_date, age, active, photo, role_id, location_id)
+INSERT INTO users (name, nickname, email, phone, password, creation_date, update_date, date_of_birth, status, photo, role_id, location_id)
 VALUES
-('Juan Pérez', 'juanito', 'juan.perez@example.com', '123456789', 'contraseña', '2023-11-15 08:00:00', '2023-11-15 08:00:00', 25, 'true', 'url_foto_juan', 1, 1),
-('María López', 'malopez', 'maria.lopez@example.com', '987654321', 'password', '2023-11-16 10:00:00', '2023-11-16 10:00:00', 28, 'true', 'url_foto_maria', 2, 2),
-('Carlos Gómez', 'carlitos', 'carlos.gomez@example.com', '555444333', 'contraseña123', '2023-11-17 12:00:00', '2023-11-17 12:00:00', 30, 'true', 'url_foto_carlos', 2, 3),
-('Laura Martínez', 'lau', 'laura.martinez@example.com', '666777888', 'pass123', '2023-11-18 14:00:00', '2023-11-18 14:00:00', 23, 'true', 'url_foto_laura', 1, 4);
+('Juan Pérez', 'juanito', 'juan.perez@example.com', '123456789', 'contraseña', '2023-11-15 08:00:00', '2023-11-15 08:00:00', '1990-05-15', '2', 'url_foto_juan', 3, 1),
+('María López', 'malopez', 'maria.lopez@example.com', '987654321', 'password', '2023-11-16 10:00:00', '2023-11-16 10:00:00', '1985-03-05', '1', 'url_foto_maria', 2, 2),
+('Carlos Gómez', 'carlitos', 'carlos.gomez@example.com', '555444333', 'contraseña123', '2023-11-17 12:00:00', '2023-11-17 12:00:00', '1978-08-03', '2', 'url_foto_carlos', 2, 3),
+('Laura Martínez', 'lau', 'laura.martinez@example.com', '666777888', 'pass123', '2023-11-18 14:00:00', '2023-11-18 14:00:00', '1995-02-20', '3', 'url_foto_laura', 1, 4);
 
 -- Llenar tabla teachers con datos de ejemplo
 INSERT INTO teachers (experience, subjects, price_hour, about_me, department_id, user_id)

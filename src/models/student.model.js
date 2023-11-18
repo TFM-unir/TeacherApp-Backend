@@ -1,24 +1,23 @@
+const UserModel = require('./user.model');
+
 const selectAllStudents = () => {
-    return db.query('SELECT * FROM users WHERE role_id = 1 ');
+    return UserModel.selectAllUsers(1)
 }
 
-const insertStudent = ({ name, nickname, email, phone, password, age, photo }) => {
-    // TODO: QUERYS A VARIAS TABLAS? 
-    return db.query('INSERT INTO users (name, nickname, email, phone, password, age, photo, role_id) VALUES (?, ?, ?, ?, ?, ?, ?, 1)', [name, nickname, email, phone, password, age, photo])
+const insertStudent = (body) => {
+    return UserModel.insertUser(body)
 }
 
 const selectStudentById = (id) => {
-    // CONFIRMAR: Especificar el role_id no es necesario: (SELECT * FROM users WHERE role_id = 1 AND id = ?). Lo mismo con las funciones updateStudentById y deleteStudentById, no?
-    return db.query('SELECT * FROM users WHERE id = ?', [id]);
+    return UserModel.selectUserById(id)
 }
 
-const updateStudentById = (id, { nombre, email, imagen_url }) => {
-    // TODO: CONFIRMAR PARÁMETROS Y ACTUALIZAR
-    return db.query('UPDATE users SET nombre = ?, email = ?, imagen_url = ? WHERE id = ?', [nombre, email, imagen_url, id]);
+const updateStudentById = (id, body) => {
+    return UserModel.updateUserById(id, body)
 }
 
 const deleteStudentById = (id) => {
-    return db.query('DELETE FROM users WHERE id = ?', [id]);
+    return UserModel.deleteUserById(id)
 }
 
 module.exports = { selectAllStudents, insertStudent, selectStudentById, updateStudentById, deleteStudentById }

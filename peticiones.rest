@@ -1,0 +1,96 @@
+########
+### API ####
+#########
+
+###
+POST http://localhost:3000/api/students
+Content-Type: application/json
+
+{
+    "name": "Emilio Alvarez", 
+    "nickname": "emilio123", 
+    "email": "emil.123@emil.com", 
+    "phone": "+34 2345234", 
+    "password": "12345", 
+    "age": 15, 
+    "status": 2, 
+    "role_id": 1, 
+    "location_id": 1,
+    "photo": "url"
+
+}
+
+###
+GET http://localhost:3000/api/students/
+
+###
+GET http://localhost:3000/api/students/5
+
+###
+PUT http://localhost:3000/api/students/5
+Content-Type: application/json
+
+{
+    
+    "name": "Emilio Alvarez", 
+    "nickname": "emilio123", 
+    "email": "em.12356@emil.com", 
+    "phone": "+34 232345234", 
+    "password": "12345", 
+    "age": 15, 
+    "status": 2, 
+    "role_id": 1, 
+    "location_id": 1,
+    "photo": "url"
+
+}
+
+###
+DELETE http://localhost:3000/api/students/2
+
+
+
+
+
+######## POSTS
+
+###
+POST http://localhost:3000/api/posts
+Content-Type: application/json
+
+{
+    "titulo": "Libro",
+    "description": "romane",
+    "fecha_de_creacion": "2023.02.20",
+    "categoria": "aburrido",
+    "autores_idautores": "5"
+
+}
+
+###
+GET http://localhost:3000/api/posts/
+
+###
+GET http://localhost:3000/api/posts/5
+
+###
+PUT http://localhost:3000/api/posts/1
+Content-Type: application/json
+
+
+    {
+    "titulo": "Libro",
+    "description": "crimi",
+    "fecha_de_creacion": "01.01.2023",
+    "categoria": "aburrido",
+    "autores_idautores": "1"
+
+}
+
+
+###
+DELETE http://localhost:3000/api/posts/6
+
+
+###
+GET http://localhost:3000/api/posts/autor/1

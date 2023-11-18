@@ -1,3 +1,7 @@
 # TeacherApp-Backend
 
-### Creadores:
+## Creadores:
+
+- Ruben
+- Miquel Mayordomo Bofill
+- Juan
