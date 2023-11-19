@@ -28,7 +28,7 @@ const updateUserById = (id, { name, nickname, email, phone, password, age, statu
 };
 
 const deleteUserById = (id) => {
-    return db.query('DELETE FROM users WHERE id = ?', [id]);
+    return db.query('UPDATE users set status=3 WHERE id = ?', [id]);
 };
 
 
