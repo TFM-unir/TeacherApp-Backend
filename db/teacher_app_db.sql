@@ -18,6 +18,37 @@ USE `teacher_app_db`;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
+-- Table structure for table `chats`
+--
+
+DROP TABLE IF EXISTS `chats`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `chats` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `message` mediumtext CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT 'message: campo relacionado al mensaje que se va a representar en el chat.\n',
+  `creation_date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT 'creation_date: campo que indica la fecha de creación del mensaje.',
+  `boolean_teacher` tinyint(1) NOT NULL COMMENT 'Campo que relaciona e indica si es o no el teacher el que genera el comentario.',
+  `user_id` int NOT NULL,
+  `teacher_id` int NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `fk_chats_users1_idx` (`user_id`),
+  KEY `fk_chats_teachers1_idx` (`teacher_id`),
+  CONSTRAINT `fk_chats_teachers1` FOREIGN KEY (`teacher_id`) REFERENCES `teachers` (`id`),
+  CONSTRAINT `fk_chats_users1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `chats`
+--
+
+LOCK TABLES `chats` WRITE;
+/*!40000 ALTER TABLE `chats` DISABLE KEYS */;
+/*!40000 ALTER TABLE `chats` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `class_hours`
 --
 
@@ -55,8 +86,8 @@ DROP TABLE IF EXISTS `departments`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `departments` (
   `id` int NOT NULL AUTO_INCREMENT,
-  `department_name` varchar(60) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT 'department_name: campo que hace referencia al nombre del departamento',
-  `description` mediumtext COLLATE utf8mb4_unicode_ci COMMENT 'description: campo que hace referencia a la descripción del departamento.',
+  `department_name` varchar(60) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT 'department_name: campo que hace referencia al nombre del departamento',
+  `description` mediumtext CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci COMMENT 'description: campo que hace referencia a la descripción del departamento.',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -107,9 +138,9 @@ DROP TABLE IF EXISTS `ratings`;
 CREATE TABLE `ratings` (
   `id` int NOT NULL AUTO_INCREMENT,
   `rating` int NOT NULL COMMENT 'rating: campo que va a contener el numero dado de puntuación en un rango entre 0 y 5.',
-  `comment` mediumtext COLLATE utf8mb4_unicode_ci NOT NULL COMMENT 'comment: campo que va a contener el comentario asociado a la puntuación.',
+  `comment_student` mediumtext COLLATE utf8mb4_unicode_ci COMMENT 'comment_student: campo que va a contener el comentario asociado a la puntuación.',
+  `comment_teacher` mediumtext COLLATE utf8mb4_unicode_ci COMMENT 'comment_teacher: campo que va a contener el comentario asociado a la puntuación.',
   `creation_date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT 'creation_date: campo destinado a contener la fecha de creación del rating del comment con la formula (Now()).',
-  `provider` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT 'provider: campo que hace referencia a si es un estudiante o el teacher el que genera dicha puntuación y comentario',
   `teacher_id` int NOT NULL,
   `user_id` int NOT NULL,
   PRIMARY KEY (`id`),
@@ -154,6 +185,35 @@ LOCK TABLES `roles` WRITE;
 UNLOCK TABLES;
 
 --
+-- Table structure for table `subjects`
+--
+
+DROP TABLE IF EXISTS `subjects`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `subjects` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `subject` varchar(60) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT 'subject: campo que indica la materia que imparte dicho profesor',
+  `teacher_id` int NOT NULL,
+  `department_id` int NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `fk_subjects_teachers1_idx` (`teacher_id`),
+  KEY `fk_subjects_departments1_idx` (`department_id`),
+  CONSTRAINT `fk_subjects_departments1` FOREIGN KEY (`department_id`) REFERENCES `departments` (`id`),
+  CONSTRAINT `fk_subjects_teachers1` FOREIGN KEY (`teacher_id`) REFERENCES `teachers` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `subjects`
+--
+
+LOCK TABLES `subjects` WRITE;
+/*!40000 ALTER TABLE `subjects` DISABLE KEYS */;
+/*!40000 ALTER TABLE `subjects` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `teachers`
 --
 
@@ -163,15 +223,12 @@ DROP TABLE IF EXISTS `teachers`;
 CREATE TABLE `teachers` (
   `id` int NOT NULL AUTO_INCREMENT COMMENT 'id: campo que representa el id único del profesor\n',
   `experience` int NOT NULL COMMENT 'experience: campo que indica los años de experiencia del profesor',
-  `subjects` mediumtext COLLATE utf8mb4_unicode_ci NOT NULL COMMENT 'subjects: campo que indica las materias que imparte dicho profesor',
+  `class_mode` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT 'class_mode: campo relacionado con el tipo de clase si es presencial o si es online.',
   `price_hour` decimal(10,2) NOT NULL COMMENT 'price_hour: campo que indica el precio/hora del profesor.',
-  `about_me` mediumtext COLLATE utf8mb4_unicode_ci NOT NULL COMMENT 'about_me: campo que hace énfasis en una breve descripción del profesor.',
-  `department_id` int NOT NULL,
+  `about_me` mediumtext CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT 'about_me: campo que hace énfasis en una breve descripción del profesor.',
   `user_id` int NOT NULL,
   PRIMARY KEY (`id`),
-  KEY `fk_teachers_departments_idx` (`department_id`),
   KEY `fk_teachers_users1_idx` (`user_id`),
-  CONSTRAINT `fk_teachers_departments` FOREIGN KEY (`department_id`) REFERENCES `departments` (`id`),
   CONSTRAINT `fk_teachers_users1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -194,16 +251,16 @@ DROP TABLE IF EXISTS `users`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `users` (
   `id` int NOT NULL AUTO_INCREMENT,
-  `name` varchar(80) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT 'name: campo destinado a contener el nombre y apellido de los usuarios (students y teachers).\n',
-  `nickname` varchar(60) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'nickname: campo que contiene el sobrenombre del usuario',
-  `email` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT 'email: campo que contiene el email del usuario.',
-  `phone` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT 'phone: campo destinado a contener el número de teléfono del usuario',
-  `password` tinytext COLLATE utf8mb4_unicode_ci NOT NULL COMMENT 'password: campo que contiene la contraseña del usuario encriptada (por eso decidimos colocar tinytext).',
+  `name` varchar(80) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT 'name: campo destinado a contener el nombre y apellido de los usuarios (students y teachers).\n',
+  `nickname` varchar(60) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'nickname: campo que contiene el sobrenombre del usuario',
+  `email` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT 'email: campo que contiene el email del usuario.',
+  `phone` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT 'phone: campo destinado a contener el número de teléfono del usuario',
+  `password` tinytext CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT 'password: campo que contiene la contraseña del usuario encriptada (por eso decidimos colocar tinytext).',
   `creation_date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT 'creation_date: campo destinado a contener la fecha de creación del usuario con la formula (Now()).',
   `update_date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT 'update_date: campo que contiene la fecha de modificación de usuario.',
   `date_of_birth` date NOT NULL COMMENT 'age: campo que indica la edad del usuario.',
   `status` tinyint(1) NOT NULL COMMENT '“no validado” = 1\n“validado” = 2\n“baja” = 3',
-  `photo` tinytext COLLATE utf8mb4_unicode_ci NOT NULL COMMENT 'photo: campo que hace referencia a la URL de la imagen del usuario.',
+  `photo` tinytext CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT 'photo: campo que hace referencia a la URL de la imagen del usuario.',
   `role_id` int NOT NULL,
   `location_id` int NOT NULL,
   PRIMARY KEY (`id`),
@@ -234,4 +291,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-11-17 18:57:46
+-- Dump completed on 2023-11-25 11:28:07

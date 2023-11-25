@@ -6,9 +6,17 @@ const jsonwebtoken = require('jsonwebtoken');
 const createToken = (user) => {
     const payload = {
         user_id: user.id,
+        user_name: user.name,
+        user_nickname: user.user_nickname,
+        user_email: user.email,
+        user_birthday: user.date_of_birth,
         user_role: user.role_id,
-        exp: dayjs().add(30, 'minutes').unix()
+        user_status: user.status,
+        user_location: user.location_id,
+        user_creation_date: user.creation_date,
+        exp: dayjs().add(5, 'days').unix()
     };
+    console.log(payload);
     // Codificamos el token
     return jsonwebtoken.sign(payload, process.env.SECRET_KEY);
 };
