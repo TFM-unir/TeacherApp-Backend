@@ -11,7 +11,8 @@ const getAllTeachers = async (req, res) => {
 
 const getAllTeachersByState = async (req, res) => {
     try {
-        const [result] = await TeacherModel.selectAllValidTeachers();
+        const { teacherState } = req.params;
+        const [result] = await TeacherModel.selectAllTeachersByState(teacherState);
         res.json(result);
     } catch (error) {
         res.json({ fatal: error.message });
@@ -41,9 +42,12 @@ const createTeacher = async (req, res) => {
 const updateTeacher = async (req, res) => {
     try {
         const { teacherId } = req.params;
-        const result = await TeacherModel.updateTeacherById(teacherId); 
-        //const updatedRecord = updatedObject(result, req.body); 
-        res.json(result);
+        const result = await TeacherModel.updateTeacherById(teacherId, req.body);
+        if (result.changedRows == 0) {
+            res.status(404).send('Teacher does not change ');
+        } else {
+            res.status(200).send("Teacher modified successfuly");
+        }
     } catch (error) {
         res.json({ fatal: error.message });
     }
@@ -52,8 +56,13 @@ const updateTeacher = async (req, res) => {
 const deleteTeacher = async (req, res) => {
     try {
         const { teacherId } = req.params;
-        const teacher = await TeacherModel.deleteTeacherById(teacherId);
-        res.json(teacher);
+        const [result] = await TeacherModel.deleteTeacherById(teacherId);
+
+        if (result.affectedRows == 0) {
+            res.status(404).send('Teacher not found');
+        } else {
+            res.status(200).send("Teacher deleted successfuly");
+        }
     } catch (error) {
         res.json({ fatal: error.message });
     }
