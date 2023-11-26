@@ -111,8 +111,74 @@ GET http://localhost:3000/api/locations/
 ###
 GET http://localhost:3000/api/locations/5
 
+###
+PUT http://localhost:3000/api/locations/5
+Content-Type: application/json
 
-### Register
+{
+    
+
+    "latitude": 34,
+    "longitude":4, 
+    "address": "Calle Pedro", 
+    "city": "Valencia", 
+    "province": "Valencia"
+
+}
+
+###
+DELETE http://localhost:3000/api/locations/2
+
+
+
+
+######## Subjects
+###
+POST http://localhost:3000/api/subjects
+Content-Type: application/json
+
+{
+
+  "subjectForm": [
+      {
+        "department_id": 1,
+        "teacher_id" : 2,
+        "subject" : "Trigonometria"
+      },
+      {
+        "department_id": 2,
+        "teacher_id" : 2,
+        "subject" : "Literatura Anglosajona"
+      }
+  ]
+}
+
+###
+GET http://localhost:3000/api/subjects/teacher/3
+
+###
+GET http://localhost:3000/api/subjects/4
+
+###
+PUT http://localhost:3000/api/subjects/4
+Content-Type: application/json
+
+{
+    
+    "department_id": 2,
+    "teacher_id" : 2,
+    "subject" : "Literatura Anglosa"
+
+}
+
+###
+DELETE http://localhost:3000/api/subjects/3
+
+
+
+
+############# Register
+###
 POST: http://localhost:3000/api/users/register
 Content-Type: application/json
 {
@@ -173,21 +239,3 @@ Content-Type: application/json
     "province": "A Coruña"
   }
 }
-
-###
-PUT http://localhost:3000/api/locations/5
-Content-Type: application/json
-
-{
-    
-
-    "latitude": 34,
-    "longitude":4, 
-    "address": "Calle Pedro", 
-    "city": "Valencia", 
-    "province": "Valencia"
-
-}
-
-###
-DELETE http://localhost:3000/api/locations/2
