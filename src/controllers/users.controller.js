@@ -14,12 +14,9 @@ const register = async (req, res) => {
     try {
         //En este primer modelo los 3 formularios son enviados y debe de generarse en front el envío de todos como un objeto en  donde coloquemos los datos del user en userForm, los datos del teacher en teacherForm y los datos de location el locationForm
         //primero se encripta la password
-        console.log(req.body.userForm.password)
         req.body.userForm.password = bcrypt.hashSync(req.body.userForm.password, 10);
-        console.log(req.body.userForm.password)
         const [resultUser] = await UsersModel.insertUser(req.body.userForm);
         const [user] = await UsersModel.selectUserByIdWhithOutLocation(resultUser.insertId);
-        console.log(user);
         //Dejo el condicional par poder utilizarlo en caso que se decida seguir con el modelo 1
         if (req.body.teacherSwitch !== 1 && req.body.teacherSwitch !== true) {
             const [resultLocation] = await LocationModel.insertLocation(req.body.locationForm);
@@ -33,16 +30,12 @@ const register = async (req, res) => {
         };
         //Este codigo lo dejo en el hipotetico caso que queramos seguir con lo del teacher en el modleo 1
         req.body.teacherForm.user_id = user[0].id;
-        console.log(req.body.teacherForm);
         const [resulTeacher] = await TeacherModel.insertTeacher(req.body.teacherForm);
         const [teacher] = await TeacherModel.selectTeacherOnlyTableById(resulTeacher.insertId);
-        console.log(teacher);
         const [resultLocation] = await LocationModel.insertLocation(req.body.locationForm);
         await UsersModel.updateUserLocationId(resultLocation.insertId, user[0].id);
         const [userLocation] = await LocationModel.selectLocationByUserId(user[0].id);
         const [updatedUser] = await UsersModel.selectUserByIdWhithOutLocation(user[0].id);
-        console.log(updatedUser);
-
         res.json({
             user: updatedUser[0],
             teacher: teacher[0],
