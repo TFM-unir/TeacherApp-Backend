@@ -99,9 +99,9 @@ const location = async (req, res) => {
     const tokenUncode = jsonwebtoken.decode(token, process.env.SECRET_KEY);
     try {
         //se inserta en la bd los datos indicados del front
-        const [result] = await UsersModel.insertLocation(req.body);
+        const [result] = await LocationModel.insertLocation(req.body);
         const [resultUpdatedUser] = await UsersModel.updateUserLocationId(result.insertId, tokenUncode.user_id);
-        const [userLocation] = await UsersModel.selectLocationByUserId(tokenUncode.user_id);
+        const [userLocation] = await LocationModel.selectLocationByUserId(tokenUncode.user_id);
         res.json(userLocation[0]);
 
         res.json(userLocation[0]);
