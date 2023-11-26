@@ -42,7 +42,7 @@ const selectTeacherById = (id) => {
 };
 
 const selectTeacherOnlyTableById = (id) => {
-    return db.query('SELECT * FROM teacher_app_db.teachers WHERE id = ?', [id]);
+    return db.query('SELECT * FROM teachers WHERE id = ?', [id]);
 };
 
 const insertTeacher = ({ experience, class_mode, price_hour, about_me, user_id }) => {

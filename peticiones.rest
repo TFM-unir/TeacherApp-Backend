@@ -112,8 +112,9 @@ GET http://localhost:3000/api/locations/
 GET http://localhost:3000/api/locations/5
 
 
-###Register
+### Register
 POST: http://localhost:3000/api/users/register
+Content-Type: application/json
 {
     "name": "rubenes Alvarez", 
     "nickname": "rub123", 
@@ -142,6 +143,36 @@ POST: http://localhost:3000/api/users/register
   }
 }
 
+###
+POST http://localhost:3000/api/users/register
+Content-Type: application/json
+
+{
+  "userForm":{
+    "name": "Juana Alvarez", 
+    "nickname": "juasdn123", 
+    "email": "pedesdasd@gmail.com", 
+    "phone": "643434548", 
+    "password": "12345", 
+    "date_of_birth": "1993-02-15", 
+    "status": 2, 
+    "role_id": 2, 
+    "photo": "url"
+  },
+  "teacherForm": {
+    "experience":5,
+    "class_mode": "Mañana",
+    "price_hour": 10.50,
+    "about_me": "Soy un soñador brutal con todos los hierros"
+  },
+  "locationForm": {
+    "latitude": 41.385063,
+    "longitude": 2.987456,
+    "address": "calle de quintal 25",
+    "city": "Santiago",
+    "province": "A Coruña"
+  }
+}
 
 ###
 PUT http://localhost:3000/api/locations/5

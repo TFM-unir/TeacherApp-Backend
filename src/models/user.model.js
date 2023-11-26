@@ -1,8 +1,13 @@
 const selectAllUsers = (id_role) => {
     return db.query('SELECT u.id, u.name, u.nickname, u.email, u.phone, u.date_of_birth, u.status, u.photo, l.latitude, l.longitude, l.address, l.city, l.province FROM locations as l, users u where u.role_id=? and l.id = u.location_id ', [id_role]);
 };
+
 const selectUserById = (id) => {
     return db.query('SELECT u.id, u.name, u.nickname, u.email, u.phone, DATE_FORMAT(u.date_of_birth, "%Y-%m-%d") as date_of_birth, u.status, u.photo, u.role_id, u.location_id, l.latitude, l.longitude, l.address, l.city, l.province FROM locations as l, users as u where u.id=? and l.id = u.location_id', [id]);
+};
+
+const selectUserByEmail = (email) => {
+    return db.query('SELECT * FROM users WHERE email = ?', [email]);
 };
 
 //recuperamos el usuario sin la tabla de location
@@ -11,11 +16,11 @@ const selectUserByIdWhithOutLocation = (id) => {
 };
 
 const insertUser = ({ name, nickname, email, phone, password, date_of_birth, status, role_id, location_id, photo }) => {
-    return db.query('INSERT INTO teacher_app_db.users (name, nickname, email, phone, password, date_of_birth, status, photo, role_id,location_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)', [name, nickname, email, phone, password, date_of_birth, status, photo, role_id, location_id])
+    return db.query('INSERT INTO users (name, nickname, email, phone, password, date_of_birth, status, photo, role_id,location_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)', [name, nickname, email, phone, password, date_of_birth, status, photo, role_id, location_id])
 };
 
 const updateUserLocationId = (location_id, user_id) => {
-    return db.query('UPDATE teacher_app_db.users SET location_id = ? WHERE id = ?', [location_id, user_id]);
+    return db.query('UPDATE users SET location_id = ? WHERE id = ?', [location_id, user_id]);
 }
 
 const updateUserById = (id, { name, nickname, email, phone, password, age, status, role_id, location_id, photo }) => {
@@ -26,8 +31,4 @@ const deleteUserById = (id) => {
     return db.query('UPDATE users set status=3 WHERE id = ?', [id]);
 };
 
-
-//TODO: tenemos que modificar esto un poco, no se puede colocar en el usuario un location_id sin haber ante rellenado la tabla de dirección, entonces primero rellenamos la tabla de dirección, recuperamos el id y se lo colocamos al usuario.   Igual que el role_id, pero este último lo podemos poner como predeterminado desde el front, que mande siempre un numero que sea usuario normal y el otro que sea admin solo se podrá poner cuando el admin le otorgue los poderes.
-
-
-module.exports = { selectAllUsers, insertUser, selectUserById, updateUserById, deleteUserById, selectUserByIdWhithOutLocation, updateUserLocationId }
+module.exports = { selectAllUsers, insertUser, selectUserById, selectUserByEmail, updateUserById, deleteUserById, selectUserByIdWhithOutLocation, updateUserLocationId }
