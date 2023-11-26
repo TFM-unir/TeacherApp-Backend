@@ -7,7 +7,7 @@ const bcrypt = require("bcryptjs");
 const { createToken } = require('../helpers/utils');
 const jsonwebtoken = require('jsonwebtoken');
 //importamos el teacher model para ser utilizado
-//const TeacherModel = require('../models/teacher.model');
+const TeacherModel = require('../models/teacher.model');
 
 //TODO: Este es el modelo 1 de register con todos los datos
 const register = async (req, res) => {
@@ -22,9 +22,9 @@ const register = async (req, res) => {
         console.log(user);
         //Dejo el condicional par poder utilizarlo en caso que se decida seguir con el modelo 1
         if (req.body.teacherSwitch !== 1 && req.body.teacherSwitch !== true) {
-            const [resultLocation] = await UsersModel.insertLocation(req.body.locationForm);
+            const [resultLocation] = await LocationModel.insertLocation(req.body.locationForm);
             await UsersModel.updateUserLocationId(resultLocation.insertId, user[0].id);
-            const [userLocation] = await UsersModel.selectLocationByUserId(user[0].id);
+            const [userLocation] = await LocationModel.selectLocationByUserId(user[0].id);
             const [updatedUser] = await UsersModel.selectUserByIdWhithOutLocation(user[0].id);
             return res.json({
                 user: updatedUser[0],
@@ -35,12 +35,13 @@ const register = async (req, res) => {
         req.body.teacherForm.user_id = user[0].id;
         console.log(req.body.teacherForm);
         const [resulTeacher] = await TeacherModel.insertTeacher(req.body.teacherForm);
-        const [teacher] = await TeacherModel.selectTeacherById(resulTeacher.insertId);
+        const [teacher] = await TeacherModel.selectTeacherOnlyTableById(resulTeacher.insertId);
         console.log(teacher);
-        const [resultLocation] = await UsersModel.insertLocation(req.body.locationForm);
+        const [resultLocation] = await LocationModel.insertLocation(req.body.locationForm);
         await UsersModel.updateUserLocationId(resultLocation.insertId, user[0].id);
-        const [userLocation] = await UsersModel.selectLocationByUserId(user[0].id);
-        const [updatedUser] = await UsersModel.selectUserById(user[0].id);
+        const [userLocation] = await LocationModel.selectLocationByUserId(user[0].id);
+        const [updatedUser] = await UsersModel.selectUserByIdWhithOutLocation(user[0].id);
+        console.log(updatedUser);
 
         res.json({
             user: updatedUser[0],
@@ -50,8 +51,8 @@ const register = async (req, res) => {
 
     } catch (error) {
         return res.json({ fatal: error.message });
-    }
-}
+    };
+};
 
 //TODO: Este sería el modleo 2 de Register
 // const register = async (req, res) => {
