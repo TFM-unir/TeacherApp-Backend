@@ -17,13 +17,19 @@ const register = async (req, res) => {
         console.log(req.body.userForm.password)
         req.body.userForm.password = bcrypt.hashSync(req.body.userForm.password, 10);
         console.log(req.body.userForm.password)
+
+        // insertar localization independientemente si es estudiante o profesor
+        const [resultLocation] = await LocationModel.insertLocation(req.body.locationForm);
+
+        resultLocation.insertId
+
         const [resultUser] = await UsersModel.insertUser(req.body.userForm);
         const [user] = await UsersModel.selectUserByIdWhithOutLocation(resultUser.insertId);
         console.log(user);
         //Dejo el condicional par poder utilizarlo en caso que se decida seguir con el modelo 1
         if (req.body.teacherSwitch !== 1 && req.body.teacherSwitch !== true) {
-            const [resultLocation] = await LocationModel.insertLocation(req.body.locationForm);
-            await UsersModel.updateUserLocationId(resultLocation.insertId, user[0].id);
+            // await UsersModel.updateUserLocationId(resultLocation.insertId, user[0].id);
+
             const [userLocation] = await LocationModel.selectLocationByUserId(user[0].id);
             const [updatedUser] = await UsersModel.selectUserByIdWhithOutLocation(user[0].id);
             return res.json({
@@ -37,7 +43,7 @@ const register = async (req, res) => {
         const [resulTeacher] = await TeacherModel.insertTeacher(req.body.teacherForm);
         const [teacher] = await TeacherModel.selectTeacherOnlyTableById(resulTeacher.insertId);
         console.log(teacher);
-        const [resultLocation] = await LocationModel.insertLocation(req.body.locationForm);
+
         await UsersModel.updateUserLocationId(resultLocation.insertId, user[0].id);
         const [userLocation] = await LocationModel.selectLocationByUserId(user[0].id);
         const [updatedUser] = await UsersModel.selectUserByIdWhithOutLocation(user[0].id);
