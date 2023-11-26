@@ -6,4 +6,6 @@ router.use('/teachers', require('./api/teachers'));
 router.use('/students', require('./api/students'));
 router.use('/users', require('./api/users'));
 
+router.use('/locations', require('./api/locations'));
+
 module.exports = router;

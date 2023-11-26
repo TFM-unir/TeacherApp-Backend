@@ -2,6 +2,7 @@
 ### API ####
 #########
 
+######## Students
 ###
 POST http://localhost:3000/api/students
 Content-Type: application/json
@@ -9,10 +10,10 @@ Content-Type: application/json
 {
     "name": "Emilio Alvarez", 
     "nickname": "emilio123", 
-    "email": "emil.123@emil.com", 
-    "phone": "+34 2345234", 
+    "email": "emil.923@emil.com", 
+    "phone": "+34 2309234", 
     "password": "12345", 
-    "age": 15, 
+    "date_of_birth": "1989-09-30", 
     "status": 2, 
     "role_id": 1, 
     "location_id": 1,
@@ -27,7 +28,7 @@ GET http://localhost:3000/api/students/
 GET http://localhost:3000/api/students/5
 
 ###
-PUT http://localhost:3000/api/students/5
+PUT http://localhost:3000/api/students/3
 Content-Type: application/json
 
 {
@@ -37,10 +38,10 @@ Content-Type: application/json
     "email": "em.12356@emil.com", 
     "phone": "+34 232345234", 
     "password": "12345", 
-    "age": 15, 
+    "date_of_birth": "1989-09-30", 
     "status": 2, 
-    "role_id": 1, 
-    "location_id": 1,
+    "role_id": 2, 
+    "location_id": 3,
     "photo": "url"
 
 }
@@ -50,47 +51,80 @@ DELETE http://localhost:3000/api/students/2
 
 
 
-
-
-######## POSTS
-
+######## Teachers
 ###
-POST http://localhost:3000/api/posts
+POST http://localhost:3000/api/teachers
 Content-Type: application/json
 
 {
-    "titulo": "Libro",
-    "description": "romane",
-    "fecha_de_creacion": "2023.02.20",
-    "categoria": "aburrido",
-    "autores_idautores": "5"
+    "experience" : 5, 
+    "class_mode" : "ll", 
+    "price_hour" : 5, 
+    "about_me" : "afa", 
+    "user_id" : 3
 
 }
 
 ###
-GET http://localhost:3000/api/posts/
+GET http://localhost:3000/api/teachers/
 
 ###
-GET http://localhost:3000/api/posts/5
+GET http://localhost:3000/api/teachers/1
 
 ###
-PUT http://localhost:3000/api/posts/1
+PUT http://localhost:3000/api/teachers/1
 Content-Type: application/json
 
-
-    {
-    "titulo": "Libro",
-    "description": "crimi",
-    "fecha_de_creacion": "01.01.2023",
-    "categoria": "aburrido",
-    "autores_idautores": "1"
+{
+    
+    "experience" : 5, 
+    "class_mode" : "ll", 
+    "price_hour" : 76, 
+    "about_me" : "afa", 
+    "user_id" : 3
 
 }
 
+###
+DELETE http://localhost:3000/api/teachers/2
+
+
+
+
+######## Locations
+###
+POST http://localhost:3000/api/locations
+Content-Type: application/json
+
+{
+    "latitude": 3,
+    "longitude":4, 
+    "address": "Calle Pedro", 
+    "city": "Valencia", 
+    "province": "Valencia"
+
+}
 
 ###
-DELETE http://localhost:3000/api/posts/6
-
+GET http://localhost:3000/api/locations/
 
 ###
-GET http://localhost:3000/api/posts/autor/1
+GET http://localhost:3000/api/locations/5
+
+###
+PUT http://localhost:3000/api/locations/5
+Content-Type: application/json
+
+{
+    
+
+    "latitude": 34,
+    "longitude":4, 
+    "address": "Calle Pedro", 
+    "city": "Valencia", 
+    "province": "Valencia"
+
+}
+
+###
+DELETE http://localhost:3000/api/locations/2
