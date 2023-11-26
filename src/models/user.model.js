@@ -7,7 +7,7 @@ const selectUserById = (id) => {
 
 //recuperamos el usuario sin la tabla de location
 const selectUserByIdWhithOutLocation = (id) => {
-    return db.query('SELECT u.id, u.name, u.nickname, u.email, u.phone, DATE_FORMAT(u.date_of_birth, "%Y-%m-%d") as date_of_birth, u.status, u.photo FROM users as u where u.id=?', [id]);
+    return db.query('SELECT u.id, u.name, u.nickname, u.email, u.phone, DATE_FORMAT(u.date_of_birth, "%Y-%m-%d") as date_of_birth, u.status, u.photo, u.role_id, u.location_id FROM users as u where u.id=?', [id]);
 };
 
 const selectLocationByUserId = (userId) => {
