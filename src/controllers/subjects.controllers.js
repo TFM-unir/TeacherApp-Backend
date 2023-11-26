@@ -11,18 +11,26 @@ const getAllSubjects = async (req, res) => {
 
 const createSubject = async (req, res) => {
     try {
+        const errors = [];
+        await Promise.all(
+            req.body.subjectForm.map(async function (subject) {
+                try {
+                    await SubjectModel.insertSubject(subject);
+                } catch (error) {
+                    errors.push(error.message);
+                }
+            })
+        );
 
-        req.body.subjectForm.forEach(async function (subject) {
-
-            await SubjectModel.insertSubject(subject);
-
-        })
-
-        res.json("materias insertadas correctamente");
+        if (errors.length > 0) {
+            res.json({ errors });
+        } else {
+            res.json("materias insertadas correctamente");
+        }
     } catch (error) {
-        res.json({ fatal: error.message })
+        res.json({ fatal: error.message });
     }
-}
+};
 
 const getSubjectById = async (req, res) => {
     try {
