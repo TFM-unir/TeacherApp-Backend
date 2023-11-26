@@ -20,8 +20,9 @@ const checkToken = async (req, res, next) => {
     }
 
     //Recuperar el usuario que reliza la petición
-    const [user] = await db.query('SELECT u.name, u.nickname, u.email, u.phone, DATE_FORMAT(u.date_of_birth, "%Y-%m-%d") as date_of_birth, u.status, u.photo FROM users as u where u.id=?', [payload.user_id]);
+    const [user] = await db.query('SELECT u.id, u.name, u.nickname, u.email, u.phone, DATE_FORMAT(u.date_of_birth, "%Y-%m-%d") as date_of_birth, u.status, u.photo FROM users as u where u.id=?', [payload.user_id]);
     req.user = user;
+    console.log(user, req.user);
     next();
 };
 

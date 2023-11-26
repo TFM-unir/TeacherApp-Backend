@@ -5,20 +5,65 @@ const bcrypt = require("bcryptjs");
 // Importamos el modulo del token
 const { createToken } = require('../helpers/utils');
 const jsonwebtoken = require('jsonwebtoken');
+//importamos el teacher model para ser utilizado
+const TeacherModel = require('../models/teacher.model');
 
+//TODO: Este es el modelo 1 de register con todos los datos
 const register = async (req, res) => {
     try {
-        //primero encriptamos la password
-        req.body.password = bcrypt.hashSync(req.body.password, 10);
-        const [result] = await UsersModel.insertUser(req.body);
-        const [user] = await UsersModel.selectUserByIdWhithOutLocation(result.insertId);
-        res.json(user[0]);
+        //En este primer modelo los 3 formularios son enviados y debe de generarse en front el envío de todos como un objeto en  donde coloquemos los datos del user en userForm, los datos del teacher en teacherForm y los datos de location el locationForm
+        //primero se encripta la password
+        console.log(req.body.userForm.password)
+        req.body.userForm.password = bcrypt.hashSync(req.body.userForm.password, 10);
+        console.log(req.body.userForm.password)
+        const [resultUser] = await UsersModel.insertUser(req.body.userForm);
+        const [user] = await UsersModel.selectUserByIdWhithOutLocation(resultUser.insertId);
+        console.log(user);
+        if (req.body.teacherSwitch !== 1 && req.body.teacherSwitch !== true) {
+            const [resultLocation] = await UsersModel.insertLocation(req.body.locationForm);
+            await UsersModel.updateUserLocationId(resultLocation.insertId, user[0].id);
+            const [userLocation] = await UsersModel.selectLocationByUserId(user[0].id);
+            const [updatedUser] = await UsersModel.selectUserByIdWhithOutLocation(user[0].id);
+            return res.json({
+                user: updatedUser[0],
+                location: userLocation[0]
+            });
+        };
+        req.body.teacherForm.user_id = user[0].id;
+        console.log(req.body.teacherForm);
+        const [resulTeacher] = await TeacherModel.insertTeacher(req.body.teacherForm);
+        const [teacher] = await TeacherModel.selectTeacherById(resulTeacher.insertId);
+        console.log(teacher);
+        const [resultLocation] = await UsersModel.insertLocation(req.body.locationForm);
+        await UsersModel.updateUserLocationId(resultLocation.insertId, user[0].id);
+        const [userLocation] = await UsersModel.selectLocationByUserId(user[0].id);
+        const [updatedUser] = await UsersModel.selectUserById(user[0].id);
+
+        res.json({
+            user: updatedUser[0],
+            teacher: teacher[0],
+            location: userLocation[0]
+        });
+
     } catch (error) {
-        res.json({ fatal: error.message })
+        return res.json({ fatal: error.message });
     }
-};
+}
 
+//TODO: Este sería el modleo 2 de Register
+// const register = async (req, res) => {
+//     try {
+//         //primero encriptamos la password
+//         req.body.password = bcrypt.hashSync(req.body.password, 10);
+//         const [result] = await UsersModel.insertUser(req.body);
+//         const [user] = await UsersModel.selectUserByIdWhithOutLocation(result.insertId);
+//         res.json(user[0]);
+//     } catch (error) {
+//         res.json({ fatal: error.message })
+//     }
+// };
 
+//Elaboramos el login
 const login = async (req, res) => {
     try {
         const { email, password } = req.body;
@@ -38,8 +83,7 @@ const login = async (req, res) => {
 
         //aquí tendríamos que redirigir a alguna pag queya no sea libre
         res.json({
-            success: "Login Correcto",
-            token: createToken(user)
+            token: createToken(user[0])
         });
     } catch (error) {
         res.json({ fatal: error.message });
@@ -49,17 +93,18 @@ const login = async (req, res) => {
 
 
 
-//TODO: construir despues de recibir el Token, que tengamos el id del usuario es que podremos meter los datos de location como pag 2
+//TODO: Este es el modelo 2 el que me parece mejor utilizar
+//Elaboramos la insersión del location
 const location = async (req, res) => {
     //se coloca en una constante el token para extraer el ID
-    const token = req.headers['authorization'];
+    const { token } = JSON.parse(req.headers['authorization']);
     //Decodificamos el Token
     const tokenUncode = jsonwebtoken.decode(token, process.env.SECRET_KEY);
-
     try {
         //se inserta en la bd los datos indicados del front
         const [result] = await UsersModel.insertLocation(req.body);
-        const [userLocation] = await UsersModel.selectLocationById(tokenUncode.user_id);
+        const [resultUpdatedUser] = await UsersModel.updateUserLocationId(result.insertId, tokenUncode.user_id);
+        const [userLocation] = await UsersModel.selectLocationByUserId(tokenUncode.user_id);
         res.json(userLocation[0]);
 
 

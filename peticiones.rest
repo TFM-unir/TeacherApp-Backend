@@ -88,6 +88,38 @@ Content-Type: application/json
 }
 
 
+
+###Register
+POST: http://localhost:3000/api/users/register
+{
+    "name": "rubenes Alvarez", 
+    "nickname": "rub123", 
+    "email": "rube@gmail.com", 
+    "phone": "6423634548", 
+    "password": "12345", 
+    "date_of_birth": "1993-02-15", 
+    "status": 2, 
+    "role_id": 1, 
+    "photo": "url"
+}
+### DEVUELVE
+{
+  "success": "Login Correcto",
+  "token": {
+    "user_id": 6,
+    "user_name": "ruben Alvarez",
+    "user_email": "rub@gmail.com",
+    "user_birthday": "1993-02-15",
+    "user_role": 1,
+    "user_status": 2,
+    "user_location": 2,
+    "user_creation_date": "2023-11-25 12:50:55",
+    "user_update_date": "2023-11-25 12:50:55",
+    "exp": 1701346284
+  }
+}
+
+
 ###
 DELETE http://localhost:3000/api/posts/6
 

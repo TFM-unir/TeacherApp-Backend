@@ -9,14 +9,14 @@ const createToken = (user) => {
         user_name: user.name,
         user_nickname: user.user_nickname,
         user_email: user.email,
-        user_birthday: user.date_of_birth,
+        user_birthday: dayjs(user.date_of_birth).format('YYYY-MM-DD'), // Formatear solo la fecha
         user_role: user.role_id,
         user_status: user.status,
         user_location: user.location_id,
-        user_creation_date: user.creation_date,
+        user_creation_date: dayjs(user.creation_date).format('YYYY-MM-DD HH:mm:ss'), // Formatear fecha y hora
+        user_update_date: dayjs(user.update_date).format('YYYY-MM-DD HH:mm:ss'), // Formatear fecha y hora
         exp: dayjs().add(5, 'days').unix()
     };
-    console.log(payload);
     // Codificamos el token
     return jsonwebtoken.sign(payload, process.env.SECRET_KEY);
 };
