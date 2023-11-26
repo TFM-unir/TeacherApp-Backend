@@ -1,5 +1,6 @@
 //Importamos el model de users
 const UsersModel = require('../models/user.model');
+const LocationModel = require('../models/location.model');
 //Importamos la librería para encriptar la clave
 const bcrypt = require("bcryptjs");
 // Importamos el modulo del token
@@ -20,32 +21,32 @@ const register = async (req, res) => {
         const [user] = await UsersModel.selectUserByIdWhithOutLocation(resultUser.insertId);
         console.log(user);
         //Dejo el condicional par poder utilizarlo en caso que se decida seguir con el modelo 1
-        //if (req.body.teacherSwitch !== 1 && req.body.teacherSwitch !== true) {
+        if (req.body.teacherSwitch !== 1 && req.body.teacherSwitch !== true) {
+            const [resultLocation] = await UsersModel.insertLocation(req.body.locationForm);
+            await UsersModel.updateUserLocationId(resultLocation.insertId, user[0].id);
+            const [userLocation] = await UsersModel.selectLocationByUserId(user[0].id);
+            const [updatedUser] = await UsersModel.selectUserByIdWhithOutLocation(user[0].id);
+            return res.json({
+                user: updatedUser[0],
+                location: userLocation[0]
+            });
+        };
+        //Este codigo lo dejo en el hipotetico caso que queramos seguir con lo del teacher en el modleo 1
+        req.body.teacherForm.user_id = user[0].id;
+        console.log(req.body.teacherForm);
+        const [resulTeacher] = await TeacherModel.insertTeacher(req.body.teacherForm);
+        const [teacher] = await TeacherModel.selectTeacherById(resulTeacher.insertId);
+        console.log(teacher);
         const [resultLocation] = await UsersModel.insertLocation(req.body.locationForm);
         await UsersModel.updateUserLocationId(resultLocation.insertId, user[0].id);
         const [userLocation] = await UsersModel.selectLocationByUserId(user[0].id);
-        const [updatedUser] = await UsersModel.selectUserByIdWhithOutLocation(user[0].id);
-        return res.json({
+        const [updatedUser] = await UsersModel.selectUserById(user[0].id);
+
+        res.json({
             user: updatedUser[0],
+            teacher: teacher[0],
             location: userLocation[0]
         });
-        // };
-        //Este codigo lo dejo en el hipotetico caso que queramos seguir con lo del teacher en el modleo 1
-        // req.body.teacherForm.user_id = user[0].id;
-        // console.log(req.body.teacherForm);
-        // const [resulTeacher] = await TeacherModel.insertTeacher(req.body.teacherForm);
-        // const [teacher] = await TeacherModel.selectTeacherById(resulTeacher.insertId);
-        // console.log(teacher);
-        // const [resultLocation] = await UsersModel.insertLocation(req.body.locationForm);
-        // await UsersModel.updateUserLocationId(resultLocation.insertId, user[0].id);
-        // const [userLocation] = await UsersModel.selectLocationByUserId(user[0].id);
-        // const [updatedUser] = await UsersModel.selectUserById(user[0].id);
-
-        // res.json({
-        //     user: updatedUser[0],
-        //     teacher: teacher[0],
-        //     location: userLocation[0]
-        // });
 
     } catch (error) {
         return res.json({ fatal: error.message });
@@ -109,6 +110,7 @@ const location = async (req, res) => {
         const [userLocation] = await UsersModel.selectLocationByUserId(tokenUncode.user_id);
         res.json(userLocation[0]);
 
+        res.json(userLocation[0]);
 
     } catch (error) {
         res.json({ fatal: error.message })

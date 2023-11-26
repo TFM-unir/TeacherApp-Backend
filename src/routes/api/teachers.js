@@ -4,7 +4,7 @@ const TeacherController = require('../../controllers/teachers.controller');
 // Peticiones GET
 router.get('/', TeacherController.getAllTeachers);
 router.get('/:teacherId', TeacherController.getTeacherById);
-router.get('/:teacherId', TeacherController.getAllTeachersByState);
+router.get('/:teacherState', TeacherController.getAllTeachersByState);
 
 
 //Peticiones POST

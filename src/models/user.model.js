@@ -1,8 +1,8 @@
 const selectAllUsers = (id_role) => {
-    return db.query('SELECT u.name, u.nickname, u.email, u.phone, u.age, u.status, u.photo, l.latitude, l.longitude, l.address, l.city, l.province FROM locations as l, users u where u.role_id=? and l.id = u.location_id ', [id_role]);
+    return db.query('SELECT u.id, u.name, u.nickname, u.email, u.phone, u.date_of_birth, u.status, u.photo, l.latitude, l.longitude, l.address, l.city, l.province FROM locations as l, users u where u.role_id=? and l.id = u.location_id ', [id_role]);
 };
 const selectUserById = (id) => {
-    return db.query('SELECT u.name, u.nickname, u.email, u.phone, u.date_of_birth, u.status, u.photo, l.latitude, l.longitude, l.address, l.city, l.province FROM locations as l, users as u where u.id=? and l.id = u.location_id', [id]);
+    return db.query('SELECT u.id, u.name, u.nickname, u.email, u.phone, u.date_of_birth, u.status, u.photo, l.latitude, l.longitude, l.address, l.city, l.province FROM locations as l, users as u where u.id=? and l.id = u.location_id', [id]);
 };
 
 //recuperamos el usuario sin la tabla de location
