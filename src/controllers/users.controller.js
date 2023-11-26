@@ -1,5 +1,6 @@
 //Importamos el model de users
 const UsersModel = require('../models/user.model');
+const LocationModel = require('../models/location.model');
 //Importamos la librería para encriptar la clave
 const bcrypt = require("bcryptjs");
 // Importamos el modulo del token
@@ -58,10 +59,12 @@ const location = async (req, res) => {
 
     try {
         //se inserta en la bd los datos indicados del front
-        const [result] = await UsersModel.insertLocation(req.body);
-        const [userLocation] = await UsersModel.selectLocationById(tokenUncode.user_id);
-        res.json(userLocation[0]);
+        const [result] = await LocationModel.insertLocation(req.body);
+        const [userLocation] = await LocationModel.selectLocationById(result.insertId);
 
+        // deberiamos actualizar id_location (result.insertId) en el usuario con tokenUncode.user_id ?
+
+        res.json(userLocation[0]);
 
     } catch (error) {
         res.json({ fatal: error.message })
