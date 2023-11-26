@@ -1,6 +1,9 @@
 //importamos libreria de jsonwebtoken
 const jsonwebtoken = require('jsonwebtoken');
 
+//importamos el user model
+const UsersModel = require('../models/user.model');
+
 // tenemos que hacer comprobaciones del token
 const checkToken = async (req, res, next) => {
 
@@ -9,7 +12,7 @@ const checkToken = async (req, res, next) => {
         return res.status(403).json({ fatal: 'Necesitas la cabecera de autenticación' })
     }
 
-    const token = req.headers['authorization'];
+    const { token } = JSON.parse(req.headers['authorization']);
 
     //Comprobar si el Token es válido
     let payload;
@@ -20,9 +23,8 @@ const checkToken = async (req, res, next) => {
     }
 
     //Recuperar el usuario que reliza la petición
-    const [user] = await db.query('SELECT u.id, u.name, u.nickname, u.email, u.phone, DATE_FORMAT(u.date_of_birth, "%Y-%m-%d") as date_of_birth, u.status, u.photo FROM users as u where u.id=?', [payload.user_id]);
-    req.user = user;
-    console.log(user, req.user);
+    const [user] = await UsersModel.selectUserById(payload.user_id);
+    req.user = user[0];
     next();
 };
 
