@@ -9,6 +9,18 @@ const getAllSubjects = async (req, res) => {
     }
 }
 
+const getAllSubjectsByTeacherId = async (req, res) => {
+    try {
+        const { teacherId } = req.params;
+
+        const [subject] = await SubjectModel.selectAllSubjectsByTeacherId(teacherId);
+        res.json(subject);
+    } catch (error) {
+        res.json({ fatal: error.message });
+    }
+
+}
+
 const createSubject = async (req, res) => {
     try {
         const errors = [];
@@ -23,9 +35,9 @@ const createSubject = async (req, res) => {
         );
 
         if (errors.length > 0) {
-            res.json({ errors });
+            res.json("no todas las materias se insertaron correctamente");
         } else {
-            res.json("materias insertadas correctamente");
+            res.json("todas las materias insertadas correctamente");
         }
     } catch (error) {
         res.json({ fatal: error.message });
@@ -44,17 +56,6 @@ const getSubjectById = async (req, res) => {
 
 }
 
-const getAllSubjectsByTeacherId = async (req, res) => {
-    try {
-        const { teacherId } = req.params;
-
-        const [subject] = await SubjectModel.selectAllSubjectsByTeacherId(teacherId);
-        res.json(subject);
-    } catch (error) {
-        res.json({ fatal: error.message });
-    }
-
-}
 
 const updateSubject = async (req, res) => {
     try {
