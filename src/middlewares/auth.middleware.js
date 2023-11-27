@@ -4,6 +4,9 @@ const jsonwebtoken = require('jsonwebtoken');
 //importamos el user model
 const UsersModel = require('../models/user.model');
 
+//importamos el teacher Model
+const TeacherModel = require('../models/teacher.model');
+
 // tenemos que hacer comprobaciones del token
 const checkToken = async (req, res, next) => {
 
@@ -24,8 +27,16 @@ const checkToken = async (req, res, next) => {
 
     //Recuperar el usuario que reliza la petición
     const [user] = await UsersModel.selectUserById(payload.user_id);
-    req.user = user[0];
-    next();
-};
 
+    //Se genera un condicional para pasar las características de un teacher dentro del usuario y de esta manera tener esos datos disponibles en todos los ambitos tras login
+    if (user.role_id === 2) {
+        const [teacher] = await TeacherModel.selectTeacherByUserId(user[0].id);
+        req.user = user[0];
+        req.user.teacher = teacher[0];
+        next();
+    } else {
+        req.user = user[0];
+        next();
+    };
+}
 module.exports = { checkToken };

@@ -45,6 +45,10 @@ const selectTeacherOnlyTableById = (id) => {
     return db.query('SELECT * FROM teachers WHERE id = ?', [id]);
 };
 
+const selectTeacherByUserId = (userId) => {
+    return db.query('SELECT * FROM teachers WHERE user_id = ?', [userId]);
+}
+
 const insertTeacher = ({ experience, class_mode, price_hour, about_me, user_id }) => {
     return db.query(`INSERT INTO teachers (experience, class_mode, price_hour, about_me, user_id)
     VALUES (?,?,?,?,?);`, [experience, class_mode, price_hour, about_me, user_id]);
@@ -71,4 +75,4 @@ const deleteTeacherById = (id) => {
     return UserModel.deleteUserById(id)
 };
 
-module.exports = { selectAllTeachers, selectTeacherOnlyTableById, insertTeacher, selectTeacherById, updateTeacherById, deleteTeacherById, selectAllTeachersByState, selectAllTeachersSortedBy, updateFullTeacherById };
+module.exports = { selectAllTeachers, selectTeacherOnlyTableById, selectTeacherByUserId, insertTeacher, selectTeacherById, updateTeacherById, deleteTeacherById, selectAllTeachersByState, selectAllTeachersSortedBy, updateFullTeacherById };
