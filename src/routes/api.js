@@ -10,5 +10,6 @@ router.use('/users', require('./api/users'));
 router.use('/locations', require('./api/locations'));
 router.use('/subjects', require('./api/subjects'));
 router.use('/class', checkToken, require('./api/class.hours'));
+router.use('/departments', require('./api/departments'));
 
 module.exports = router;
