@@ -1,25 +1,40 @@
 const router = require('express').Router();
 const ClassHoursController = require('../../controllers/class.hours.controllers');
 
-//TODO: Modificar esto para mañana
-// Rutas que necesitan el parámetro teacherId en la URL
-// router.get('/:teacherId', ClassHoursController.getAllClassByTeacherId);
-// router.get('/:teacherId/:dayOfWeek', ClassHoursController.getAllClassByTeacherIdAndDayOfWeek);
-// router.get('/:teacherId/:slot', ClassHoursController.getAllClassByTeacherIdAndSlot);
-// router.get('/:teacherId/:dayOfWeek/:slot', ClassHoursController.getAllClassByTeacherIdAndDayOfWeekAndSlot);
-// router.put('/:teacherId', ClassHoursController.updateClassByTeacherId);
-// router.put('/:teacherId/:dayOfWeek', ClassHoursController.updateClassByTeacherIdAndDayOfWeek);
-// router.put('/:teacherId/:dayOfWeek/:slot', ClassHoursController.updateClassByTeacherIdAndDayOfWeekAndSlot);
-// router.delete('/:teacherId', ClassHoursController.deleteClassByTeacherId);
-// router.delete('/:teacherId/:dayOfWeek', ClassHoursController.deleteClassByTeacherIdAndDayOfWeek);
-// router.delete('/:teacherId/:dayOfWeek/:slot', ClassHoursController.deleteClassByTeacherIdAndDayOfWeekAndSlot);
 
-// // Otras rutas que no necesitan el parámetro teacherId
-// router.get('/', ClassHoursController.getAllClass);
-// router.get('/:ClassId', ClassHoursController.getClassById);
-// router.get('/slot/:slot', ClassHoursController.getAllClassBySlot);
-// router.get('/dayOfWeek/:dayOfWeek', ClassHoursController.getAllClassByDayOfWeek);
-// router.post('/', ClassHoursController.createClass);
-// router.delete('/delete/:ClassId', ClassHoursController.deleteClassById);
+// GET
+router.get('/', ClassHoursController.getAllClass);
+router.get('/class/:classId', ClassHoursController.getClassById);
+router.get('/slot', ClassHoursController.getAllClassBySlot);
+router.get('/dayOfWeek', ClassHoursController.getAllClassByDayOfWeek);
+router.get('/teacher/:teacherId', ClassHoursController.getAllClassByTeacherId);
+router.get('/teacher-day/:teacherId', ClassHoursController.getAllClassByTeacherIdAndDayOfWeek);
+router.get('/teacher-slot/:teacherId', ClassHoursController.getAllClassByTeacherIdAndSlot);
+router.get('/teacher-day-slot/:teacherId', ClassHoursController.getAllClassByTeacherIdAndDayOfWeekAndSlot);
+router.get('/student/:userId', ClassHoursController.getStudentClassByUserId);
+router.get('/findAvailableSlot', ClassHoursController.findClassAvailableSlot);
+
+// POST
+router.post('/create', ClassHoursController.createClass);
+
+
+
+// PUT
+router.put('/updateByTeacherId', ClassHoursController.updateClassByTeacherId);
+router.put('/updateByTeacherIdAndDayOfWeek', ClassHoursController.updateClassByTeacherIdAndDayOfWeek);
+router.put('/updateByTeacherIdAndDayOfWeekAndSlot', ClassHoursController.updateClassByTeacherIdAndDayOfWeekAndSlot);
+router.put('/updateByStudentIdAndClassId/:userId', ClassHoursController.UpdateClassByStudentIdAndClassId);
+
+// No hay rutas PUT definidas en el controlador proporcionado.
+
+// DELETE
+router.delete('/delete/:ClassId', ClassHoursController.deleteClassById);
+router.delete('/deleteByTeacherId', ClassHoursController.deleteClassByTeacherId);
+router.delete('/deleteByTeacherIdAndDayOfWeek', ClassHoursController.deleteClassByTeacherIdAndDayOfWeek);
+router.delete('/deleteByTeacherIdAndDayOfWeekAndSlot', ClassHoursController.deleteClassByTeacherIdAndDayOfWeekAndSlot);
+router.delete('/withdrawAllStudentClass/:userId', ClassHoursController.withdrawAllStudentClassByUserId);
+router.delete('/withdrawClassSlot/:userId/:classId', ClassHoursController.withdrawClassSlotByStudentIdAndClassId);
+router.delete('/withdrawStudentFromTeacherClass/:teacherId/:userId', ClassHoursController.withdrawStudentFromTeacherClass);
+
 
 module.exports = router;
