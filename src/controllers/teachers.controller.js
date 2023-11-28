@@ -42,12 +42,9 @@ const createTeacher = async (req, res) => {
 const updateTeacher = async (req, res) => {
     try {
         const { teacherId } = req.params;
-        const result = await TeacherModel.updateTeacherById(teacherId, req.body);
-        if (result.changedRows == 0) {
-            res.status(404).send('Teacher does not change ');
-        } else {
-            res.status(200).send("Teacher modified successfuly");
-        }
+        const result = await TeacherModel.updateTeacherById(teacherId); 
+        //const updatedRecord = updatedObject(result, req.body); 
+        res.json(result);
     } catch (error) {
         res.json({ fatal: error.message });
     }
