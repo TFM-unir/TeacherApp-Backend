@@ -176,6 +176,35 @@ DELETE http://localhost:3000/api/subjects/3
 
 
 
+######## Departments
+###
+POST http://localhost:3000/api/departments
+Content-Type: application/json
+
+{
+  "department_name": "mathe",
+  "description" : "restar"
+  
+}
+
+###
+GET http://localhost:3000/api/departments/1
+
+###
+PUT http://localhost:3000/api/departments/1
+Content-Type: application/json
+
+{
+  "department_name": "mathe",
+  "description" : "sumar"
+  
+}
+   
+###
+DELETE http://localhost:3000/api/departments/5
+
+
+
 
 ############# Register
 ###
