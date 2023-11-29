@@ -1,6 +1,9 @@
 const TeacherModel = require('../models/teacher.model.js');
 
 const getAllTeachers = async (req, res) => {
+    /**#swagger.tags = ['Teachers']
+       #swagger.description = 'Endpoint to get all Teachers.'
+    */
     try {
         const [result] = await TeacherModel.selectAllTeachers();
         res.json(result);
@@ -10,6 +13,9 @@ const getAllTeachers = async (req, res) => {
 };
 
 const getAllTeachersByState = async (req, res) => {
+    /**#swagger.tags = ['Teachers']
+       #swagger.description = 'Endpoint to get all Teachers by state.'
+    */
     try {
         const { teacherState } = req.params;
         const [result] = await TeacherModel.selectAllTeachersByState(teacherState);
@@ -20,6 +26,9 @@ const getAllTeachersByState = async (req, res) => {
 };
 
 const getTeacherById = async (req, res) => {
+    /**#swagger.tags = ['Teachers']
+       #swagger.description = 'Endpoint to get a Teacher.'
+    */
     try {
         const { teacherId } = req.params;
         const [result] = await TeacherModel.selectTeacherById(teacherId);
@@ -30,6 +39,14 @@ const getTeacherById = async (req, res) => {
 };
 
 const createTeacher = async (req, res) => {
+    // #swagger.tags = ['Teachers']
+    // #swagger.description = 'Endpoint to create a Teacher.'
+    /* #swagger.parameters['obj'] = {
+            in: 'body',
+            description: 'Teacher information.',
+            required: true,
+            schema: { $ref: "#/definitions/Teachers" }
+    } */
     try {
         const [result] = await TeacherModel.insertTeacher(req.body);
         const [teacher] = await TeacherModel.selectTeacherById(result.insertId);
@@ -40,6 +57,14 @@ const createTeacher = async (req, res) => {
 };
 
 const updateTeacher = async (req, res) => {
+    // #swagger.tags = ['Teachers']
+    // #swagger.description = 'Endpoint to update a Teacher.'
+    /* #swagger.parameters['obj'] = {
+            in: 'body',
+            description: 'Teacher information.',
+            required: true,
+            schema: { $ref: "#/definitions/Teachers" }
+    } */
     try {
         const { teacherId } = req.params;
         const result = await TeacherModel.updateTeacherById(teacherId, req.body);
@@ -55,6 +80,9 @@ const updateTeacher = async (req, res) => {
 };
 
 const deleteTeacher = async (req, res) => {
+    /**#swagger.tags = ['Teachers']
+       #swagger.description = 'Endpoint to delete a Teacher.'
+    */
     try {
         const { teacherId } = req.params;
         const [result] = await TeacherModel.deleteTeacherById(teacherId);

@@ -1,6 +1,9 @@
 const LocationModel = require('../models/location.model');
 
 const getAllLocations = async (req, res) => {
+    /**#swagger.tags = ['Locations']
+       #swagger.description = 'Endpoint to get all Locations.'
+    */
     try {
         const [result] = await LocationModel.selectAllLocations();
         res.json(result);
@@ -10,6 +13,14 @@ const getAllLocations = async (req, res) => {
 }
 
 const createLocation = async (req, res) => {
+    // #swagger.tags = ['Locations']
+    // #swagger.description = 'Endpoint to create a Location.'
+    /* #swagger.parameters['obj'] = {
+            in: 'body',
+            description: 'Location information.',
+            required: true,
+            schema: { $ref: "#/definitions/Locations" }
+    } */
     try {
         const [result] = await LocationModel.insertLocation(req.body);
         const [location] = await LocationModel.selectLocationById(result.insertId);
@@ -20,6 +31,9 @@ const createLocation = async (req, res) => {
 }
 
 const getLocationById = async (req, res) => {
+    /**#swagger.tags = ['Locations']
+       #swagger.description = 'Endpoint to get a Location.'
+    */
     try {
         const { locationId } = req.params;
 
@@ -32,6 +46,14 @@ const getLocationById = async (req, res) => {
 }
 
 const updateLocation = async (req, res) => {
+    // #swagger.tags = ['Locations']
+    // #swagger.description = 'Endpoint to update a Location.'
+    /* #swagger.parameters['obj'] = {
+            in: 'body',
+            description: 'Location information.',
+            required: true,
+            schema: { $ref: "#/definitions/Locations" }
+    } */
     try {
         const { locationId } = req.params;
         const [result] = await LocationModel.updateLocationById(locationId, req.body);
@@ -48,6 +70,9 @@ const updateLocation = async (req, res) => {
 }
 
 const deleteLocation = async (req, res) => {
+    /**#swagger.tags = ['Locations']
+       #swagger.description = 'Endpoint to delete a Location.'
+    */
     try {
         const { locationId } = req.params;
         const [result] = await LocationModel.deleteLocationById(locationId);
