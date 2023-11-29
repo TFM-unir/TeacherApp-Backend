@@ -2,9 +2,9 @@
 
 ## Autores
 
-- Ruben
-- Miquel Mayordomo Bofill
-- Javier
+- [Ruben](https://github.com/RubenHernandezL)
+- [Miquel Mayordomo Bofill](https://github.com/miquelmb)
+- [Javier](https://github.com/ValenVier)
 - [Mairi Tikk](https://github.com/mairitikk)
 
 ## Base de Datos
