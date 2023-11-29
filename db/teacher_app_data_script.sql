@@ -22,8 +22,7 @@ INSERT INTO roles (role, description)
 VALUES
 ('student', 'Rol asignado a los estudiantes'),
 ('teacher', 'Rol asignado a los profesores'),
-('admin', 'Rol asignado a los administradores'),
-('parent', 'Rol asignado a los padres de los estudiantes');
+('admin', 'Rol asignado a los administradores');
 
 -- Llenar tabla users con usuarios de ejemplo (pueden ser tanto estudiantes como profesores)
 INSERT INTO users (name, nickname, email, phone, password, creation_date, update_date, date_of_birth, status, photo, role_id, location_id)
@@ -50,12 +49,12 @@ VALUES
 ('Literatura Anglosajona ', 4, 4);
 
 -- Llenar tabla class_hours con horarios de clases de ejemplo
-INSERT INTO class_hours (day_of_week, start_time, end_time, slot, teacher_id)
+INSERT INTO class_hours (day_of_week, start_time, end_time, slot, teacher_id, id_user1, id_user2, id_user3, id_user4, id_user5)
 VALUES
-('Lunes', '09:00:00', '11:00:00', 'Mañana', 1),
-('Martes', '14:00:00', '16:00:00', 'Tarde', 2),
-('Miércoles', '10:00:00', '12:00:00', 'Mañana', 3),
-('Jueves', '16:00:00', '18:00:00', 'Tarde', 4);
+('Viernes', '08:00:00', '10:00:00', 'Mañana', 1, 2, 3, NULL, NULL, NULL),
+('Sábado', '15:00:00', '17:00:00', 'Tarde', 2, 1, NULL, NULL, NULL, NULL),
+('Jueves', '13:00:00', '15:00:00', 'Tarde', 3, 1, 2, 4, NULL, NULL),
+('Miércoles', '16:00:00', '18:00:00', 'Tarde', 4, 3, NULL, NULL, NULL, NULL);
 
 -- Llenar tabla ratings con evaluaciones de ejemplo
 INSERT INTO ratings (rating, comment_student, comment_teacher, creation_date, user_id, teacher_id)

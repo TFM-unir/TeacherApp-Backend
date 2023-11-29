@@ -62,6 +62,11 @@ CREATE TABLE `class_hours` (
   `end_time` time NOT NULL COMMENT 'end_time: campo que indica el horario de finalización de las clases.',
   `slot` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT 'slot: campo que indica el slot horario de las clases “mañana”, “tarde”, “noche”.',
   `teacher_id` int NOT NULL,
+  `id_user1` int DEFAULT NULL,
+  `id_user2` int DEFAULT NULL,
+  `id_user3` int DEFAULT NULL,
+  `id_user4` int DEFAULT NULL,
+  `id_user5` int DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_class_hours_teachers1_idx` (`teacher_id`),
   CONSTRAINT `fk_class_hours_teachers1` FOREIGN KEY (`teacher_id`) REFERENCES `teachers` (`id`)
@@ -262,7 +267,7 @@ CREATE TABLE `users` (
   `status` tinyint(1) NOT NULL COMMENT '“no validado” = 1\n“validado” = 2\n“baja” = 3',
   `photo` tinytext CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT 'photo: campo que hace referencia a la URL de la imagen del usuario.',
   `role_id` int NOT NULL,
-  `location_id` int NOT NULL,
+  `location_id` int DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `email_UNIQUE` (`email`),
   UNIQUE KEY `phone_UNIQUE` (`phone`),
@@ -291,4 +296,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-11-25 11:28:07
+-- Dump completed on 2023-11-29 23:22:41
