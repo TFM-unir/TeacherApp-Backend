@@ -43,24 +43,16 @@ const selectTeacherById = (id) => {
 
 const selectTeacherOnlyTableById = (id) => {
     return db.query('SELECT * FROM teachers WHERE id = ?', [id]);
+}
 //NOTE: primero se inserta user y luego teacher -> coger datos del token
-const insertTeacher = ({ experience, subjects, price_hour, about_me, department_id, user_id }) => {
-    return db.query(`INSERT INTO teacher_app_db.teachers (experience, subjects, price_hour, about_me, department_id, user_id)
-    VALUES (?,?,?,?,?);`, [experience, subjects, price_hour, about_me, department_id, user_id]);
-};
+const selectTeacherByUserId = (userId) => {
+    return db.query('SELECT * FROM teachers WHERE user_id = ?', [userId]);
+}
 
 const insertTeacher = ({ experience, class_mode, price_hour, about_me, user_id }) => {
     return db.query(`INSERT INTO teachers (experience, class_mode, price_hour, about_me, user_id)
     VALUES (?,?,?,?,?);`, [experience, class_mode, price_hour, about_me, user_id]);
-//NOTE: primero se inserta user y luego teacher -> coger datos del token
-const updateTeacherById = (id, { name, nickname, email, phone, password, update_date, date_of_birth, photo, latitude, longitud, address, city, province, experience, subjects, price_hour, about_me, department }) => {
-    return db.query(`UPDATE teacher_app_db.teachers as t
-    JOIN teacher_app_db.users as u on t.user_id = u.id
-    join teacher_app_db.locations as l on u.location_id = l.id
-    join teacher_app_db.departments as d on t.department_id = d.id
-    SET u.name = ? , u.nickname = ?, u.email = ?, u.phone = ?, u.password = ?, u.update_date = ?, u.date_of_birth = ?, u.photo = ?, l.latitude = ?, l.longitud = ?, l.address = ?, l.city = ?, l.province = ?, t.experience = ?, t.subjects = ?, t.price_hour = ?, t.about_me = ?, t.department = ?
-    WHERE u.id = ?;`, [name, nickname, email, phone, password, update_date, date_of_birth, photo, latitude, longitud, address, city, province, experience, subjects, price_hour, about_me, department, id]);
-};
+}
 
 //con datos que vienen del formulario (update perfil)
 const updateFullTeacherById = (id, { name, nickname, email, phone, password, update_date, date_of_birth, photo, latitude, longitud, address, city, province, experience, class_mode, price_hour, about_me }) => {
@@ -83,4 +75,4 @@ const deleteTeacherById = (id) => {
     return UserModel.deleteUserById(id)
 };
 
-module.exports = { selectAllTeachers, selectTeacherOnlyTableById, insertTeacher, selectTeacherById, updateTeacherById, deleteTeacherById, selectAllTeachersByState, selectAllTeachersSortedBy, updateFullTeacherById };
+module.exports = { selectAllTeachers, selectTeacherOnlyTableById, selectTeacherByUserId, insertTeacher, selectTeacherById, updateTeacherById, deleteTeacherById, selectAllTeachersByState, selectAllTeachersSortedBy, updateFullTeacherById };
