@@ -53,7 +53,7 @@ Estas son las interfaces de conexion entre el back y el front.
         }
       }
 
-### Profesor (solo para acceder a la tabla teachers)
+### Profesor
 
 - Retorna listado de profesores:
 
@@ -63,9 +63,9 @@ Estas son las interfaces de conexion entre el back y el front.
 
       GET http://localhost:3000/api/teachers/:id
 
-- Actualiza la información de un profesor:
+- Registro de profesor (solo para acceder a la tabla teachers)
 
-      PUT http://localhost:3000/api/teachers/:id
+      POST http://localhost:3000/api/teachers/
       Content-Type: application/json
       {
         "experience" : 5,
@@ -75,9 +75,9 @@ Estas son las interfaces de conexion entre el back y el front.
         "user_id" : 3
       }
 
-- Registro de profesor
+- Actualiza la información de un profesor:
 
-      POST http://localhost:3000/api/teachers/
+      PUT http://localhost:3000/api/teachers/:id
       Content-Type: application/json
       {
         "experience" : 5,
