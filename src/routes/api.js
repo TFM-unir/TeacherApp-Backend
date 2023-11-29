@@ -7,9 +7,11 @@ const router = require('express').Router();
 router.use('/teachers', require('./api/teachers'));
 router.use('/students', checkToken, require('./api/students'));
 router.use('/users', require('./api/users'));
-router.use('/locations', require('./api/locations'));
-router.use('/subjects', require('./api/subjects'));
+router.use('/locations', checkToken, require('./api/locations'));
+router.use('/subjects', checkToken, require('./api/subjects'));
 router.use('/class', checkToken, require('./api/class.hours'));
 router.use('/departments', require('./api/departments'));
+router.use('/ratings', checkToken, require('./api/ratings'));
+router.use('/chats', checkToken, require('./api/chats'));
 
 module.exports = router;
