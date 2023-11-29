@@ -17,6 +17,14 @@ const jsonwebtoken = require('jsonwebtoken');
 // los datos del teacher en teacherForm y 
 // los datos de location el locationForm
 const register = async (req, res) => {
+    // #swagger.tags = ['Users']
+    // #swagger.description = 'Endpoint to register a Users.'
+    /* #swagger.parameters['obj'] = {
+            in: 'body',
+            description: 'Users information.',
+            required: true,
+            schema: { $ref: "#/definitions/Users" }
+    } */
     try {
         //primero se encripta la password
         req.body.userForm.password = bcrypt.hashSync(req.body.userForm.password, 10);
@@ -69,6 +77,14 @@ const register = async (req, res) => {
 
 //Elaboramos el login
 const login = async (req, res) => {
+    // #swagger.tags = ['Users']
+    // #swagger.description = 'Endpoint to register a Users.'
+    /* #swagger.parameters['obj'] = {
+            in: 'body',
+            description: 'Users information.',
+            required: true,
+            schema: { $ref: "#/definitions/UsersLogin" }
+    } */
     try {
         const { email, password } = req.body;
 
@@ -97,7 +113,7 @@ const login = async (req, res) => {
 
 
 
-//TODO: Este es el modelo 2 el que me parece mejor utilizar
+/*/TODO: Este es el modelo 2 el que me parece mejor utilizar
 //Elaboramos la insersión del location
 const location = async (req, res) => {
     //se coloca en una constante el token para extraer el ID
@@ -116,6 +132,6 @@ const location = async (req, res) => {
     } catch (error) {
         res.json({ fatal: error.message })
     }
-}
+}*/
 
-module.exports = { register, login, location }
+module.exports = { register, login } // , location }

@@ -1,6 +1,9 @@
 const SubjectModel = require('../models/subject.model');
 
 const getAllSubjects = async (req, res) => {
+    /**#swagger.tags = ['Subjects']
+       #swagger.description = 'Endpoint to get all Subjects.'
+    */
     try {
         const [result] = await SubjectModel.selectAllSubjects();
         res.json(result);
@@ -10,6 +13,9 @@ const getAllSubjects = async (req, res) => {
 }
 
 const getAllSubjectsByTeacherId = async (req, res) => {
+    /**#swagger.tags = ['Subjects']
+       #swagger.description = 'Endpoint to get all Subjects by teacher id.'
+    */
     try {
         const { teacherId } = req.params;
 
@@ -22,6 +28,14 @@ const getAllSubjectsByTeacherId = async (req, res) => {
 }
 
 const createSubject = async (req, res) => {
+    // #swagger.tags = ['Subjects']
+    // #swagger.description = 'Endpoint to create a Subject.'
+    /* #swagger.parameters['obj'] = {
+            in: 'body',
+            description: 'Subject information.',
+            required: true,
+            schema: { $ref: "#/definitions/Subjects" }
+    } */
     try {
         const errors = [];
         await Promise.all(
@@ -45,6 +59,9 @@ const createSubject = async (req, res) => {
 };
 
 const getSubjectById = async (req, res) => {
+    /**#swagger.tags = ['Subjects']
+       #swagger.description = 'Endpoint to get a Subject.'
+    */
     try {
         const { subjectId } = req.params;
 
@@ -58,6 +75,14 @@ const getSubjectById = async (req, res) => {
 
 
 const updateSubject = async (req, res) => {
+    // #swagger.tags = ['Subjects']
+    // #swagger.description = 'Endpoint to update a Subject.'
+    /* #swagger.parameters['obj'] = {
+            in: 'body',
+            description: 'Subject information.',
+            required: true,
+            schema: { $ref: "#/definitions/Subjects" }
+    } */
     try {
         const { subjectId } = req.params;
         const [result] = await SubjectModel.updateSubjectById(subjectId, req.body);
@@ -74,6 +99,9 @@ const updateSubject = async (req, res) => {
 }
 
 const deleteSubject = async (req, res) => {
+    /**#swagger.tags = ['Subjects']
+       #swagger.description = 'Endpoint to delete a Subject.'
+    */
     try {
         const { subjectId } = req.params;
         const [result] = await SubjectModel.deleteSubjectById(subjectId);

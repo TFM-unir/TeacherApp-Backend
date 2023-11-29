@@ -7,6 +7,11 @@
 - [Javier](https://github.com/ValenVier)
 - [Mairi Tikk](https://github.com/mairitikk)
 
+## Requisitos
+
+- npm install nodemon
+- npm install --save-dev swagger-ui-express
+
 ## Base de Datos
 
 La BD se diseño con MySQL Workbench y se encuentra en la carpeta db/
@@ -17,116 +22,22 @@ https://excalidraw.com/#room=49b16890a97c59c237f3,d8ReKXXQ0H-9cGcHwOAI4A
 
 ## API
 
-Estas son las interfaces de conexion entre el back y el front.
+La lista de APIs se define usando [Swagger](https://swagger.io/tools/swagger-ui/), y se encuentran en la siguiente URL:
 
-## Register
+http://localhost:3000/api/docs/#/
 
-- Registra un alumno o un profesor:
+Swagger funciona con el fichero `swagger.json` que contiene todas las anotaciones de las APIs.
 
-      POST: http://localhost:3000/api/users/register
-        Content-Type: application/json
+El fichero `swagger.json` lo generamos con el comando:
 
-      {
-        "userForm":{
-            "name": "Juana Alvarez",
-            "nickname": "juasdn123",
-            "email": "pedesdasd@gmail.com",
-            "phone": "643434548",
-            "password": "12345",
-            "date_of_birth": "1993-02-15",
-            "status": 2,
-            "role_id": 2,
-            "photo": "url"
-        },
-        "teacherForm": {
-            "experience":5,
-            "class_mode": "Mañana",
-            "price_hour": 10.50,
-            "about_me": "Soy un soñador brutal con todos los hierros"
-        },
-        "locationForm": {
-            "latitude": 41.385063,
-            "longitude": 2.987456,
-            "address": "calle de quintal 25",
-            "city": "Santiago",
-            "province": "A Coruña"
-        }
-      }
+      node src/swagger.js
 
-### Profesor
+Las anotaciones se deben colocar en cada una de las funciones de los controllers. Por ejemplo, para la funcion `deleteDepartment` del controller `departments.controllers.js`:
 
-- Retorna listado de profesores:
+    const deleteDepartment = async (req, res) => {
+            // #swagger.tags = ['Departments']
+            // #swagger.description = 'Endpoint to get a Department.'
+            ....
+    }
 
-      GET http://localhost:3000/api/teachers/
-
-- Retorna un profesor:
-
-      GET http://localhost:3000/api/teachers/:id
-
-- Registro de profesor (solo para acceder a la tabla teachers)
-
-      POST http://localhost:3000/api/teachers/
-      Content-Type: application/json
-      {
-        "experience" : 5,
-        "class_mode" : "ll",
-        "price_hour" : 5,
-        "about_me" : "afa",
-        "user_id" : 3
-      }
-
-- Actualiza la información de un profesor:
-
-      PUT http://localhost:3000/api/teachers/:id
-      Content-Type: application/json
-      {
-        "experience" : 5,
-        "class_mode" : "ll",
-        "price_hour" : 5,
-        "about_me" : "afa",
-        "user_id" : 3
-      }
-
-### Alumnos
-
-- Retorna listado de alumnos:
-
-      GET http://localhost:3000/api/students/
-
-- Retorna un alumno:
-
-      GET http://localhost:3000/api/students/:id
-
-- Actualiza la información de un alumno:
-
-      PUT http://localhost:3000/api/students/:id
-      Content-Type: application/json
-      {
-        "name": "Emilio Alvarez",
-        "nickname": "emilio123",
-        "email": "em.12356@emil.com",
-        "phone": "+34 232345234",
-        "password": "12345",
-        "date_of_birth": "1989-09-30",
-        "status": 2,
-        "role_id": 2,
-        "location_id": 3,
-        "photo": "url"
-      }
-
-- Registro de alumno
-
-      POST http://localhost:3000/api/students/
-      Content-Type: application/json
-      {
-        "name": "Emilio Alvarez",
-        "nickname": "emilio123",
-        "email": "em.12356@emil.com",
-        "phone": "+34 232345234",
-        "password": "12345",
-        "date_of_birth": "1989-09-30",
-        "status": 2,
-        "role_id": 2,
-        "location_id": 3,
-        "photo": "url"
-      }
+Para una detallada descripción de las anotaciones, se recomienda ver la documentación de [Swagger](https://swagger-autogen.github.io/docs/endpoints/property-inheritance)

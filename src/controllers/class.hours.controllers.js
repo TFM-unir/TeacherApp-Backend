@@ -3,6 +3,9 @@ const ClassHoursModel = require('../models/class.hour.model');
 
 // Se utiliza para obtener todas las clases
 const getAllClass = async (req, res) => {
+
+    // #swagger.tags = ['Class']
+    // #swagger.description = 'Endpoint to create a Class.'
     try {
         const [result] = await ClassHoursModel.selectAllClass();
         res.json(result);
@@ -13,6 +16,8 @@ const getAllClass = async (req, res) => {
 
 // Se utiliza par obtener una clase por si ID
 const getClassById = async (req, res) => {
+    // #swagger.tags = ['Class']
+    // #swagger.description = 'Endpoint to create a Class.'
     const { classId } = req.params;
     try {
         const [ClassHour] = await ClassHoursModel.selectClassById(classId);
@@ -24,6 +29,8 @@ const getClassById = async (req, res) => {
 
 // Se utiliza para ver todas las clases que posee un teacher pr el teacher Id
 const getAllClassByTeacherId = async (req, res) => {
+    // #swagger.tags = ['Class']
+    // #swagger.description = 'Endpoint to create a Class.'
     const { teacherId } = req.params;
     try {
         const [ClassHour] = await ClassHoursModel.selectClassByTeacherId(teacherId);
@@ -35,6 +42,8 @@ const getAllClassByTeacherId = async (req, res) => {
 
 //Se utiliza para ver todas las clases filtradas por slots
 const getAllClassBySlot = async (req, res) => {
+    // #swagger.tags = ['Class']
+    // #swagger.description = 'Endpoint to create a Class.'
     try {
         const [ClassHour] = await ClassHoursModel.selectClassBySlot(req.body.slot);
         res.json(ClassHour);
@@ -45,6 +54,8 @@ const getAllClassBySlot = async (req, res) => {
 
 // Se utiliza para obtener todas las clases filtradas por día de semana
 const getAllClassByDayOfWeek = async (req, res) => {
+    // #swagger.tags = ['Class']
+    // #swagger.description = 'Endpoint to create a Class.'
     try {
         const [ClassHour] = await ClassHoursModel.selectClassByDayOfWeek(req.body.day_of_week);
         res.json(ClassHour);
@@ -55,6 +66,8 @@ const getAllClassByDayOfWeek = async (req, res) => {
 
 // Se utiliza para obtener todas als clases filtrado por dia de semana y por teacher
 const getAllClassByTeacherIdAndDayOfWeek = async (req, res) => {
+    // #swagger.tags = ['Class']
+    // #swagger.description = 'Endpoint to create a Class.'
     const { teacherId } = req.params;
     try {
         const [ClassHour] = await ClassHoursModel.selectClassByTeacherIdAndDayOfWeek(teacherId, req.body.day_of_week);
@@ -66,6 +79,8 @@ const getAllClassByTeacherIdAndDayOfWeek = async (req, res) => {
 
 // Se utiliza para obtener todas las clases filtradas por slot y por teacher
 const getAllClassByTeacherIdAndSlot = async (req, res) => {
+    // #swagger.tags = ['Class']
+    // #swagger.description = 'Endpoint to create a Class.'
     const { teacherId } = req.params;
     try {
         const [ClassHour] = await ClassHoursModel.selectClassByTeacherIdAndSlot(teacherId, req.body.slot);
@@ -77,6 +92,8 @@ const getAllClassByTeacherIdAndSlot = async (req, res) => {
 
 // Se utiliza obtener todas las clases fintradas por Slots, Por teacher y por día de semana
 const getAllClassByTeacherIdAndDayOfWeekAndSlot = async (req, res) => {
+    // #swagger.tags = ['Class']
+    // #swagger.description = 'Endpoint to create a Class.'
     const { teacherId } = req.params;
     try {
         const [ClassHour] = await ClassHoursModel.selectClassByTeacherIdAndDayOfWeekAndSlot(teacherId, req.body.day_of_week, req.body.slot);
@@ -88,6 +105,14 @@ const getAllClassByTeacherIdAndDayOfWeekAndSlot = async (req, res) => {
 
 // Se utiliza para crear una clase
 const createClass = async (req, res) => {
+    // #swagger.tags = ['Class']
+    // #swagger.description = 'Endpoint to create a Class.'
+    /* #swagger.parameters['obj'] = {
+            in: 'body',
+            description: 'Class information.',
+            required: true,
+            schema: { $ref: "#/definitions/Classs" }
+    } */
     try {
         req.body.teacher_id = req.user.teacher.id;
         const [result] = await ClassHoursModel.insertClass(req.body);
@@ -100,6 +125,8 @@ const createClass = async (req, res) => {
 
 // Se utiliza para actualizar una clase por el id del teacher
 const updateClassByTeacherId = async (req, res) => {
+    // #swagger.tags = ['Class']
+    // #swagger.description = 'Endpoint to create a Class.'
     try {
         const [result] = await ClassHoursModel.updateCLassByTeacherId(req.user.teacher.id, req.body);
         const [ClassHour] = await ClassHoursModel.selectClassByTeacherId(req.user.teacher.id);
@@ -111,6 +138,8 @@ const updateClassByTeacherId = async (req, res) => {
 
 // Se utiliza para actualizar una clase por el id del teacher y el día de semana
 const updateClassByTeacherIdAndDayOfWeek = async (req, res) => {
+    // #swagger.tags = ['Class']
+    // #swagger.description = 'Endpoint to create a Class.'
     try {
         const [result] = await ClassHoursModel.updateClassByTeacherIdAndDayOfWeek(req.user.teacher.id, req.body.day_of_week, req.body);
         const [ClassHour] = await ClassHoursModel.selectClassByTeacherIdAndDayOfWeek(req.user.teacher.id, req.body.day_of_week);
@@ -122,6 +151,8 @@ const updateClassByTeacherIdAndDayOfWeek = async (req, res) => {
 
 // Se utiliza para actualizar una clase por el id del teacher el día de semana y el slot
 const updateClassByTeacherIdAndDayOfWeekAndSlot = async (req, res) => {
+    // #swagger.tags = ['Class']
+    // #swagger.description = 'Endpoint to create a Class.'
     try {
         const [result] = await ClassHoursModel.updateClassByTeacherIdAndDayOfWeekAndSlot(req.user.teacher.id, req.body.day_of_week, req.body.slot, req.body);
         const [ClassHour] = await ClassHoursModel.selectClassByTeacherIdAndDayOfWeekAndSlot(req.user.teacher.id, req.body.day_of_week, req.body.slot);
@@ -133,6 +164,8 @@ const updateClassByTeacherIdAndDayOfWeekAndSlot = async (req, res) => {
 
 // Se utiliza para eliminar una clase por el id de la clase
 const deleteClassById = async (req, res) => {
+    // #swagger.tags = ['Class']
+    // #swagger.description = 'Endpoint to create a Class.'
     const { ClassId } = req.params;
     try {
         const [result] = await ClassHoursModel.deleteClassById(ClassId);
@@ -148,6 +181,8 @@ const deleteClassById = async (req, res) => {
 
 // Se utiliza para eliminar una clase por el ID del profesor
 const deleteClassByTeacherId = async (req, res) => {
+    // #swagger.tags = ['Class']
+    // #swagger.description = 'Endpoint to create a Class.'
     try {
         const [result] = await ClassHoursModel.deleteClassByTeacherId(req.user.teacher.id);
 
@@ -163,6 +198,8 @@ const deleteClassByTeacherId = async (req, res) => {
 
 // Se utiliza para eliminar una clase por el Id del teacher y el dia de semana
 const deleteClassByTeacherIdAndDayOfWeek = async (req, res) => {
+    // #swagger.tags = ['Class']
+    // #swagger.description = 'Endpoint to create a Class.'
     try {
         const [result] = await ClassHoursModel.deleteClassByTeacherIdAndDayOfWeek(req.user.teacher.id, req.body.day_of_week);
 
@@ -178,6 +215,8 @@ const deleteClassByTeacherIdAndDayOfWeek = async (req, res) => {
 
 // Se utiliza para eliminar una clase por el id del teacher, el dia de semana y el slot
 const deleteClassByTeacherIdAndDayOfWeekAndSlot = async (req, res) => {
+    // #swagger.tags = ['Class']
+    // #swagger.description = 'Endpoint to create a Class.'
     try {
         const [result] = await ClassHoursModel.deleteClassByTeacherIdAndDayOfWeekAndSlot(req.user.teacher.id, req.body.day_of_week, req.body.slot);
 
@@ -195,6 +234,8 @@ const deleteClassByTeacherIdAndDayOfWeekAndSlot = async (req, res) => {
 
 // Se utiliza para obtener todas las clases de un alumno
 const getStudentClassByUserId = async (req, res) => {
+    // #swagger.tags = ['Class']
+    // #swagger.description = 'Endpoint to create a Class.'
     const { userId } = req.params;
     try {
         // Consulta para encontrar al estudiante en todos los campos id_user
@@ -207,6 +248,8 @@ const getStudentClassByUserId = async (req, res) => {
 
 // Se utiliza para obtener un available slot específico
 const findClassAvailableSlot = async (req, res) => {
+    // #swagger.tags = ['Class']
+    // #swagger.description = 'Endpoint to create a Class.'
     try {
         const { teacherId, dayOfWeek, slot } = req.body;
         // Consulta para encontrar un bloque horario disponible con campo id_user vacío
@@ -219,6 +262,8 @@ const findClassAvailableSlot = async (req, res) => {
 
 // Se utiliza para darse de alta en una clase utilizando  como parametros el userID, el teacher Id, el slot y el dia de semana para ser muy específico
 const UpdateClassByStudentIdAndClassId = async (req, res) => {
+    // #swagger.tags = ['Class']
+    // #swagger.description = 'Endpoint to create a Class.'
     const { userId } = req.params;
     const { teacherId, dayOfWeek, slot } = req.body;
     try {
@@ -242,6 +287,8 @@ const UpdateClassByStudentIdAndClassId = async (req, res) => {
 
 // Dar debaja todas las clases del usuario utilizando su user ID
 const withdrawAllStudentClassByUserId = async (req, res) => {
+    // #swagger.tags = ['Class']
+    // #swagger.description = 'Endpoint to create a Class.'
     const { userId } = req.params;
     try {
         const [result] = await ClassHoursModel.withdrawAllStudentClassByUserId(userId);
@@ -253,6 +300,8 @@ const withdrawAllStudentClassByUserId = async (req, res) => {
 
 // Dar de baja las clases de un usuario utilizando el id del usuario y el id de la clase
 const withdrawClassSlotByStudentIdAndClassId = async (req, res) => {
+    // #swagger.tags = ['Class']
+    // #swagger.description = 'Endpoint to create a Class.'
     const { userId, classId } = req.params;
     try {
         await ClassHoursModel.withdrawClassSlotByStudentIdAndClassId(userId, classId);
@@ -264,6 +313,8 @@ const withdrawClassSlotByStudentIdAndClassId = async (req, res) => {
 
 // Dar de baja todas las clases que un usuario tenga con un profesor específico utilizando el teacher id y el usuario id
 const withdrawStudentFromTeacherClass = async (req, res) => {
+    // #swagger.tags = ['Class']
+    // #swagger.description = 'Endpoint to create a Class.'
     const { teacherId, userId } = req.params;
     try {
         await ClassHoursModel.withdrawStudentFromTeacherClass(teacherId, userId);

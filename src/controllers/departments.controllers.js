@@ -1,6 +1,9 @@
 const DepartmentModel = require('../models/department.model');
 
 const getAllDepartments = async (req, res) => {
+    /**#swagger.tags = ['Departments']
+       #swagger.description = 'Endpoint to get all Departments.'
+    */
     try {
         const [result] = await DepartmentModel.selectAllDepartments();
         res.json(result);
@@ -10,6 +13,14 @@ const getAllDepartments = async (req, res) => {
 }
 
 const createDepartment = async (req, res) => {
+    // #swagger.tags = ['Departments']
+    // #swagger.description = 'Endpoint to create a Department.'
+    /* #swagger.parameters['obj'] = {
+            in: 'body',
+            description: 'Department information.',
+            required: true,
+            schema: { $ref: "#/definitions/Departments" }
+    } */
     try {
         const [result] = await DepartmentModel.insertDepartment(req.body);
         const [department] = await DepartmentModel.selectDepartmentById(result.insertId);
@@ -20,6 +31,8 @@ const createDepartment = async (req, res) => {
 }
 
 const getDepartmentById = async (req, res) => {
+    // #swagger.tags = ['Departments']
+    // #swagger.description = 'Endpoint to get a Department.'
     try {
         const { departmentId } = req.params;
 
@@ -32,6 +45,14 @@ const getDepartmentById = async (req, res) => {
 }
 
 const updateDepartment = async (req, res) => {
+    // #swagger.tags = ['Departments']
+    // #swagger.description = 'Endpoint to get a Department.'
+    /* #swagger.parameters['obj'] = {
+            in: 'body',
+            description: 'Department information.',
+            required: true,
+            schema: { $ref: "#/definitions/Departments" }
+    } */
     try {
         const { departmentId } = req.params;
         const [result] = await DepartmentModel.updateDepartmentById(departmentId, req.body);
@@ -48,6 +69,8 @@ const updateDepartment = async (req, res) => {
 }
 
 const deleteDepartment = async (req, res) => {
+    // #swagger.tags = ['Departments']
+    // #swagger.description = 'Endpoint to get a Department.'
     try {
         const { departmentId } = req.params;
         const [result] = await DepartmentModel.deleteDepartmentById(departmentId);

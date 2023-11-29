@@ -1,6 +1,9 @@
 const StudentModel = require('../models/student.model');
 
 const getAllStudents = async (req, res) => {
+    /**#swagger.tags = ['Students']
+       #swagger.description = 'Endpoint to get all Students.'
+    */
     try {
         const [result] = await StudentModel.selectAllStudents();
         res.json(result);
@@ -10,6 +13,14 @@ const getAllStudents = async (req, res) => {
 }
 
 const createStudent = async (req, res) => {
+    // #swagger.tags = ['Students']
+    // #swagger.description = 'Endpoint to create a Student.'
+    /* #swagger.parameters['obj'] = {
+            in: 'body',
+            description: 'Student information.',
+            required: true,
+            schema: { $ref: "#/definitions/Students" }
+    } */
     try {
         const [result] = await StudentModel.insertStudent(req.body);
         const [student] = await StudentModel.selectStudentById(result.insertId);
@@ -20,6 +31,9 @@ const createStudent = async (req, res) => {
 }
 
 const getStudentById = async (req, res) => {
+    /**#swagger.tags = ['Students']
+       #swagger.description = 'Endpoint to get a Student.'
+    */
     try {
         const { studentId } = req.params;
 
@@ -32,6 +46,14 @@ const getStudentById = async (req, res) => {
 }
 
 const updateStudent = async (req, res) => {
+    // #swagger.tags = ['Students']
+    // #swagger.description = 'Endpoint to update a Student.'
+    /* #swagger.parameters['obj'] = {
+            in: 'body',
+            description: 'Student information.',
+            required: true,
+            schema: { $ref: "#/definitions/Students" }
+    } */
     try {
         const { studentId } = req.params;
         const [result] = await StudentModel.updateStudentById(studentId, req.body);
@@ -48,6 +70,9 @@ const updateStudent = async (req, res) => {
 }
 
 const deleteStudent = async (req, res) => {
+    /**#swagger.tags = ['Students']
+       #swagger.description = 'Endpoint to delete a Student.'
+    */
     try {
         const { studentId } = req.params;
         const [result] = await StudentModel.deleteStudentById(studentId);
