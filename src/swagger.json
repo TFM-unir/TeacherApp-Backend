@@ -640,7 +640,7 @@
         "tags": [
           "Class"
         ],
-        "description": "Endpoint to create a Class.",
+        "description": "Endpoint to get all Classes.",
         "responses": {
           "200": {
             "description": "OK"
@@ -656,7 +656,7 @@
         "tags": [
           "Class"
         ],
-        "description": "Endpoint to create a Class.",
+        "description": "Endpoint to get a Class.",
         "parameters": [
           {
             "name": "classId",
@@ -680,7 +680,7 @@
         "tags": [
           "Class"
         ],
-        "description": "Endpoint to create a Class.",
+        "description": "Endpoint to get a Class.",
         "responses": {
           "200": {
             "description": "OK"
@@ -696,7 +696,7 @@
         "tags": [
           "Class"
         ],
-        "description": "Endpoint to create a Class.",
+        "description": "Endpoint to get a Class.",
         "responses": {
           "200": {
             "description": "OK"
@@ -712,7 +712,7 @@
         "tags": [
           "Class"
         ],
-        "description": "Endpoint to create a Class.",
+        "description": "Endpoint to get a Class.",
         "parameters": [
           {
             "name": "teacherId",
@@ -736,7 +736,7 @@
         "tags": [
           "Class"
         ],
-        "description": "Endpoint to create a Class.",
+        "description": "Endpoint to get a Class.",
         "parameters": [
           {
             "name": "teacherId",
@@ -760,7 +760,7 @@
         "tags": [
           "Class"
         ],
-        "description": "Endpoint to create a Class.",
+        "description": "Endpoint to get a Class.",
         "parameters": [
           {
             "name": "teacherId",
@@ -784,7 +784,7 @@
         "tags": [
           "Class"
         ],
-        "description": "Endpoint to create a Class.",
+        "description": "Endpoint to get a Class.",
         "parameters": [
           {
             "name": "teacherId",
@@ -808,7 +808,7 @@
         "tags": [
           "Class"
         ],
-        "description": "Endpoint to create a Class.",
+        "description": "Endpoint to get all Classes of one student.",
         "parameters": [
           {
             "name": "userId",
@@ -832,7 +832,7 @@
         "tags": [
           "Class"
         ],
-        "description": "Endpoint to create a Class.",
+        "description": "Endpoint to find a Class.",
         "responses": {
           "200": {
             "description": "OK"
@@ -856,7 +856,7 @@
             "description": "Class information.",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/Classs"
+              "$ref": "#/definitions/Class"
             }
           }
         ],
@@ -875,7 +875,7 @@
         "tags": [
           "Class"
         ],
-        "description": "Endpoint to create a Class.",
+        "description": "Endpoint to update a Class.",
         "responses": {
           "200": {
             "description": "OK"
@@ -891,7 +891,7 @@
         "tags": [
           "Class"
         ],
-        "description": "Endpoint to create a Class.",
+        "description": "Endpoint to update a Class.",
         "parameters": [
           {
             "name": "body",
@@ -954,7 +954,7 @@
         "tags": [
           "Class"
         ],
-        "description": "Endpoint to create a Class.",
+        "description": "Endpoint to update a Class.",
         "parameters": [
           {
             "name": "userId",
@@ -963,21 +963,12 @@
             "type": "string"
           },
           {
-            "name": "body",
+            "name": "obj",
             "in": "body",
+            "description": "Class information.",
+            "required": true,
             "schema": {
-              "type": "object",
-              "properties": {
-                "teacherId": {
-                  "example": "any"
-                },
-                "dayOfWeek": {
-                  "example": "any"
-                },
-                "slot": {
-                  "example": "any"
-                }
-              }
+              "$ref": "#/definitions/ClassUpdate"
             }
           }
         ],
@@ -996,7 +987,7 @@
         "tags": [
           "Class"
         ],
-        "description": "Endpoint to create a Class.",
+        "description": "Endpoint to delete a Class.",
         "parameters": [
           {
             "name": "ClassId",
@@ -1023,7 +1014,7 @@
         "tags": [
           "Class"
         ],
-        "description": "Endpoint to create a Class.",
+        "description": "Endpoint to delete a Class.",
         "responses": {
           "200": {
             "description": "OK"
@@ -1042,7 +1033,7 @@
         "tags": [
           "Class"
         ],
-        "description": "Endpoint to create a Class.",
+        "description": "Endpoint to delete a Class.",
         "parameters": [
           {
             "name": "body",
@@ -1075,7 +1066,7 @@
         "tags": [
           "Class"
         ],
-        "description": "Endpoint to create a Class.",
+        "description": "Endpoint to delete a Class.",
         "parameters": [
           {
             "name": "body",
@@ -1111,7 +1102,7 @@
         "tags": [
           "Class"
         ],
-        "description": "Endpoint to create a Class.",
+        "description": "Endpoint to remove a Class.",
         "parameters": [
           {
             "name": "userId",
@@ -1135,7 +1126,7 @@
         "tags": [
           "Class"
         ],
-        "description": "Endpoint to create a Class.",
+        "description": "Endpoint to remove a Class.",
         "parameters": [
           {
             "name": "userId",
@@ -1165,7 +1156,7 @@
         "tags": [
           "Class"
         ],
-        "description": "Endpoint to create a Class.",
+        "description": "Endpoint to remove a Class.",
         "parameters": [
           {
             "name": "teacherId",
@@ -1310,6 +1301,588 @@
           },
           "404": {
             "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/api/ratings/": {
+      "get": {
+        "tags": [
+          "Ratings"
+        ],
+        "description": "Endpoint to get all Ratings.",
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Ratings"
+        ],
+        "description": "Endpoint to create a Rating.",
+        "parameters": [
+          {
+            "name": "obj",
+            "in": "body",
+            "description": "Rating information.",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Ratings"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/api/ratings/{id}": {
+      "get": {
+        "tags": [
+          "Ratings"
+        ],
+        "description": "Endpoint to get a Rating.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Ratings"
+        ],
+        "description": "Endpoint to update a Rating.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "obj",
+            "in": "body",
+            "description": "Rating information.",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Ratings"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Ratings"
+        ],
+        "description": "Endpoint to delete a Rating.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/api/ratings/teacher/{teacherId}": {
+      "get": {
+        "tags": [
+          "Ratings"
+        ],
+        "description": "Endpoint to get all Ratings.",
+        "parameters": [
+          {
+            "name": "teacherId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/api/ratings/user/{userId}": {
+      "get": {
+        "tags": [
+          "Ratings"
+        ],
+        "description": "Endpoint to get all Ratings.",
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/api/ratings/user/{userId}/teacher/{teacherId}": {
+      "get": {
+        "tags": [
+          "Ratings"
+        ],
+        "description": "Endpoint to get a Rating.",
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "teacherId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Ratings"
+        ],
+        "description": "Endpoint to delete a Rating.",
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "teacherId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/api/chats/": {
+      "get": {
+        "tags": [
+          "Chats"
+        ],
+        "description": "Endpoint to get all Chats.",
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Chats"
+        ],
+        "description": "Endpoint to create a Chat.",
+        "parameters": [
+          {
+            "name": "obj",
+            "in": "body",
+            "description": "Chat information.",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Chats"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/api/chats/{id}": {
+      "get": {
+        "tags": [
+          "Chats"
+        ],
+        "description": "Endpoint to get a Chat.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Chats"
+        ],
+        "description": "Endpoint to update a Chat.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "obj",
+            "in": "body",
+            "description": "Chat information.",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Chats"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Chats"
+        ],
+        "description": "Endpoint to delete a Chat.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/api/chats/teacher/{teacherId}": {
+      "get": {
+        "tags": [
+          "Chats"
+        ],
+        "description": "Endpoint to get all Chats by teacher.",
+        "parameters": [
+          {
+            "name": "teacherId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/api/chats/user/{userId}": {
+      "get": {
+        "tags": [
+          "Chats"
+        ],
+        "description": "Endpoint to get all Chats by users.",
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/api/chats/user/{userId}/teacher/{teacherId}": {
+      "get": {
+        "tags": [
+          "Chats"
+        ],
+        "description": "Endpoint to get a Chat.",
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "teacherId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/api/chats/teacher/{teacherId}/boolean/{boolean}": {
+      "get": {
+        "tags": [
+          "Chats"
+        ],
+        "description": "Endpoint to get a Chat.",
+        "parameters": [
+          {
+            "name": "teacherId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "boolean",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/api/chats/user/{userId}/boolean/{boolean}": {
+      "get": {
+        "tags": [
+          "Chats"
+        ],
+        "description": "Endpoint to get a Chat.",
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "boolean",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/api/chats/user/{userId}/teacher/{teacherId}/boolean/{boolean}": {
+      "get": {
+        "tags": [
+          "Chats"
+        ],
+        "description": "Endpoint to get a Chat.",
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "teacherId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "boolean",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/api/chats/teacher/{teacherId}/user/{userId}": {
+      "delete": {
+        "tags": [
+          "Chats"
+        ],
+        "description": "Endpoint to delete a Chat.",
+        "parameters": [
+          {
+            "name": "teacherId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "userId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/api/chats/teacher/{teacherId}/user/{userId}/boolean/{boolean}": {
+      "delete": {
+        "tags": [
+          "Chats"
+        ],
+        "description": "Endpoint to delete a Chat.",
+        "parameters": [
+          {
+            "name": "teacherId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "userId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "boolean",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "403": {
+            "description": "Forbidden"
           }
         }
       }
@@ -1574,13 +2147,84 @@
     "Class": {
       "type": "object",
       "properties": {
-        "department_name": {
+        "day_of_week": {
           "type": "string",
-          "example": "mathe"
+          "example": "lunes"
         },
-        "description": {
+        "start_time": {
           "type": "string",
-          "example": "restar"
+          "example": "15:00:00"
+        },
+        "end_time": {
+          "type": "string",
+          "example": "17:00:00"
+        },
+        "slot": {
+          "type": "string",
+          "example": "tarde"
+        },
+        "teacher_id": {
+          "type": "number",
+          "example": 1
+        }
+      }
+    },
+    "ClassUpdate": {
+      "type": "object",
+      "properties": {
+        "day_of_week": {
+          "type": "string",
+          "example": "lunes"
+        },
+        "slot": {
+          "type": "string",
+          "example": "tarde"
+        },
+        "teacher_id": {
+          "type": "number",
+          "example": 1
+        }
+      }
+    },
+    "Chats": {
+      "type": "object",
+      "properties": {
+        "message": {
+          "type": "string",
+          "example": "hola"
+        },
+        "boolean_teacher": {
+          "type": "boolean",
+          "example": true
+        },
+        "userId": {
+          "type": "number",
+          "example": 1
+        },
+        "teacherId": {
+          "type": "number",
+          "example": 1
+        }
+      }
+    },
+    "Ratings": {
+      "type": "object",
+      "properties": {
+        "rating": {
+          "type": "number",
+          "example": 5
+        },
+        "comment_student": {
+          "type": "string",
+          "example": "muy bien"
+        },
+        "teacherId": {
+          "type": "number",
+          "example": 1
+        },
+        "userId": {
+          "type": "number",
+          "example": 1
         }
       }
     }

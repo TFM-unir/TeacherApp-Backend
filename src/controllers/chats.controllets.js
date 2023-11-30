@@ -2,6 +2,8 @@ const ChatModel = require('../models/chat.model');
 
 // Obtiene todos los chats disponibles
 const getAllChats = async (req, res) => {
+    // #swagger.tags = ['Chats']
+    // #swagger.description = 'Endpoint to get all Chats.'
     try {
         const [chats] = await ChatModel.selectAllChats();
         res.json(chats);
@@ -12,6 +14,8 @@ const getAllChats = async (req, res) => {
 
 // Obtiene un chat por su ID específico
 const getChatById = async (req, res) => {
+    // #swagger.tags = ['Chats']
+    // #swagger.description = 'Endpoint to get a Chat.'
     const { id } = req.params;
     try {
         const [chat] = await ChatModel.selectChatById(id);
@@ -23,6 +27,8 @@ const getChatById = async (req, res) => {
 
 // Obtiene chats asociados a un profesor mediante su ID
 const getChatsByTeacherId = async (req, res) => {
+    // #swagger.tags = ['Chats']
+    // #swagger.description = 'Endpoint to get all Chats by teacher.'
     const { teacherId } = req.params;
     try {
         const [chats] = await ChatModel.selectChatsByTeacherId(teacherId);
@@ -34,6 +40,8 @@ const getChatsByTeacherId = async (req, res) => {
 
 // Obtiene chats asociados a un usuario mediante su ID
 const getChatsByUserId = async (req, res) => {
+    // #swagger.tags = ['Chats']
+    // #swagger.description = 'Endpoint to get all Chats by users.'
     const { userId } = req.params;
     try {
         const [chats] = await ChatModel.selectChatsByUserId(userId);
@@ -45,6 +53,8 @@ const getChatsByUserId = async (req, res) => {
 
 // Obtiene un chat mediante el ID de un usuario y un profesor
 const getChatByUserIdAndTeacherId = async (req, res) => {
+    // #swagger.tags = ['Chats']
+    // #swagger.description = 'Endpoint to get a Chat.'
     const { teacherId, userId } = req.params;
     try {
         const [chat] = await ChatModel.selectChatByUserIdAndTeacherId(teacherId, userId);
@@ -56,6 +66,8 @@ const getChatByUserIdAndTeacherId = async (req, res) => {
 
 // Obtiene chats de un profesor según un valor booleano
 const getChatsByTeacherIdAndBoolean = async (req, res) => {
+    // #swagger.tags = ['Chats']
+    // #swagger.description = 'Endpoint to get a Chat.'
     const { teacherId, boolean } = req.params;
     try {
         const [chats] = await ChatModel.selectChatsByTeacherIdAndBoolean(teacherId, boolean);
@@ -67,6 +79,8 @@ const getChatsByTeacherIdAndBoolean = async (req, res) => {
 
 // Obtiene chats de un usuario según un valor booleano
 const getChatsByUserIdAndBoolean = async (req, res) => {
+    // #swagger.tags = ['Chats']
+    // #swagger.description = 'Endpoint to get a Chat.'
     const { userId, boolean } = req.params;
     try {
         const [chats] = await ChatModel.selectChatsByUserIdAndBoolean(userId, boolean);
@@ -78,6 +92,8 @@ const getChatsByUserIdAndBoolean = async (req, res) => {
 
 // Obtiene un chat mediante el ID de un usuario, un profesor y un valor booleano
 const getChatByUserIdAndTeacherIdAndBoolean = async (req, res) => {
+    // #swagger.tags = ['Chats']
+    // #swagger.description = 'Endpoint to get a Chat.'
     const { teacherId, userId, boolean } = req.params;
     try {
         const [chat] = await ChatModel.selectChatByUserIdAndTeacherIdAndBoolean(teacherId, userId, boolean);
@@ -89,6 +105,14 @@ const getChatByUserIdAndTeacherIdAndBoolean = async (req, res) => {
 
 // Crea un nuevo chat con la información proporcionada
 const createChat = async (req, res) => {
+    // #swagger.tags = ['Chats']
+    // #swagger.description = 'Endpoint to create a Chat.'
+    /* #swagger.parameters['obj'] = {
+            in: 'body',
+            description: 'Chat information.',
+            required: true,
+            schema: { $ref: "#/definitions/Chats" }
+    } */
     const { message, boolean_teacher, userId, teacherId } = req.body;
     try {
         const [result] = await ChatModel.insertChat({ message, boolean_teacher, userId, teacherId });
@@ -100,7 +124,15 @@ const createChat = async (req, res) => {
 };
 
 // Actualiza un chat por su ID con el nuevo mensaje proporcionado
-const updateChatById = async (req, res) => {
+const updateChat = async (req, res) => {
+    // #swagger.tags = ['Chats']
+    // #swagger.description = 'Endpoint to update a Chat.'
+    /* #swagger.parameters['obj'] = {
+            in: 'body',
+            description: 'Chat information.',
+            required: true,
+            schema: { $ref: "#/definitions/Chats" }
+    } */
     const { id } = req.params;
     const { message } = req.body;
     try {
@@ -114,6 +146,8 @@ const updateChatById = async (req, res) => {
 
 // Elimina un chat por su ID
 const deleteChatById = async (req, res) => {
+    // #swagger.tags = ['Chats']
+    // #swagger.description = 'Endpoint to delete a Chat.'
     const { id } = req.params;
     try {
         const [result] = await ChatModel.deleteChatById(id);
@@ -125,6 +159,8 @@ const deleteChatById = async (req, res) => {
 
 // Elimina un chat mediante el ID de un usuario y un profesor
 const deleteChatByUserIdAndTeacherId = async (req, res) => {
+    // #swagger.tags = ['Chats']
+    // #swagger.description = 'Endpoint to delete a Chat.'
     const { teacherId, userId } = req.params;
     try {
         const [result] = await ChatModel.deleteChatByUserIdAndTeacherId(teacherId, userId);
@@ -136,6 +172,8 @@ const deleteChatByUserIdAndTeacherId = async (req, res) => {
 
 // Elimina un chat mediante el ID de un usuario, un profesor y un valor booleano
 const deleteChatByUserIdAndTeacherIdAndBoolean = async (req, res) => {
+    // #swagger.tags = ['Chats']
+    // #swagger.description = 'Endpoint to delete a Chat.'
     const { teacherId, userId, boolean } = req.params;
     try {
         const [result] = await ChatModel.deleteChatByUserIdAndTeacherIdAndBoolean(teacherId, userId, boolean);
@@ -155,7 +193,7 @@ module.exports = {
     getChatsByUserIdAndBoolean,
     getChatByUserIdAndTeacherIdAndBoolean,
     createChat,
-    updateChatById,
+    updateChat,
     deleteChatById,
     deleteChatByUserIdAndTeacherId,
     deleteChatByUserIdAndTeacherIdAndBoolean

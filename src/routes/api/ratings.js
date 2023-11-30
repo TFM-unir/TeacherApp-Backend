@@ -17,10 +17,10 @@ router.get('/user/:userId', RatingController.getRatingsByUserId);
 router.get('/user/:userId/teacher/:teacherId', RatingController.getRatingByUserIdAndTeacherId);
 
 // Ruta para crear un rating
-router.post('/', RatingController.createRatingById);
+router.post('/', RatingController.createRating);
 
 // Ruta para actualizar un rating por su ID
-router.put('/:id', RatingController.updateRatingById);
+router.put('/:id', RatingController.updateRating);
 
 // Ruta para eliminar un rating por su ID
 router.delete('/:id', RatingController.deleteRatingById);

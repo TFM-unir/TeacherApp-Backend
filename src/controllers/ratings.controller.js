@@ -2,6 +2,8 @@ const RatingModel = require('../models/ratings.model');
 
 // Función que obtiene todos los ratings
 const getAllRatings = async (req, res) => {
+    // #swagger.tags = ['Ratings']
+    // #swagger.description = 'Endpoint to get all Ratings.'
     try {
         const [ratings] = await RatingModel.selectAllratings();
         res.json(ratings);
@@ -12,6 +14,8 @@ const getAllRatings = async (req, res) => {
 
 // Función que obtiene un rating por su ID
 const getRatingById = async (req, res) => {
+    // #swagger.tags = ['Ratings']
+    // #swagger.description = 'Endpoint to get a Rating.'
     const { id } = req.params;
     try {
         const [rating] = await RatingModel.selectRatingByRatingId(id);
@@ -23,6 +27,8 @@ const getRatingById = async (req, res) => {
 
 // Función que obtiene los ratings asociados a un profesor por su ID
 const getRatingsByTeacherId = async (req, res) => {
+    // #swagger.tags = ['Ratings']
+    // #swagger.description = 'Endpoint to get all Ratings.'
     const { teacherId } = req.params;
     try {
         const [ratings] = await RatingModel.selectRatingByTeacherId(teacherId);
@@ -34,6 +40,8 @@ const getRatingsByTeacherId = async (req, res) => {
 
 // Función que obtiene los ratings asociados a un usuario por su ID
 const getRatingsByUserId = async (req, res) => {
+    // #swagger.tags = ['Ratings']
+    // #swagger.description = 'Endpoint to get all Ratings.'
     const { userId } = req.params;
     try {
         const [ratings] = await RatingModel.selectRatingByUserId(userId);
@@ -45,6 +53,8 @@ const getRatingsByUserId = async (req, res) => {
 
 // Función que obtiene un rating asociado a un usuario y profesor por sus respectivos IDs
 const getRatingByUserIdAndTeacherId = async (req, res) => {
+    // #swagger.tags = ['Ratings']
+    // #swagger.description = 'Endpoint to get a Rating.'
     const { teacherId, userId } = req.params;
     try {
         const [rating] = await RatingModel.selectRatingByUserIdAndTeacherId(teacherId, userId);
@@ -55,7 +65,15 @@ const getRatingByUserIdAndTeacherId = async (req, res) => {
 };
 
 // Función que crea un nuevo rating en la base de datos
-const createRatingById = async (req, res) => {
+const createRating = async (req, res) => {
+    // #swagger.tags = ['Ratings']
+    // #swagger.description = 'Endpoint to create a Rating.'
+    /* #swagger.parameters['obj'] = {
+            in: 'body',
+            description: 'Rating information.',
+            required: true,
+            schema: { $ref: "#/definitions/Ratings" }
+    } */
     const { rating, comment_student, teacherId, userId } = req.body;
     try {
         const [result] = await RatingModel.insertRating({ rating, comment_student, teacherId, userId });
@@ -67,7 +85,15 @@ const createRatingById = async (req, res) => {
 };
 
 // Función que actualiza un rating por su ID con el comentario del profesor
-const updateRatingById = async (req, res) => {
+const updateRating = async (req, res) => {
+    // #swagger.tags = ['Ratings']
+    // #swagger.description = 'Endpoint to update a Rating.'
+    /* #swagger.parameters['obj'] = {
+            in: 'body',
+            description: 'Rating information.',
+            required: true,
+            schema: { $ref: "#/definitions/Ratings" }
+    } */
     const { id } = req.params;
     const { comment_teacher } = req.body;
     try {
@@ -81,6 +107,8 @@ const updateRatingById = async (req, res) => {
 
 // Función que elimina un rating por su ID
 const deleteRatingById = async (req, res) => {
+    // #swagger.tags = ['Ratings']
+    // #swagger.description = 'Endpoint to delete a Rating.'
     const { id } = req.params;
     try {
         const [result] = await RatingModel.deleteRatingById(id);
@@ -92,6 +120,8 @@ const deleteRatingById = async (req, res) => {
 
 // Función que elimina un rating asociado a un usuario y profesor por sus IDs
 const deleteRatingByUserIdAndTeacherId = async (req, res) => {
+    // #swagger.tags = ['Ratings']
+    // #swagger.description = 'Endpoint to delete a Rating.'
     const { teacherId, userId } = req.params;
     try {
         const [result] = await RatingModel.deleteRatingByUserIdAndTeacherId(teacherId, userId);
@@ -107,8 +137,8 @@ module.exports = {
     getRatingsByTeacherId,
     getRatingsByUserId,
     getRatingByUserIdAndTeacherId,
-    createRatingById,
-    updateRatingById,
+    createRating,
+    updateRating,
     deleteRatingById,
     deleteRatingByUserIdAndTeacherId
 };

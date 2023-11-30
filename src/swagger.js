@@ -125,9 +125,32 @@ const doc = {
             }
         },
         Class: {
-            department_name: "mathe",
-            description: "restar"
+            day_of_week: "lunes",
+            start_time: "15:00:00",
+            end_time: "17:00:00",
+            slot: "tarde",
+            teacher_id: 1
+
+        },
+        ClassUpdate: {
+            day_of_week: "lunes",
+            slot: "tarde",
+            teacher_id: 1
+
+        },
+        Chats: {
+            message: "hola",
+            boolean_teacher: true,
+            userId: 1,
+            teacherId: 1
+        },
+        Ratings: {
+            rating: 5,
+            comment_student: "muy bien",
+            teacherId: 1,
+            userId: 1
         }
+
     }
 };
 

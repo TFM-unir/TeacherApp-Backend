@@ -15,7 +15,7 @@ router.get('/user/:userId/teacher/:teacherId/boolean/:boolean', ChatController.g
 router.post('/', ChatController.createChat);
 
 //PUT
-router.put('/:id', ChatController.updateChatById);
+router.put('/:id', ChatController.updateChat);
 
 //DELETE
 router.delete('/:id', ChatController.deleteChatById);
