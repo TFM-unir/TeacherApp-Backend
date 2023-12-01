@@ -49,8 +49,8 @@ const register = async (req, res) => {
         // TODO - checkear el rol con la base de datos y no con el numero 1 (estudiante)
         if (req.body.userForm.role_id === 1) {
             return res.json({
-                user: user[0],
-                location: location[0]
+                userForm: user[0],
+                locationForm: location[0]
             });
         };
 
@@ -62,9 +62,9 @@ const register = async (req, res) => {
         // TODO : Materias
 
         res.json({
-            user: user[0],
-            teacher: teacher[0],
-            location: location[0]
+            userForm: user[0],
+            teacherForm: teacher[0],
+            locationForm: location[0]
         });
 
     } catch (error) {
