@@ -9,13 +9,13 @@ const TeacherModel = require('../models/teacher.model');
 
 // tenemos que hacer comprobaciones del token
 const checkToken = async (req, res, next) => {
-
+    
     //Comprobar si viene incluido el token en la cabecera
-    if (!req.headers['authorization']) {
+    if (!req.headers.authorization) {
         return res.status(403).json({ fatal: 'Necesitas la cabecera de autenticación' })
     }
-
-    const { token } = JSON.parse(req.headers['authorization']);
+    
+    const token = req.headers.authorization;
 
     //Comprobar si el Token es válido
     let payload;

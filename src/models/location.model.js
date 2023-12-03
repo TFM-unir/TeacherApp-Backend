@@ -22,5 +22,9 @@ const deleteLocationById = (id) => {
     return db.query('DELETE FROM locations WHERE id = ?', [id]);
 };
 
+const checkLocation = (latitude, longitude, address, city, province) => {
+    return db.query('SELECT * FROM locations WHERE latitude=? and longitude=? and address=? and city=? and province=?', [latitude, longitude, address, city, province]);
+};
 
-module.exports = { selectAllLocations, selectLocationByUserId, deleteLocationById, insertLocation, updateLocationById, selectLocationById }
+
+module.exports = { selectAllLocations, selectLocationByUserId, deleteLocationById, insertLocation, updateLocationById, selectLocationById, checkLocation }
