@@ -1,6 +1,6 @@
 var nodemailer = require('nodemailer');
 
-const sendEmail = async (toBcc, messageType) => {
+const sendEmail = async (toBcc, messageType) => { //hay que traer otro atributo, la url para ver al profesor o la asignatura
     try {
         //creamos el transporter
         const transporter = nodemailer.createTransport({
@@ -40,12 +40,12 @@ function checkTitle(messageType) {
     }
 }
 
-function checkBody(messageType) {
+function checkBody(messageType, url) {
     if(messageType === "msA"){
-        return "Un nuevo profesor se ha registrado en TeacherApp, pulse en este link para ir al perfil del profesor y validarlo."
+        return `\n\n<p>Un nuevo profesor se ha registrado en TeacherApp, pulse en este <a target="_blank" href="${url}">link</a> para ir al perfil del profesor y validarlo.</p>`;
     }
     if(messageType === "msB"){
-        return "Un profesor quiere añadir una nueva asignatura en TeacherApp, pulse en este link para comprobar que no esté ya en la base de datos y validarla."
+        return `\n\n<p>Un profesor quiere añadir una nueva asignatura en TeacherApp, pulse en este <a target="_blank" href="${url}">link</a> para comprobar que no esté ya en la base de datos y validarla.</p>`;
     }
 }
 
