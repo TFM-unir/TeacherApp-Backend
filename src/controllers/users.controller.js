@@ -4,6 +4,8 @@ const UsersModel = require('../models/user.model');
 const LocationModel = require('../models/location.model');
 //importamos el teacher model
 const TeacherModel = require('../models/teacher.model');
+//importar el subject model
+const SubjectModel = require('../models/subject.model');
 //Importamos la librería para encriptar la clave
 const bcrypt = require("bcryptjs");
 // Importamos el modulo del token
@@ -33,13 +35,10 @@ const register = async (req, res) => {
         req.body.userForm.password = bcrypt.hashSync(req.body.userForm.password, 10);
 
         //insertar primero location porque no depende de ninguna tabla
-        const [resultLocation] = await LocationModel.insertLocation(req.body.locationForm);
-
-        // sacamos el contenido de location
-        const [location] = await LocationModel.selectLocationById(resultLocation.insertId);
+        const [location] = await LocationModel.insertLocationNoDuplicate(req.body.locationForm);
 
         //tomar id del location y asignarselo al user
-        req.body.userForm.location_id = resultLocation.insertId;
+        req.body.userForm.location_id = location[0].id;
 
         // insertamos el user
         const [resultUser] = await UsersModel.insertUser(req.body.userForm);
@@ -62,7 +61,9 @@ const register = async (req, res) => {
         const [resulTeacher] = await TeacherModel.insertTeacher(req.body.teacherForm);
         const [teacher] = await TeacherModel.selectTeacherOnlyTableById(resulTeacher.insertId);
 
-        // TODO : Materias
+        // insertar Materias
+        req.body.subjectForm.teacher_id = resulTeacher.insertId;
+        const [resultSubject] = await SubjectModel.insertSubject(req.body.subjectForm);
 
         //enviar email a los admins
         const [admins] = await UsersModel.selectAllUsers(3);

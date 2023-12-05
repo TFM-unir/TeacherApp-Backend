@@ -22,8 +22,7 @@ const createLocation = async (req, res) => {
             schema: { $ref: "#/definitions/Locations" }
     } */
     try {
-        const [result] = await LocationModel.insertLocation(req.body);
-        const [location] = await LocationModel.selectLocationById(result.insertId);
+        const [location] = await LocationModel.insertLocationNoDuplicate(req.body)
         res.json(location[0]);
     } catch (error) {
         res.json({ fatal: error.message })

@@ -36,7 +36,7 @@ const createSubject = async (req, res) => {
             schema: { $ref: "#/definitions/Subjects" }
     } */
     try {
-        /* const errors = [];
+        const errors = [];
         await Promise.all(
             req.body.subjectForm.map(async function (subject) {
                 try {
@@ -51,11 +51,12 @@ const createSubject = async (req, res) => {
             res.json("no todas las materias se insertaron correctamente");
         } else {
             res.json("todas las materias insertadas correctamente");
-        } */
+        }
+        /*
         const { subject, teacher_id, department_id } = req.body;
         const [result] = await SubjectModel.insertSubject(subject, teacher_id, department_id);
         const [subjectObj] = await SubjectModel.selectSubjectById(result.insertId);
-        res.json(subjectObj);
+        res.json(subjectObj); */
     } catch (error) {
         res.json({ fatal: error.message });
     }

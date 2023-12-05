@@ -10,7 +10,7 @@ const selectAllSubjectsByTeacherId = (teacherId) => {
     return db.query('SELECT * FROM subjects WHERE teacher_id = ?', [teacherId]);
 };
 
-const insertSubject = (subject, teacher_id, department_id) => {
+const insertSubject = ({ subject, teacher_id, department_id }) => {
     return db.query('INSERT INTO subjects (subject, teacher_id, department_id) VALUES (?, ?, ?)', [subject, teacher_id, department_id]);
 };
 

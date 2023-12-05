@@ -14,6 +14,17 @@ const insertLocation = ({ latitude, longitude, address, city, province }) => {
     return db.query('INSERT INTO locations (latitude, longitude, address, city, province) VALUES (?, ?, ?, ?, ?)', [latitude, longitude, address, city, province]);
 };
 
+const insertLocationNoDuplicate = async ({ latitude, longitude, address, city, province }) => {
+    const [location] = await checkLocation(latitude, longitude, address, city, province);
+
+    if (location.length === 0) {
+        const [result] = await insertLocation({ latitude, longitude, address, city, province });
+        [location] = await selectLocationById(result.insertId);
+    }
+
+    return [location]
+}
+
 const updateLocationById = (id, { latitude, longitude, address, city, province }) => {
     return db.query('UPDATE locations SET latitude= ?, longitude= ?, address= ?, city= ?, province= ? WHERE id = ?', [latitude, longitude, address, city, province, id]);
 };
@@ -27,4 +38,4 @@ const checkLocation = (latitude, longitude, address, city, province) => {
 };
 
 
-module.exports = { selectAllLocations, selectLocationByUserId, deleteLocationById, insertLocation, updateLocationById, selectLocationById, checkLocation }
+module.exports = { selectAllLocations, selectLocationByUserId, deleteLocationById, insertLocation, insertLocationNoDuplicate, updateLocationById, selectLocationById, checkLocation }
