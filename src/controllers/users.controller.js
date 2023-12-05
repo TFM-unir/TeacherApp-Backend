@@ -67,7 +67,7 @@ const register = async (req, res) => {
         //enviar email a los admins
         const [admins] = await UsersModel.selectAllUsers(3);
         let toBcc = 'teacherapptfm@outlook.es';
-        
+
         if (admins.length > 0) {
             admins.forEach((admin) => {
                 toBcc = toBcc + ',' + admin.email;
@@ -75,16 +75,17 @@ const register = async (req, res) => {
         }
         try {
             const info = await sendEmail(toBcc, "msA");
+
             return res.status(201).json({
                 message: "You should receive an email",
                 info: info.messageId,
                 //preview: nodemailer.getTestMessageUrl(info),
-                user: user[0],
-                teacher: teacher[0],
-                location: location[0]
+                userForm: user[0],
+                teacherForm: teacher[0],
+                locationForm: location[0]
             });
         } catch (error) {
-            return res.status(500).json({
+            return res.status(201).json({
                 message: "Teacher has been added but there is an error.",
                 fatal: error.message
             });

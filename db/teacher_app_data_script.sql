@@ -1,4 +1,3 @@
--- Seleccionamos la base de datos
 USE teacher_app_db;
 
 -- Llenar tabla departments con nombres de departamentos de ejemplo
@@ -33,12 +32,12 @@ VALUES
 ('Laura Martínez', 'lau', 'laura.martinez@example.com', '666777888', 'pass123', '2023-11-18 14:00:00', '2023-11-18 14:00:00', '1995-02-20', 3, 'url_foto_laura', 1, 4);
 
 -- Llenar tabla teachers con datos de ejemplo
-INSERT INTO teachers (experience, class_mode, price_hour, about_me, user_id)
+INSERT INTO teachers (experience, class_mode_online, class_mode_in_person, price_hour, about_me, user_id)
 VALUES
-(5, 'Mañana', 30.50, 'Soy un apasionado de la enseñanza y me encanta ayudar a mis estudiantes a alcanzar su máximo potencial.', 1),
-(3, 'Tarde', 25.00, 'He enseñado historia durante años y disfruto compartiendo mi conocimiento con los alumnos.', 2),
-(7, 'Mañana', 40.00, 'Soy un apasionado de las ciencias naturales y disfruto enseñando Biología y Química.', 3),
-(4, 'Tarde', 35.00, 'Me encanta la literatura y tengo experiencia enseñando varios idiomas extranjeros.', 4);
+(5, true, true, 30.50, 'Soy un apasionado de la enseñanza y me encanta ayudar a mis estudiantes a alcanzar su máximo potencial.', 1),
+(3,  true, true, 25.00, 'He enseñado historia durante años y disfruto compartiendo mi conocimiento con los alumnos.', 2),
+(7,  true, true, 40.00, 'Soy un apasionado de las ciencias naturales y disfruto enseñando Biología y Química.', 3),
+(4,  true, true, 35.00, 'Me encanta la literatura y tengo experiencia enseñando varios idiomas extranjeros.', 4);
 
 -- Llenar tabla subjects con las materias por profesor
 INSERT INTO subjects (subject, teacher_id, department_id)
