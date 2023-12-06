@@ -11,7 +11,7 @@ router.use('/locations', checkToken, require('./api/locations'));
 router.use('/subjects', checkToken, require('./api/subjects'));
 router.use('/class', checkToken, require('./api/class.hours'));
 router.use('/departments', require('./api/departments'));
-router.use('/ratings', checkToken, require('./api/ratings'));
+router.use('/ratings', require('./api/ratings'));
 router.use('/chats', checkToken, require('./api/chats'));
 
 module.exports = router;

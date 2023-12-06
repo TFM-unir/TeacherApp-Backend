@@ -25,6 +25,10 @@ const selectRatingByUserIdAndTeacherId = (teacherId, userId) => {
     return db.query('SELECT * FROM ratings WHERE teacher_id = ? AND user_id = ?', [teacherId, userId]);
 };
 
+// Se obtiene la media d elos ratings de un teacher por su ID
+const selectAverageRateByTeacherId = (teacherId) => {
+    return db.query('SELECT AVG(rating) AS media_ratings FROM ratings WHERE teacher_id = ?', [teacherId]);
+};
 
 //Area del student (es el único que podría crear un rating)
 
@@ -56,6 +60,7 @@ module.exports = {
     selectRatingByTeacherId,
     selectRatingByUserId,
     selectRatingByUserIdAndTeacherId,
+    selectAverageRateByTeacherId,
     insertRating,
     updateRatingById,
     deleteRatingById,

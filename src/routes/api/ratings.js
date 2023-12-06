@@ -10,6 +10,9 @@ router.get('/:id', RatingController.getRatingById);
 // Ruta para obtener ratings por ID de teacher
 router.get('/teacher/:teacherId', RatingController.getRatingsByTeacherId);
 
+// Ruta para obtener el promedio de los rating a través de un ID de teacher
+router.get('/prom/teacher/:teacherId', RatingController.getAverageRateByTeacherId);
+
 // Ruta para obtener ratings por ID de usuario
 router.get('/user/:userId', RatingController.getRatingsByUserId);
 

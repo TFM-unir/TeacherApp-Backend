@@ -64,6 +64,19 @@ const getRatingByUserIdAndTeacherId = async (req, res) => {
     }
 };
 
+// Funcion que obtiene la media de los ratings de un teacher por su id
+const getAverageRateByTeacherId = async (req, res) => {
+    // #swagger.tags = ['Ratings']
+    // #swagger.description = 'Endpoint to get the average rate of a Teacher'
+    const { teacherId } = req.params;
+    try {
+        const [averageRate] = await RatingModel.selectAverageRateByTeacherId(teacherId);
+        res.json(averageRate[0]);
+    } catch (error) {
+        res.json({ error: error.message });
+    }
+};
+
 // Función que crea un nuevo rating en la base de datos
 const createRating = async (req, res) => {
     // #swagger.tags = ['Ratings']
@@ -137,6 +150,7 @@ module.exports = {
     getRatingsByTeacherId,
     getRatingsByUserId,
     getRatingByUserIdAndTeacherId,
+    getAverageRateByTeacherId,
     createRating,
     updateRating,
     deleteRatingById,

@@ -32,7 +32,7 @@ const getTeacherById = async (req, res) => {
     try {
         const { teacherId } = req.params;
         const [result] = await TeacherModel.selectTeacherById(teacherId);
-        res.json(result);
+        res.json(result[0]);
     } catch (error) {
         res.json({ fatal: error.message });
     }
