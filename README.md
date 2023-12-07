@@ -3,14 +3,15 @@
 ## Autores
 
 - [Ruben](https://github.com/RubenHernandezL)
-- [Miquel Mayordomo Bofill](https://github.com/miquelmb)
-- [Javier](https://github.com/ValenVier)
 - [Mairi Tikk](https://github.com/mairitikk)
+- [Javier](https://github.com/ValenVier)
+- [Miquel Mayordomo Bofill](https://github.com/miquelmb)
 
-## Requisitos
+## Install
 
-- npm install nodemon
-- npm install --save-dev swagger-ui-express
+Clonar el repositorio y ejecutar dentro de la carpeta clonada:
+
+    $ npm install
 
 ## Base de Datos
 
