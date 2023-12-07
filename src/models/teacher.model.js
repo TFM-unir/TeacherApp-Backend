@@ -1,38 +1,38 @@
 const UserModel = require('./user.model');
 
 const selectAllTeachers = () => {
-    return db.query(`SELECT u.name, u.nickname, u.date_of_birth, u.status, u.photo, l.latitude, l.longitude, l.address, l.city, l.province, t.experience, t.class_mode_online, t.class_mode_in_person, t.price_hour, t.about_me, s.subject, d.department_name 
+    return db.query(`SELECT t.id, u.name, u.nickname, u.date_of_birth, u.status, u.photo, l.latitude, l.longitude, l.address, l.city, l.province, t.experience, t.class_mode_online, t.class_mode_in_person, t.price_hour, t.about_me, s.subject, d.department_name 
     FROM teachers as t 
     join users as u on t.user_id = u.id
     join locations as l on u.location_id = l.id
     join subjects as s on s.teacher_id = t.id
-    join departments as d on s.department_id = d.id
+    join departments as d on s.department_id = d.id WHERE u.role_id=2
     ORDER BY u.name;`);
 };
 
 const selectAllTeachersByState = (status, order = asc) => {
-    return db.query(`SELECT u.name, u.nickname, u.date_of_birth, u.status, u.photo, l.latitude, l.longitude, l.address, l.city, l.province, t.experience, t.class_mode_online, t.class_mode_in_person, t.price_hour, t.about_me, s.subject, d.department_name 
+    return db.query(`SELECT t.id, u.name, u.nickname, u.date_of_birth, u.status, u.photo, l.latitude, l.longitude, l.address, l.city, l.province, t.experience, t.class_mode_online, t.class_mode_in_person, t.price_hour, t.about_me, s.subject, d.department_name 
     FROM teachers as t 
     join users as u on t.user_id = u.id
     join locations as l on u.location_id = l.id
     join subjects as s on s.teacher_id = t.id
     join departments as d on s.department_id = d.id
-    where u.status = ?
+    where u.status = ? AND u.role_id=2
     ORDER BY u.name ?;`, [status, order]);
 };
 
 const selectAllTeachersSortedBy = (field, order = asc) => { //field = campo para filtrar / order = ascendente o descendente
-    return db.query(`SELECT u.name, u.nickname, u.date_of_birth, u.status, u.photo, l.latitude, l.longitude, l.address, l.city, l.province, t.experience, t.class_mode_online, t.class_mode_in_person, t.price_hour, t.about_me, s.subject, d.department_name 
+    return db.query(`SELECT t.id, u.name, u.nickname, u.date_of_birth, u.status, u.photo, l.latitude, l.longitude, l.address, l.city, l.province, t.experience, t.class_mode_online, t.class_mode_in_person, t.price_hour, t.about_me, s.subject, d.department_name 
     FROM teachers as t 
     join users as u on t.user_id = u.id
     join locations as l on u.location_id = l.id
     join subjects as s on s.teacher_id = t.id
-    join departments as d on s.department_id = d.id
+    join departments as d on s.department_id = d.id WHERE u.role_id=2
     ORDER BY ? ?;`, [field, order]);
 };
 
 const selectTeacherById = (id) => {
-    return db.query(`SELECT u.name, u.nickname, u.date_of_birth, u.status, u.photo, l.latitude, l.longitude, l.address, l.city, l.province, t.experience, t.class_mode_online, t.class_mode_in_person, t.price_hour, t.about_me, s.subject, d.department_name 
+    return db.query(`SELECT t.id, u.name, u.nickname, u.date_of_birth, u.status, u.photo, l.latitude, l.longitude, l.address, l.city, l.province, t.experience, t.class_mode_online, t.class_mode_in_person, t.price_hour, t.about_me, s.subject, d.department_name 
     FROM teachers as t 
     join users as u on t.user_id = u.id
     join locations as l on u.location_id = l.id
