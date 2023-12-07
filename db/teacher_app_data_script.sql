@@ -26,10 +26,10 @@ VALUES
 -- Llenar tabla users con usuarios de ejemplo (pueden ser tanto estudiantes como profesores)
 INSERT INTO users (name, nickname, email, phone, password, creation_date, update_date, date_of_birth, status, photo, role_id, location_id)
 VALUES
-('Juan Pérez', 'juanito', 'juan.perez@example.com', '123456789', 'contraseña', '2023-11-15 08:00:00', '2023-11-15 08:00:00', '1990-05-15', 2, 'url_foto_juan', 3, 1),
-('María López', 'malopez', 'maria.lopez@example.com', '987654321', 'password', '2023-11-16 10:00:00', '2023-11-16 10:00:00', '1985-03-05', 1, 'url_foto_maria', 2, 2),
-('Carlos Gómez', 'carlitos', 'carlos.gomez@example.com', '555444333', 'contraseña123', '2023-11-17 12:00:00', '2023-11-17 12:00:00', '1978-08-03', 2, 'url_foto_carlos', 2, 3),
-('Laura Martínez', 'lau', 'laura.martinez@example.com', '666777888', 'pass123', '2023-11-18 14:00:00', '2023-11-18 14:00:00', '1995-02-20', 3, 'url_foto_laura', 1, 4);
+('Juan Pérez', 'juanito', 'juan.perez@example.com', '123456789', '$2a$10$L7NutDbu/E0XtYpw0rsUHeqAVZrim/hGfTa5B7Cbmmkw3f9.bpziK', '2023-11-15 08:00:00', '2023-11-15 08:00:00', '1990-05-15', 2, 'https://i.pravatar.cc/500?u=clemente.alonzomayorga@peticiones.online', 3, 1),
+('María López', 'malopez', 'maria.lopez@example.com', '987654321', '$2a$10$L7NutDbu/E0XtYpw0rsUHeqAVZrim/hGfTa5B7Cbmmkw3f9.bpziK', '2023-11-16 10:00:00', '2023-11-16 10:00:00', '1985-03-05', 1, 'https://i.pravatar.cc/500?u=mariadelcarmen.herreravillanueva@peticiones.online', 2, 2),
+('Carlos Gómez', 'carlitos', 'carlos.gomez@example.com', '555444333', '$2a$10$L7NutDbu/E0XtYpw0rsUHeqAVZrim/hGfTa5B7Cbmmkw3f9.bpziK', '2023-11-17 12:00:00', '2023-11-17 12:00:00', '1978-08-03', 2, 'https://i.pravatar.cc/500?u=mario.mejiaburgos@peticiones.online', 2, 3),
+('Laura Martínez', 'lau', 'laura.martinez@example.com', '666777888', '$2a$10$L7NutDbu/E0XtYpw0rsUHeqAVZrim/hGfTa5B7Cbmmkw3f9.bpziK', '2023-11-18 14:00:00', '2023-11-18 14:00:00', '1995-02-20', 3, 'https://i.pravatar.cc/500?u=debora.bandaalcala@peticiones.online', 1, 4);
 
 -- Llenar tabla teachers con datos de ejemplo
 INSERT INTO teachers (experience, class_mode_online, class_mode_in_person, price_hour, about_me, user_id)

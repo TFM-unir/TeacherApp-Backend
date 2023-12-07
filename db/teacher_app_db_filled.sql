@@ -124,7 +124,7 @@ CREATE TABLE `locations` (
   `city` varchar(80) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT 'citie: campo que contiene el nombre de la ciudad de residencia.',
   `province` varchar(80) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT 'province: campo que contiene el nombre de la provincia de residencia.',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -133,7 +133,7 @@ CREATE TABLE `locations` (
 
 LOCK TABLES `locations` WRITE;
 /*!40000 ALTER TABLE `locations` DISABLE KEYS */;
-INSERT INTO `locations` VALUES (1,40.416775,-3.70379,'Calle Falsa 123','Madrid','Madrid'),(2,41.385063,2.173404,'Avinguda Diagonal 123','Barcelona','Barcelona'),(3,37.389092,-5.984459,'Calle Principal 456','Sevilla','Sevilla'),(4,39.469907,-0.376288,'Avenida Principal 789','Valencia','Valencia'),(5,41.385063,2.987456,'calle de quintal 25','Santiago','A Coruña');
+INSERT INTO `locations` VALUES (1,40.416775,-3.70379,'Calle Falsa 123','Madrid','Madrid'),(2,41.385063,2.173404,'Avinguda Diagonal 123','Barcelona','Barcelona'),(3,37.389092,-5.984459,'Calle Principal 456','Sevilla','Sevilla'),(4,39.469907,-0.376288,'Avenida Principal 789','Valencia','Valencia');
 /*!40000 ALTER TABLE `locations` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -235,8 +235,9 @@ DROP TABLE IF EXISTS `teachers`;
 CREATE TABLE `teachers` (
   `id` int NOT NULL AUTO_INCREMENT COMMENT 'id: campo que representa el id único del profesor\n',
   `experience` int NOT NULL COMMENT 'experience: campo que indica los años de experiencia del profesor',
-  `class_mode` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT 'class_mode: campo relacionado con el tipo de clase si es presencial o si es online.',
   `price_hour` decimal(10,2) NOT NULL COMMENT 'price_hour: campo que indica el precio/hora del profesor.',
+  `class_mode_in_person` tinyint NOT NULL COMMENT 'class_mode: campo relacionado con el tipo de clase si es presencial o si es online.',
+  `class_mode_online` tinyint NOT NULL,
   `about_me` mediumtext CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT 'about_me: campo que hace énfasis en una breve descripción del profesor.',
   `user_id` int NOT NULL,
   PRIMARY KEY (`id`),
@@ -251,7 +252,7 @@ CREATE TABLE `teachers` (
 
 LOCK TABLES `teachers` WRITE;
 /*!40000 ALTER TABLE `teachers` DISABLE KEYS */;
-INSERT INTO `teachers` VALUES (1,5,'Mañana',30.50,'Soy un apasionado de la enseñanza y me encanta ayudar a mis estudiantes a alcanzar su máximo potencial.',1),(2,3,'Tarde',25.00,'He enseñado historia durante años y disfruto compartiendo mi conocimiento con los alumnos.',2),(3,7,'Mañana',40.00,'Soy un apasionado de las ciencias naturales y disfruto enseñando Biología y Química.',3),(4,4,'Tarde',35.00,'Me encanta la literatura y tengo experiencia enseñando varios idiomas extranjeros.',4);
+INSERT INTO `teachers` VALUES (1,5,30.50,1,1,'Soy un apasionado de la enseñanza y me encanta ayudar a mis estudiantes a alcanzar su máximo potencial.',1),(2,3,25.00,1,1,'He enseñado historia durante años y disfruto compartiendo mi conocimiento con los alumnos.',2),(3,7,40.00,1,1,'Soy un apasionado de las ciencias naturales y disfruto enseñando Biología y Química.',3),(4,4,35.00,1,1,'Me encanta la literatura y tengo experiencia enseñando varios idiomas extranjeros.',4);
 /*!40000 ALTER TABLE `teachers` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -283,7 +284,7 @@ CREATE TABLE `users` (
   KEY `fk_users_locations1_idx` (`location_id`),
   CONSTRAINT `fk_users_locations1` FOREIGN KEY (`location_id`) REFERENCES `locations` (`id`),
   CONSTRAINT `fk_users_roles1` FOREIGN KEY (`role_id`) REFERENCES `roles` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -292,7 +293,7 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES (1,'Juan Pérez','juanito','juan.perez@example.com','123456789','$2a$10$L7NutDbu/E0XtYpw0rsUHeqAVZrim/hGfTa5B7Cbmmkw3f9.bpziK','2023-11-15 08:00:00','2023-11-15 08:00:00','1990-05-15',2,'https://i.pravatar.cc/500',3,1),(2,'María López','malopez','maria.lopez@example.com','987654321','$2a$10$L7NutDbu/E0XtYpw0rsUHeqAVZrim/hGfTa5B7Cbmmkw3f9.bpziK','2023-11-16 10:00:00','2023-11-16 10:00:00','1985-03-05',1,'https://i.pravatar.cc/500',2,2),(3,'Carlos Gómez','carlitos','carlos.gomez@example.com','555444333','$2a$10$L7NutDbu/E0XtYpw0rsUHeqAVZrim/hGfTa5B7Cbmmkw3f9.bpziK','2023-11-17 12:00:00','2023-11-17 12:00:00','1978-08-03',2,'https://i.pravatar.cc/500',2,3),(4,'Laura Martínez','lau','laura.martinez@example.com','666777888','$2a$10$L7NutDbu/E0XtYpw0rsUHeqAVZrim/hGfTa5B7Cbmmkw3f9.bpziK','2023-11-18 14:00:00','2023-11-18 14:00:00','1995-02-20',3,'https://i.pravatar.cc/500',1,4),(5,'Juano Alvarez','juan123','juana@gmail.com','637364548','$2a$10$L7NutDbu/E0XtYpw0rsUHeqAVZrim/hGfTa5B7Cbmmkw3f9.bpziK','2023-11-29 23:51:40','2023-11-29 23:51:40','1993-02-15',2,'https://i.pravatar.cc/500',1,5);
+INSERT INTO `users` VALUES (1,'Juan Pérez','juanito','juan.perez@example.com','123456789','$2a$10$L7NutDbu/E0XtYpw0rsUHeqAVZrim/hGfTa5B7Cbmmkw3f9.bpziK','2023-11-15 08:00:00','2023-11-15 08:00:00','1990-05-15',2,'https://i.pravatar.cc/500?u=clemente.alonzomayorga@peticiones.online',3,1),(2,'María López','malopez','maria.lopez@example.com','987654321','$2a$10$L7NutDbu/E0XtYpw0rsUHeqAVZrim/hGfTa5B7Cbmmkw3f9.bpziK','2023-11-16 10:00:00','2023-11-16 10:00:00','1985-03-05',1,'https://i.pravatar.cc/500?u=mariadelcarmen.herreravillanueva@peticiones.online',2,2),(3,'Carlos Gómez','carlitos','carlos.gomez@example.com','555444333','$2a$10$L7NutDbu/E0XtYpw0rsUHeqAVZrim/hGfTa5B7Cbmmkw3f9.bpziK','2023-11-17 12:00:00','2023-11-17 12:00:00','1978-08-03',2,'https://i.pravatar.cc/500?u=mario.mejiaburgos@peticiones.online',2,3),(4,'Laura Martínez','lau','laura.martinez@example.com','666777888','$2a$10$L7NutDbu/E0XtYpw0rsUHeqAVZrim/hGfTa5B7Cbmmkw3f9.bpziK','2023-11-18 14:00:00','2023-11-18 14:00:00','1995-02-20',3,'https://i.pravatar.cc/500?u=debora.bandaalcala@peticiones.online',1,4);
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -305,4 +306,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-11-29 23:52:55
+-- Dump completed on 2023-12-06 23:50:46
