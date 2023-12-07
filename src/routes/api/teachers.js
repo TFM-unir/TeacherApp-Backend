@@ -3,6 +3,7 @@ const TeacherController = require('../../controllers/teachers.controller');
 
 // Peticiones GET
 router.get('/', TeacherController.getAllTeachers);
+router.get('/:page/:perPage', TeacherController.getAllTeachersPagination);
 router.get('/:teacherId', TeacherController.getTeacherById);
 router.get('/:teacherState', TeacherController.getAllTeachersByState);
 

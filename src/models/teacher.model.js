@@ -10,6 +10,26 @@ const selectAllTeachers = () => {
     ORDER BY u.name;`);
 };
 
+const countAllTeachers = () => {
+    return db.query(`SELECT count(t.id) as count 
+    FROM teachers as t 
+    join users as u on t.user_id = u.id
+    join locations as l on u.location_id = l.id
+    join subjects as s on s.teacher_id = t.id
+    join departments as d on s.department_id = d.id WHERE u.role_id=2
+    ORDER BY u.name;`);
+};
+
+const selectAllTeachersLimit = (page, perPage) => {
+    return db.query(`SELECT t.id, u.name, u.nickname, u.date_of_birth, u.status, u.photo, l.latitude, l.longitude, l.address, l.city, l.province, t.experience, t.class_mode_online, t.class_mode_in_person, t.price_hour, t.about_me, s.subject, d.department_name 
+    FROM teachers as t 
+    join users as u on t.user_id = u.id
+    join locations as l on u.location_id = l.id
+    join subjects as s on s.teacher_id = t.id
+    join departments as d on s.department_id = d.id WHERE u.role_id=2
+    ORDER BY u.name LIMIT ?, ?;`, [page, perPage]);
+};
+
 const selectAllTeachersByState = (status, order = asc) => {
     return db.query(`SELECT t.id, u.name, u.nickname, u.date_of_birth, u.status, u.photo, l.latitude, l.longitude, l.address, l.city, l.province, t.experience, t.class_mode_online, t.class_mode_in_person, t.price_hour, t.about_me, s.subject, d.department_name 
     FROM teachers as t 
@@ -75,4 +95,4 @@ const deleteTeacherById = (id) => {
     return UserModel.deleteUserById(id)
 };
 
-module.exports = { selectAllTeachers, selectTeacherOnlyTableById, selectTeacherByUserId, insertTeacher, selectTeacherById, updateTeacherById, deleteTeacherById, selectAllTeachersByState, selectAllTeachersSortedBy, updateFullTeacherById };
+module.exports = { selectAllTeachers, selectTeacherOnlyTableById, selectTeacherByUserId, countAllTeachers, selectAllTeachersLimit, insertTeacher, selectTeacherById, updateTeacherById, deleteTeacherById, selectAllTeachersByState, selectAllTeachersSortedBy, updateFullTeacherById };
