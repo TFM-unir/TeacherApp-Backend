@@ -21,14 +21,16 @@ const getAllTeachersPagination = async (req, res) => {
 
         const { page, perPage } = req.params;
 
-        const [result] = await TeacherModel.selectAllTeachersLimit(parseInt(page), parseInt(perPage));
+        // contamos el total de profes
         const [resultCount] = await TeacherModel.countAllTeachers();
 
+        const [result] = await TeacherModel.selectAllTeachersLimit(parseInt(page), parseInt(perPage));
         res.json({
             total_pages: parseInt(resultCount[0].count / parseInt(perPage)),
             results: result
         });
     } catch (error) {
+        console.log(error)
         res.json({ fatal: error.message });
     }
 };
