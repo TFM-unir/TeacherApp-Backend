@@ -251,9 +251,9 @@ const findClassAvailableSlot = async (req, res) => {
     // #swagger.tags = ['Class']
     // #swagger.description = 'Endpoint to find a Class.'
     try {
-        const { teacherId, dayOfWeek, slot } = req.body;
+        const { teacher_id, day_of_week, slot } = req.body;
         // Consulta para encontrar un bloque horario disponible con campo id_user vacío
-        const [availableSlot] = await ClassHoursModel.findClassAvailableSlot(teacherId, dayOfWeek, slot);
+        const [availableSlot] = await ClassHoursModel.findClassAvailableSlot(teacher_id, day_of_week, slot);
         res.json(availableSlot[0]);
     } catch (error) {
         res.json({ fatal: error.message });
@@ -271,15 +271,16 @@ const UpdateClassByStudentIdAndClassId = async (req, res) => {
             schema: { $ref: "#/definitions/ClassUpdate" }
     } */
     const { userId } = req.params;
-    const { teacherId, dayOfWeek, slot } = req.body;
+    const { teacher_id, day_of_week, slot, empty_slot } = req.body;
     try {
         // Buscar un bloque horario con campo id_user vacío
-        const [availableClass] = await ClassHoursModel.findClassAvailableSlot(teacherId, dayOfWeek, slot);
+        const [availableClass] = await ClassHoursModel.findClassAvailableSlot(teacher_id, day_of_week, slot);
+        console.log(availableClass)
 
         // Actualizar el campo id_user vacío con el ID del estudiante para eso un condicional
-        if (availableSlot) {
+        if (availableClass) {
             // Si se encontró un bloque horario disponible, inscribir al estudiante
-            const [updatedClass] = await ClassHoursModel.UpdateClassByStudentIdAndClassId(userId, availableClass[0].id);
+            const [updatedClass] = await ClassHoursModel.UpdateClassByStudentIdAndClassId(userId, availableClass[0].id, empty_slot);
             const [studentSchedule] = await ClassHoursModel.getStudentClassByUserId(userId);
             res.json(studentSchedule[0]);
         } else {

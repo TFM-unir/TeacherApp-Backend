@@ -97,8 +97,8 @@ const findClassAvailableSlot = (teacherId, dayOfWeek, slot) => {
 };
 
 //con esto somos capaces de hacer el update correspondiente del slot e introducir el id del useren en la clase 
-const UpdateClassByStudentIdAndClassId = (userId, classId) => {
-    return db.query('UPDATE class_hours SET id_user1 = COALESCE(id_user1, ?), id_user2 = COALESCE(id_user2, ?), id_user3 = COALESCE(id_user3, ?), id_user4 = COALESCE(id_user4, ?), id_user5 = COALESCE(id_user5, ?) WHERE id = ?', [userId, userId, userId, userId, userId, classId]);
+const UpdateClassByStudentIdAndClassId = (userId, classId, emptySlot) => {
+    return db.query(`UPDATE class_hours SET id_user1 = CASE WHEN '${emptySlot}' = 'id_user1' THEN ${userId} ELSE id_user1 END, id_user2 = CASE WHEN '${emptySlot}' = 'id_user2' THEN ${userId} ELSE id_user2 END, id_user3 = CASE WHEN '${emptySlot}' = 'id_user3' THEN ${userId} ELSE id_user3 END, id_user4 = CASE WHEN '${emptySlot}' = 'id_user4' THEN ${userId} ELSE id_user4 END, id_user5 = CASE WHEN '${emptySlot}' = 'id_user5' THEN ${userId} ELSE id_user5 END WHERE id = ${classId}`);
 };
 
 //Con esta función somos capaces de dar de baja al student de todas sus clases suscritas
