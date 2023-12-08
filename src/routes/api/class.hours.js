@@ -24,6 +24,9 @@ router.put('/updateByTeacherId', ClassHoursController.updateClassByTeacherId);
 router.put('/updateByTeacherIdAndDayOfWeek', ClassHoursController.updateClassByTeacherIdAndDayOfWeek);
 router.put('/updateByTeacherIdAndDayOfWeekAndSlot', ClassHoursController.updateClassByTeacherIdAndDayOfWeekAndSlot);
 router.put('/updateByStudentIdAndClassId/:userId', ClassHoursController.UpdateClassByStudentIdAndClassId);
+router.put('/withdrawClassSlot/:userId/:classId', ClassHoursController.withdrawClassSlotByStudentIdAndClassId);
+router.put('/withdrawAllStudentClass/:userId', ClassHoursController.withdrawAllStudentClassByUserId);
+router.put('/withdrawStudentFromTeacherClass/:teacherId/:userId', ClassHoursController.withdrawStudentFromTeacherClass);
 
 // No hay rutas PUT definidas en el controlador proporcionado.
 
@@ -32,9 +35,5 @@ router.delete('/delete/:ClassId', ClassHoursController.deleteClassById);
 router.delete('/deleteByTeacherId', ClassHoursController.deleteClassByTeacherId);
 router.delete('/deleteByTeacherIdAndDayOfWeek', ClassHoursController.deleteClassByTeacherIdAndDayOfWeek);
 router.delete('/deleteByTeacherIdAndDayOfWeekAndSlot', ClassHoursController.deleteClassByTeacherIdAndDayOfWeekAndSlot);
-router.delete('/withdrawAllStudentClass/:userId', ClassHoursController.withdrawAllStudentClassByUserId);
-router.delete('/withdrawClassSlot/:userId/:classId', ClassHoursController.withdrawClassSlotByStudentIdAndClassId);
-router.delete('/withdrawStudentFromTeacherClass/:teacherId/:userId', ClassHoursController.withdrawStudentFromTeacherClass);
-
 
 module.exports = router;

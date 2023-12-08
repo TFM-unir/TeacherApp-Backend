@@ -275,7 +275,6 @@ const UpdateClassByStudentIdAndClassId = async (req, res) => {
     try {
         // Buscar un bloque horario con campo id_user vacío
         const [availableClass] = await ClassHoursModel.findClassAvailableSlot(teacher_id, day_of_week, slot);
-        console.log(availableClass)
 
         // Actualizar el campo id_user vacío con el ID del estudiante para eso un condicional
         if (availableClass) {
@@ -299,7 +298,7 @@ const withdrawAllStudentClassByUserId = async (req, res) => {
     const { userId } = req.params;
     try {
         const [result] = await ClassHoursModel.withdrawAllStudentClassByUserId(userId);
-        res.status(200).send("Estudiante retirado de todas las clases exitosamente");
+        res.json({ response: "Estudiante retirado de todas las clases exitosamente" });
     } catch (error) {
         res.json({ fatal: "Error al retirar al estudiante de todas las clases. Intente nuevamente más tarde." });
     }
@@ -312,7 +311,7 @@ const withdrawClassSlotByStudentIdAndClassId = async (req, res) => {
     const { userId, classId } = req.params;
     try {
         await ClassHoursModel.withdrawClassSlotByStudentIdAndClassId(userId, classId);
-        const [result] = res.status(200).send("Estudiante retirado del bloque horario exitosamente");
+        res.json({ response: "Estudiante retirado del bloque horario exitosamente" });
     } catch (error) {
         res.json({ fatal: "Error al retirar al estudiante del bloque horario. Intente nuevamente más tarde." });
     }
@@ -325,7 +324,7 @@ const withdrawStudentFromTeacherClass = async (req, res) => {
     const { teacherId, userId } = req.params;
     try {
         await ClassHoursModel.withdrawStudentFromTeacherClass(teacherId, userId);
-        const [result] = res.status(200).send("Estudiante retirado de todas las clases del profesor exitosamente");
+        res.json({ response: "Estudiante retirado de todas las clases del profesor exitosamente" });
     } catch (error) {
         res.json({ fatal: "Error al retirar al estudiante de las clases del profesor. Intente nuevamente más tarde." });
     }

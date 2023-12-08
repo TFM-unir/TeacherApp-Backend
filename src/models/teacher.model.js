@@ -58,7 +58,7 @@ const selectTeacherById = (id) => {
     join locations as l on u.location_id = l.id
     join subjects as s on s.teacher_id = t.id
     join departments as d on s.department_id = d.id
-    where u.id = ?;`, [id]);
+    where t.id = ?;`, [id]);
 };
 
 const selectTeacherOnlyTableById = (id) => {
