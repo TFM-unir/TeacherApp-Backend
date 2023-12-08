@@ -12,6 +12,29 @@ const getAllTeachers = async (req, res) => {
     }
 };
 
+
+const getAllTeachersPagination = async (req, res) => {
+    /**#swagger.tags = ['Teachers']
+       #swagger.description = 'Endpoint to get all Teachers.'
+    */
+    try {
+
+        const { page, perPage } = req.params;
+
+        // contamos el total de profes
+        const [resultCount] = await TeacherModel.countAllTeachers();
+
+        const [result] = await TeacherModel.selectAllTeachersLimit(parseInt(page), parseInt(perPage));
+        res.json({
+            total_pages: parseInt(resultCount[0].count / parseInt(perPage)),
+            results: result
+        });
+    } catch (error) {
+        console.log(error)
+        res.json({ fatal: error.message });
+    }
+};
+
 const getAllTeachersByState = async (req, res) => {
     /**#swagger.tags = ['Teachers']
        #swagger.description = 'Endpoint to get all Teachers by state.'
@@ -97,4 +120,4 @@ const deleteTeacher = async (req, res) => {
     }
 };
 
-module.exports = { getAllTeachers, getTeacherById, createTeacher, updateTeacher, deleteTeacher, getAllTeachersByState }
+module.exports = { getAllTeachers, getTeacherById, createTeacher, updateTeacher, deleteTeacher, getAllTeachersByState, getAllTeachersPagination }
