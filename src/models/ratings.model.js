@@ -33,8 +33,8 @@ const selectAverageRateByTeacherId = (teacherId) => {
 //Area del student (es el único que podría crear un rating)
 
 //Se inserta y crea el raiting en la tabla de la BD
-const insertRating = ({ rating, comment_student, teacherId, userId }) => {
-    return db.query('INSERT INTO ratings (rating, comment_student, teacherId, userId) VALUES (?, ?, ?, ?)', [rating, comment_student, teacherId, userId]);
+const insertRating = ({ rating, comment_student, teacher_id, user_id }) => {
+    return db.query('INSERT INTO ratings (rating, comment_student, teacher_id, user_id) VALUES (?, ?, ?, ?)', [rating, comment_student, teacher_id, user_id]);
 };
 
 //Area del teacher (ya que el no puede crear un rating solo responder con u comentario)
