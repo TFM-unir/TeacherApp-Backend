@@ -105,6 +105,7 @@ const getChatByUserIdAndTeacherIdAndBoolean = async (req, res) => {
 
 // Crea un nuevo chat con la información proporcionada
 const createChat = async (req, res) => {
+    
     // #swagger.tags = ['Chats']
     // #swagger.description = 'Endpoint to create a Chat.'
     /* #swagger.parameters['obj'] = {
