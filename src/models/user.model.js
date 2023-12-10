@@ -23,8 +23,11 @@ const updateUserLocationId = (location_id, user_id) => {
     return db.query('UPDATE users SET location_id = ? WHERE id = ?', [location_id, user_id]);
 }
 
-const updateUserById = (id, { name, nickname, email, phone, password, age, status, role_id, location_id, photo }) => {
-    return db.query('UPDATE users SET name= ?, nickname= ?, email= ?, phone= ?, password= ?, age= ?, status= ?, role_id = ?, location_id= ?, photo= ? WHERE id = ?', [name, nickname, email, phone, password, age, status, role_id, location_id, photo, id]);
+const updateUserById = (id, { name, nickname, email, phone, update_date, date_of_birth, photo, latitude, longitude, address, city, province }) => {
+    return db.query(`UPDATE users as u 
+    JOIN locations as l on u.location_id = l.id
+    SET u.name= ?, u.nickname= ?, u.email= ?, u.phone= ?, u.update_date= ?, u.date_of_birth= ?, u.photo= ?, l.latitude = ?, l.longitude= ?, l.address= ?, l.city= ?, l.province= ? 
+    WHERE u.id = ?`, [name, nickname, email, phone, update_date, date_of_birth, photo, latitude, longitude, address, city, province, id]);
 };
 
 const deleteUserById = (id) => {

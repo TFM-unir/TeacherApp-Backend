@@ -240,7 +240,7 @@ const getStudentClassByUserId = async (req, res) => {
     try {
         // Consulta para encontrar al estudiante en todos los campos id_user
         const [studentSchedule] = await ClassHoursModel.getStudentClassByUserId(userId);
-        res.json(studentSchedule[0]);
+        res.json(studentSchedule);
     } catch (error) {
         res.json({ fatal: error.message });
     }

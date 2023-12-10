@@ -7,7 +7,7 @@ router.get('/pagination/:page/:perPage', TeacherController.getAllTeachersPaginat
 router.get('/:teacherId', TeacherController.getTeacherById);
 router.get('/all/:teacherId', TeacherController.getTeacherByIdAllData);
 router.get('/:teacherState', TeacherController.getAllTeachersByState);
-
+router.get('/user/:userId', TeacherController.getTeacherByUserId);
 
 //Peticiones POST
 router.post('/', TeacherController.createTeacher);

@@ -58,11 +58,12 @@ const updateStudent = async (req, res) => {
         const { studentId } = req.params;
         const [result] = await StudentModel.updateStudentById(studentId, req.body);
 
-        if (result.changedRows == 0) {
+        /* if (result.changedRows == 0) {
             res.status(404).send('Student does not change ');
         } else {
             res.status(200).send("Student modified successfuly");
-        }
+        } */
+        res.json(result);
     } catch (error) {
         res.json({ fatal: error.message });
     }
