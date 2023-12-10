@@ -52,7 +52,7 @@ const selectAllTeachersSortedBy = (field, order = asc) => { //field = campo para
 };
 
 const selectTeacherById = (id) => {
-    return db.query(`SELECT t.id, u.name, u.nickname, u.date_of_birth, u.status, u.photo, l.latitude, l.longitude, l.address, l.city, l.province, t.experience, t.class_mode_online, t.class_mode_in_person, t.price_hour, t.about_me, s.subject, d.department_name 
+    return db.query(`SELECT t.id, u.name, u.nickname, u.date_of_birth, u.status, u.photo, u.email, u.phone, l.latitude, l.longitude, l.address, l.city, l.province, t.experience, t.class_mode_online, t.class_mode_in_person, t.price_hour, t.about_me, s.subject, d.department_name 
     FROM teachers as t 
     join users as u on t.user_id = u.id
     join locations as l on u.location_id = l.id
