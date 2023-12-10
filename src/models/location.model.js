@@ -19,7 +19,7 @@ const insertLocationNoDuplicate = async ({ latitude, longitude, address, city, p
 
     if (location.length === 0) {
         const [result] = await insertLocation({ latitude, longitude, address, city, province });
-        [location] = await selectLocationById(result.insertId);
+        return await selectLocationById(result.insertId);
     }
 
     return [location]
