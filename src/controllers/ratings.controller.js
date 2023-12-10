@@ -57,8 +57,8 @@ const getRatingByUserIdAndTeacherId = async (req, res) => {
     // #swagger.description = 'Endpoint to get a Rating.'
     const { teacherId, userId } = req.params;
     try {
-        const [rating] = await RatingModel.selectRatingByUserIdAndTeacherId(teacherId, userId);
-        res.json(rating[0]);
+        const rating = await RatingModel.selectRatingByUserIdAndTeacherId(teacherId, userId);
+        res.json(rating);
     } catch (error) {
         res.json({ error: error.message });
     }
@@ -87,9 +87,9 @@ const createRating = async (req, res) => {
             required: true,
             schema: { $ref: "#/definitions/Ratings" }
     } */
-    const { rating, comment_student, teacherId, userId } = req.body;
+    const { rating, comment_student, teacher_id, user_id } = req.body;
     try {
-        const [result] = await RatingModel.insertRating({ rating, comment_student, teacherId, userId });
+        const [result] = await RatingModel.insertRating({ rating, comment_student, teacher_id, user_id });
         const [newRating] = await RatingModel.selectRatingByRatingId(result.insertId);
         res.json(newRating[0]);
     } catch (error) {
