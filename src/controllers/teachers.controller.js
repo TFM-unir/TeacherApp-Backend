@@ -103,13 +103,13 @@ const updateTeacher = async (req, res) => {
     } */
     try {
         const { teacherId } = req.params;
-        const result = await TeacherModel.updateTeacherById(teacherId, req.body);
-        if (result.changedRows == 0) {
+        const result = await TeacherModel.updateFullTeacherById(teacherId, req.body);
+       /*  if (result.changedRows == 0) {
             res.status(404).send('Teacher does not change ');
         } else {
-            res.status(200).send("Teacher modified successfuly");
-        }
-        res.json(result);
+           res.status(200).send("Teacher modified successfuly");
+        } */
+        res.json(result)
     } catch (error) {
         res.json({ fatal: error.message });
     }
