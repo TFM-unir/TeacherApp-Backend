@@ -61,6 +61,19 @@ const getTeacherById = async (req, res) => {
     }
 };
 
+const getTeacherByIdAllData = async (req, res) => {
+    /**#swagger.tags = ['Teachers']
+       #swagger.description = 'Endpoint to get a Teacher.'
+    */
+    try {
+        const { teacherId } = req.params;
+        const [result] = await TeacherModel.selectTeacherByIdAllData(teacherId);
+        res.json(result[0]);
+    } catch (error) {
+        res.json({ fatal: error.message });
+    }
+};
+
 const createTeacher = async (req, res) => {
     // #swagger.tags = ['Teachers']
     // #swagger.description = 'Endpoint to create a Teacher.'
@@ -120,4 +133,4 @@ const deleteTeacher = async (req, res) => {
     }
 };
 
-module.exports = { getAllTeachers, getTeacherById, createTeacher, updateTeacher, deleteTeacher, getAllTeachersByState, getAllTeachersPagination }
+module.exports = { getAllTeachers, getTeacherById, createTeacher, updateTeacher, deleteTeacher, getAllTeachersByState, getAllTeachersPagination, getTeacherByIdAllData }

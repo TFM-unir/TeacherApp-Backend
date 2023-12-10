@@ -5,6 +5,7 @@ const TeacherController = require('../../controllers/teachers.controller');
 router.get('/', TeacherController.getAllTeachers);
 router.get('/pagination/:page/:perPage', TeacherController.getAllTeachersPagination);
 router.get('/:teacherId', TeacherController.getTeacherById);
+router.get('/all/:teacherId', TeacherController.getTeacherByIdAllData);
 router.get('/:teacherState', TeacherController.getAllTeachersByState);
 
 
