@@ -62,10 +62,20 @@ const selectTeacherById = (id) => {
     where t.id = ?;`, [id]);
 };
 
+const selectTeacherByIdAllData = (id) => {
+    return db.query(`SELECT t.id, u.name, u.nickname, u.phone, u.email, u.date_of_birth, u.status, u.photo, l.latitude, l.longitude, l.address, l.city, l.province, t.experience, t.class_mode_online, t.class_mode_in_person, t.price_hour, t.about_me, s.subject, d.department_name 
+    FROM teachers as t 
+    join users as u on t.user_id = u.id
+    join locations as l on u.location_id = l.id
+    join subjects as s on s.teacher_id = t.id
+    join departments as d on s.department_id = d.id
+    where t.id = ?;`, [id]);
+};
+
 const selectTeacherOnlyTableById = (id) => {
     return db.query('SELECT * FROM teachers WHERE id = ?', [id]);
 }
-//NOTE: primero se inserta user y luego teacher -> coger datos del token
+
 const selectTeacherByUserId = (userId) => {
     return db.query('SELECT * FROM teachers WHERE user_id = ?', [userId]);
 }
@@ -75,13 +85,13 @@ const insertTeacher = ({ experience, class_mode_online, class_mode_in_person, pr
     VALUES (?,?,?,?,?,?);`, [experience, class_mode_online, class_mode_in_person, price_hour, about_me, user_id]);
 }
 
-//con datos que vienen del formulario (update perfil)
-const updateFullTeacherById = (id, { name, nickname, email, phone, password, update_date, date_of_birth, photo, latitude, longitud, address, city, province, experience, class_mode_online, class_mode_in_person, price_hour, about_me }) => {
+//con datos que vienen del formulario (update perfil) menos el password
+const updateFullTeacherById = (id, { name, nickname, email, phone, update_date, date_of_birth, photo, latitude, longitud, address, city, province, experience, class_mode_online, class_mode_in_person, price_hour, about_me }) => {
     return db.query(`UPDATE teachers as t
     JOIN users as u on t.user_id = u.id
     join locations as l on u.location_id = l.id
-    SET u.name = ? , u.nickname = ?, u.email = ?, u.phone = ?, u.password = ?, u.update_date = ?, u.date_of_birth = ?, u.photo = ?, l.latitude = ?, l.longitud = ?, l.address = ?, l.city = ?, l.province = ?, t.experience = ?, t.class_mode_online = ?,t.class_mode_in_person = ?, t.price_hour = ?, t.about_me = ?
-    WHERE u.id = ?;`, [name, nickname, email, phone, password, update_date, date_of_birth, photo, latitude, longitud, address, city, province, experience, class_mode_online, class_mode_in_person, price_hour, about_me, id]);
+    SET u.name = ? , u.nickname = ?, u.email = ?, u.phone = ?, u.update_date = ?, u.date_of_birth = ?, u.photo = ?, l.latitude = ?, l.longitude = ?, l.address = ?, l.city = ?, l.province = ?, t.experience = ?, t.class_mode_online = ?,t.class_mode_in_person = ?, t.price_hour = ?, t.about_me = ?
+    WHERE u.id = ?;`, [name, nickname, email, phone, update_date, date_of_birth, photo, latitude, longitud, address, city, province, experience, class_mode_online, class_mode_in_person, price_hour, about_me, id]);
 };
 
 
@@ -96,4 +106,4 @@ const deleteTeacherById = (id) => {
     return UserModel.deleteUserById(id)
 };
 
-module.exports = { selectAllTeachers, selectTeacherOnlyTableById, selectTeacherByUserId, countAllTeachers, selectAllTeachersLimit, insertTeacher, selectTeacherById, updateTeacherById, deleteTeacherById, selectAllTeachersByState, selectAllTeachersSortedBy, updateFullTeacherById };
+module.exports = { selectAllTeachers, selectTeacherOnlyTableById, selectTeacherByUserId, countAllTeachers, selectAllTeachersLimit, insertTeacher, selectTeacherById, updateTeacherById, deleteTeacherById, selectAllTeachersByState, selectAllTeachersSortedBy, updateFullTeacherById, selectTeacherByIdAllData };
