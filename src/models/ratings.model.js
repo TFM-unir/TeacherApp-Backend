@@ -42,6 +42,11 @@ const updateRatingById = (id, { comment_teacher }) => {
     return db.query('UPDATE ratings SET comment_teacher = ? WHERE id = ?', [comment_teacher, id]);
 };
 
+//Area del teacher (ya que el no puede crear un rating solo responder con u comentario)
+const updateRatingById2 = (id, comment_teacher) => {
+    return db.query('UPDATE ratings SET comment_teacher = ? WHERE id = ?', [comment_teacher, id]);
+};
+
 //Area del admin (podria eliminar o editar cualquier rating)
 
 //Elimina un rating por id
@@ -63,6 +68,7 @@ module.exports = {
     selectAverageRateByTeacherId,
     insertRating,
     updateRatingById,
+    updateRatingById2,
     deleteRatingById,
     deleteRatingByUserIdAndTeacherId
 };

@@ -107,10 +107,33 @@ const updateRating = async (req, res) => {
             required: true,
             schema: { $ref: "#/definitions/Ratings" }
     } */
-    const { id } = req.params;
+    const { id } = req.params
     const { comment_teacher } = req.body;
     try {
         const [result] = await RatingModel.updateRatingById(id, comment_teacher);
+        console.log(result)
+        const [updatedRating] = await RatingModel.selectRatingByRatingId(id);
+        res.json(updatedRating[0]);
+    } catch (error) {
+        res.json({ error: error.message });
+    }
+};
+
+// Función que actualiza un rating por su ID con el comentario del profesor
+const updateRating2 = async (req, res) => {
+    // #swagger.tags = ['Ratings']
+    // #swagger.description = 'Endpoint to update a Rating.'
+    /* #swagger.parameters['obj'] = {
+            in: 'body',
+            description: 'Rating information.',
+            required: true,
+            schema: { $ref: "#/definitions/Ratings" }
+    } */
+    const { id, comment_teacher } = req.body;
+    console.log(id, comment_teacher)
+    try {
+        const [result] = await RatingModel.updateRatingById2(id, comment_teacher);
+        console.log(result)
         const [updatedRating] = await RatingModel.selectRatingByRatingId(id);
         res.json(updatedRating[0]);
     } catch (error) {
@@ -153,6 +176,7 @@ module.exports = {
     getAverageRateByTeacherId,
     createRating,
     updateRating,
+    updateRating2,
     deleteRatingById,
     deleteRatingByUserIdAndTeacherId
 };

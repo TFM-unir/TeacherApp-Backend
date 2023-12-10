@@ -23,6 +23,9 @@ router.get('/user/:userId/teacher/:teacherId', RatingController.getRatingByUserI
 router.post('/', RatingController.createRating);
 
 // Ruta para actualizar un rating por su ID
+router.put('/update/:id', RatingController.updateRating2);
+
+// Ruta para actualizar un rating por su ID
 router.put('/:id', RatingController.updateRating);
 
 // Ruta para eliminar un rating por su ID
