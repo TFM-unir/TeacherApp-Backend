@@ -40,7 +40,6 @@ const selectChatByUserIdAndTeacherIdAndBoolean = (teacherId, userId, boolean) =>
 
 //Se inserta y crea el chat en la tabla de la BD
 const insertChat = ({ message, boolean_teacher, userId, teacherId }) => {
-    console.log(boolean_teacher)
     return db.query('INSERT INTO chats (message, boolean_teacher, user_id, teacher_id) VALUES (?, ?, ?, ?)', [message, boolean_teacher, userId, teacherId]);
 };
 

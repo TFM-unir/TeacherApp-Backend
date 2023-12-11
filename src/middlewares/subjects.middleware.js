@@ -4,7 +4,6 @@ const checkSubjectTeacher = async (req, res, next) => {
     const { subject, teacher_id, department_id } = req.body;
     try {
         const [subjectObj] = await SubjectsModel.selectAllSubjectsByTeacherId(teacher_id);
-        console.log(subjectObj)
         if (subjectObj.length === 0) {
             next();
         } else {
