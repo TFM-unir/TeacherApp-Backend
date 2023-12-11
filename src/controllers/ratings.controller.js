@@ -111,7 +111,6 @@ const updateRating = async (req, res) => {
     const { comment_teacher } = req.body;
     try {
         const [result] = await RatingModel.updateRatingById(id, comment_teacher);
-        console.log(result)
         const [updatedRating] = await RatingModel.selectRatingByRatingId(id);
         res.json(updatedRating[0]);
     } catch (error) {
@@ -130,10 +129,8 @@ const updateRating2 = async (req, res) => {
             schema: { $ref: "#/definitions/Ratings" }
     } */
     const { id, comment_teacher } = req.body;
-    console.log(id, comment_teacher)
     try {
         const [result] = await RatingModel.updateRatingById2(id, comment_teacher);
-        console.log(result)
         const [updatedRating] = await RatingModel.selectRatingByRatingId(id);
         res.json(updatedRating[0]);
     } catch (error) {

@@ -30,7 +30,6 @@ const getAllTeachersPagination = async (req, res) => {
             results: result
         });
     } catch (error) {
-        console.log(error)
         res.json({ fatal: error.message });
     }
 };
