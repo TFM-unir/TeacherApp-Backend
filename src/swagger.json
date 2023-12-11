@@ -90,6 +90,33 @@
         }
       }
     },
+    "/api/teachers/pagination/{page}/{perPage}": {
+      "get": {
+        "tags": [
+          "Teachers"
+        ],
+        "description": "Endpoint to get all Teachers.",
+        "parameters": [
+          {
+            "name": "page",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "perPage",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
     "/api/teachers/{teacherId}": {
       "get": {
         "tags": [
@@ -135,9 +162,6 @@
         "responses": {
           "200": {
             "description": "OK"
-          },
-          "404": {
-            "description": "Not Found"
           }
         }
       },
@@ -164,6 +188,27 @@
         }
       }
     },
+    "/api/teachers/all/{userId}": {
+      "get": {
+        "tags": [
+          "Teachers"
+        ],
+        "description": "Endpoint to get a Teacher.",
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
     "/api/teachers/{teacherState}": {
       "get": {
         "tags": [
@@ -173,6 +218,24 @@
         "parameters": [
           {
             "name": "teacherState",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/teachers/user/{userId}": {
+      "get": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "userId",
             "in": "path",
             "required": true,
             "type": "string"
@@ -299,9 +362,6 @@
           },
           "403": {
             "description": "Forbidden"
-          },
-          "404": {
-            "description": "Not Found"
           }
         }
       },
@@ -332,6 +392,29 @@
           },
           "404": {
             "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/api/users/": {
+      "get": {
+        "tags": [
+          "Users"
+        ],
+        "description": "Endpoint to get all Users.",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "403": {
+            "description": "Forbidden"
           }
         }
       }
@@ -367,9 +450,6 @@
           },
           "403": {
             "description": "Forbidden"
-          },
-          "500": {
-            "description": "Internal Server Error"
           }
         }
       }
@@ -393,6 +473,41 @@
             "required": true,
             "schema": {
               "$ref": "#/definitions/UsersLogin"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/api/users/status": {
+      "put": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "example": "any"
+                },
+                "status": {
+                  "example": "any"
+                }
+              }
             }
           }
         ],
@@ -1169,6 +1284,105 @@
         }
       }
     },
+    "/api/class/withdrawClassSlot/{userId}/{classId}": {
+      "put": {
+        "tags": [
+          "Class"
+        ],
+        "description": "Endpoint to remove a Class.",
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "classId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/api/class/withdrawAllStudentClass/{userId}": {
+      "put": {
+        "tags": [
+          "Class"
+        ],
+        "description": "Endpoint to remove a Class.",
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/api/class/withdrawStudentFromTeacherClass/{teacherId}/{userId}": {
+      "put": {
+        "tags": [
+          "Class"
+        ],
+        "description": "Endpoint to remove a Class.",
+        "parameters": [
+          {
+            "name": "teacherId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "userId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
     "/api/class/delete/{ClassId}": {
       "delete": {
         "tags": [
@@ -1302,105 +1516,6 @@
           },
           "404": {
             "description": "Not Found"
-          }
-        }
-      }
-    },
-    "/api/class/withdrawAllStudentClass/{userId}": {
-      "delete": {
-        "tags": [
-          "Class"
-        ],
-        "description": "Endpoint to remove a Class.",
-        "parameters": [
-          {
-            "name": "userId",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "authorization",
-            "in": "header",
-            "type": "string"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "403": {
-            "description": "Forbidden"
-          }
-        }
-      }
-    },
-    "/api/class/withdrawClassSlot/{userId}/{classId}": {
-      "delete": {
-        "tags": [
-          "Class"
-        ],
-        "description": "Endpoint to remove a Class.",
-        "parameters": [
-          {
-            "name": "userId",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "classId",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "authorization",
-            "in": "header",
-            "type": "string"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "403": {
-            "description": "Forbidden"
-          }
-        }
-      }
-    },
-    "/api/class/withdrawStudentFromTeacherClass/{teacherId}/{userId}": {
-      "delete": {
-        "tags": [
-          "Class"
-        ],
-        "description": "Endpoint to remove a Class.",
-        "parameters": [
-          {
-            "name": "teacherId",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "userId",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "authorization",
-            "in": "header",
-            "type": "string"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "403": {
-            "description": "Forbidden"
           }
         }
       }
@@ -1730,6 +1845,35 @@
         }
       }
     },
+    "/api/ratings/prom/teacher/{teacherId}": {
+      "get": {
+        "tags": [
+          "Ratings"
+        ],
+        "description": "Endpoint to get the average rate of a Teacher",
+        "parameters": [
+          {
+            "name": "teacherId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
     "/api/ratings/user/{userId}": {
       "get": {
         "tags": [
@@ -1815,6 +1959,44 @@
             "name": "authorization",
             "in": "header",
             "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/api/ratings/update/{id}": {
+      "put": {
+        "tags": [
+          "Ratings"
+        ],
+        "description": "Endpoint to update a Rating.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "obj",
+            "in": "body",
+            "description": "Rating information.",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Ratings"
+            }
           }
         ],
         "responses": {
