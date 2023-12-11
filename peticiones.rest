@@ -1,0 +1,270 @@
+########
+### API ####
+#########
+
+######## Students
+###
+POST http://localhost:3000/api/students
+Content-Type: application/json
+
+{
+    "name": "Emilio Alvarez", 
+    "nickname": "emilio123", 
+    "email": "emil.923@emil.com", 
+    "phone": "+34 2309234", 
+    "password": "12345", 
+    "date_of_birth": "1989-09-30", 
+    "status": 2, 
+    "role_id": 1, 
+    "location_id": 1,
+    "photo": "url"
+
+}
+
+###
+GET http://localhost:3000/api/students/
+
+###
+GET http://localhost:3000/api/students/5
+
+###
+PUT http://localhost:3000/api/students/3
+Content-Type: application/json
+
+{
+    
+    "name": "Emilio Alvarez", 
+    "nickname": "emilio123", 
+    "email": "em.12356@emil.com", 
+    "phone": "+34 232345234", 
+    "password": "12345", 
+    "date_of_birth": "1989-09-30", 
+    "status": 2, 
+    "role_id": 2, 
+    "location_id": 3,
+    "photo": "url"
+
+}
+
+###
+DELETE http://localhost:3000/api/students/2
+
+
+
+######## Teachers
+###
+POST http://localhost:3000/api/teachers
+Content-Type: application/json
+
+{
+    "experience" : 5, 
+    "class_mode" : "ll", 
+    "price_hour" : 5, 
+    "about_me" : "afa", 
+    "user_id" : 3
+
+}
+
+###
+GET http://localhost:3000/api/teachers/
+
+###
+GET http://localhost:3000/api/teachers/1
+
+###
+PUT http://localhost:3000/api/teachers/1
+Content-Type: application/json
+
+{
+    
+    "experience" : 5, 
+    "class_mode" : "ll", 
+    "price_hour" : 76, 
+    "about_me" : "afa", 
+    "user_id" : 3
+
+}
+
+###
+DELETE http://localhost:3000/api/teachers/2
+
+
+
+
+######## Locations
+###
+POST http://localhost:3000/api/locations
+Content-Type: application/json
+
+{
+    "latitude": 3,
+    "longitude":4, 
+    "address": "Calle Pedro", 
+    "city": "Valencia", 
+    "province": "Valencia"
+
+}
+
+###
+GET http://localhost:3000/api/locations/
+
+###
+GET http://localhost:3000/api/locations/5
+
+###
+PUT http://localhost:3000/api/locations/5
+Content-Type: application/json
+
+{
+    
+
+    "latitude": 34,
+    "longitude":4, 
+    "address": "Calle Pedro", 
+    "city": "Valencia", 
+    "province": "Valencia"
+
+}
+
+###
+DELETE http://localhost:3000/api/locations/2
+
+
+
+
+######## Subjects
+###
+POST http://localhost:3000/api/subjects
+Content-Type: application/json
+
+{
+
+  "subjectForm": [
+      {
+        "department_id": 1,
+        "teacher_id" : 2,
+        "subject" : "Trigonometria"
+      },
+      {
+        "department_id": 2,
+        "teacher_id" : 2,
+        "subject" : "Literatura Anglosajona"
+      }
+  ]
+}
+
+###
+GET http://localhost:3000/api/subjects/teacher/3
+
+###
+GET http://localhost:3000/api/subjects/4
+
+###
+PUT http://localhost:3000/api/subjects/4
+Content-Type: application/json
+
+{
+    
+    "department_id": 2,
+    "teacher_id" : 2,
+    "subject" : "Literatura Anglosa"
+
+}
+
+###
+DELETE http://localhost:3000/api/subjects/3
+
+
+
+######## Departments
+###
+POST http://localhost:3000/api/departments
+Content-Type: application/json
+
+{
+  "department_name": "mathe",
+  "description" : "restar"
+  
+}
+
+###
+GET http://localhost:3000/api/departments/1
+
+###
+PUT http://localhost:3000/api/departments/1
+Content-Type: application/json
+
+{
+  "department_name": "mathe",
+  "description" : "sumar"
+  
+}
+   
+###
+DELETE http://localhost:3000/api/departments/5
+
+
+
+
+############# Register
+###
+POST http://localhost:3000/api/users/register
+Content-Type: application/json
+{
+    "name": "rubenes Alvarez", 
+    "nickname": "rub123", 
+    "email": "rube@gmail.com", 
+    "phone": "6423634548", 
+    "password": "12345", 
+    "date_of_birth": "1993-02-15", 
+    "status": 2, 
+    "role_id": 1, 
+    "photo": "url"
+}
+### DEVUELVE
+{
+  "success": "Login Correcto",
+  "token": {
+    "user_id": 6,
+    "user_name": "ruben Alvarez",
+    "user_email": "rub@gmail.com",
+    "user_birthday": "1993-02-15",
+    "user_role": 1,
+    "user_status": 2,
+    "user_location": 2,
+    "user_creation_date": "2023-11-25 12:50:55",
+    "user_update_date": "2023-11-25 12:50:55",
+    "exp": 1701346284
+  }
+}
+
+###
+POST http://localhost:3000/api/users/register
+Content-Type: application/json
+
+{
+  "userForm":{
+    "name": "Juana Alvarez", 
+    "nickname": "juasdn123", 
+    "email": "pedesdasd@gmail.com", 
+    "phone": "643434548", 
+    "password": "12345", 
+    "date_of_birth": "1993-02-15", 
+    "status": 2, 
+    "role_id": 2, 
+    "photo": "url"
+  },
+  "teacherForm": {
+    "experience":5,
+    "class_mode": "Mañana",
+    "price_hour": 10.50,
+    "about_me": "Soy un soñador brutal con todos los hierros"
+  },
+  "locationForm": {
+    "latitude": 41.385063,
+    "longitude": 2.987456,
+    "address": "calle de quintal 25",
+    "city": "Santiago",
+    "province": "A Coruña"
+  }
+}
