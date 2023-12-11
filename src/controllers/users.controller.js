@@ -136,7 +136,7 @@ const login = async (req, res) => {
         res.json({ fatal: error.message });
     };
 
-    
+
 };
 
 // Activar, desactivar y dar de baja a usuarios
@@ -159,4 +159,23 @@ const updateUserStatusById = async (req, res) => {
     }
 };
 
-module.exports = { register, login, updateUserStatusById} // , location }
+const getAllUsers = async (req, res) => {
+    /**#swagger.tags = ['Users']
+       #swagger.description = 'Endpoint to get all Users.'
+    */
+    try {
+        const [students] = await UsersModel.selectAllUsers(1);
+        const [teachers] = await UsersModel.selectAllUsers(2);
+
+        return res.json({
+            students: students,
+            teachers: teachers
+        });
+
+    } catch (error) {
+        res.json({ fatal: error.message });
+    }
+};
+
+
+module.exports = { register, login, updateUserStatusById, getAllUsers } // , location }
