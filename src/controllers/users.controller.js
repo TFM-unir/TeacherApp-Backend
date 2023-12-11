@@ -102,9 +102,6 @@ const register = async (req, res) => {
     };
 };
 
-// TODO: Modelo 2 de Register
-
-
 //Elaboramos el login
 const login = async (req, res) => {
     // #swagger.tags = ['Users']
@@ -137,36 +134,47 @@ const login = async (req, res) => {
         });
     } catch (error) {
         res.json({ fatal: error.message });
-    }
+    };
+
 
 };
 
-
-
-/*/TODO: Este es el modelo 2 el que me parece mejor utilizar
-//Elaboramos la insersión del location
-const location = async (req, res) => {
-    //se coloca en una constante el token para extraer el ID
-    const { token } = JSON.parse(req.headers['authorization']);
-    //Decodificamos el Token
-    const tokenUncode = jsonwebtoken.decode(token, process.env.SECRET_KEY);
+// Activar, desactivar y dar de baja a usuarios
+const updateUserStatusById = async (req, res) => {
+    const { id, status } = req.body; // Recuperamos id y status del front
     try {
-        //se inserta en la bd los datos indicados del front
-        const [result] = await LocationModel.insertLocation(req.body);
-        const [resultUpdatedUser] = await UsersModel.updateUserLocationId(result.insertId, tokenUncode.user_id);
-        const [location] = await LocationModel.selectLocationByUserId(tokenUncode.user_id);
-        res.json(location[0]);
+        // Validar que el status number sea correcto
+        if (typeof status !== 'number' || ![1, 2, 3].includes(status)) {
+            return res.json({ fatal: 'Número de status no válido' });
+        };
 
-        res.json(location[0]);
+        // Hacer el update a la bbdd
+        const result = await UsersModel.updateStatusById(id, status);
+
+        // Obtener respuestas
+        res.json({ result });
+    } catch (error) {
+        return res.json({ fatal: 'Internal Server Error' });
+    }
+};
+
+const getAllUsers = async (req, res) => {
+    /**#swagger.tags = ['Users']
+       #swagger.description = 'Endpoint to get all Users.'
+    */
+    try {
+        const [students] = await UsersModel.selectAllUsers(1);
+        const [teachers] = await UsersModel.selectAllUsers(2);
+
+        return res.json({
+            students: students,
+            teachers: teachers
+        });
 
     } catch (error) {
-        res.json({ fatal: error.message })
+        res.json({ fatal: error.message });
     }
-}*/
+};
 
 
-
-
-
-
-module.exports = { register, login } // , location }
+module.exports = { register, login, updateUserStatusById, getAllUsers } // , location }

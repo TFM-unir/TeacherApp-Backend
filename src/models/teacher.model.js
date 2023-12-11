@@ -1,13 +1,13 @@
 const UserModel = require('./user.model');
 
 const selectAllTeachers = () => {
-    return db.query(`SELECT t.id, u.name, u.nickname, u.date_of_birth, u.status, u.photo, l.latitude, l.longitude, l.address, l.city, l.province, t.experience, t.class_mode_online, t.class_mode_in_person, t.price_hour, t.about_me, s.subject, r.rating, d.department_name 
+    return db.query(`SELECT t.id, t.user_id, u.name, u.nickname, u.date_of_birth, u.status, u.photo, l.latitude, l.longitude, l.address, l.city, l.province, t.experience, t.class_mode_online, t.class_mode_in_person, t.price_hour, t.about_me, s.subject, r.rating, d.department_name 
     FROM teachers as t 
     join users as u on t.user_id = u.id
     join locations as l on u.location_id = l.id
     join subjects as s on s.teacher_id = t.id
     left join ratings as r on r.teacher_id = t.id
-    join departments as d on s.department_id = d.id WHERE u.role_id = 2
+    join departments as d on s.department_id = d.id WHERE u.role_id = 2 AND u.status = 2
     ORDER BY u.name;`);
 };
 
@@ -17,7 +17,7 @@ const countAllTeachers = () => {
     join users as u on t.user_id = u.id
     join locations as l on u.location_id = l.id
     join subjects as s on s.teacher_id = t.id
-    join departments as d on s.department_id = d.id WHERE u.role_id=2
+    join departments as d on s.department_id = d.id WHERE u.role_id=2 AND u.status = 2
     ORDER BY u.name;`);
 };
 
@@ -27,7 +27,7 @@ const selectAllTeachersLimit = (page, perPage) => {
     join users as u on t.user_id = u.id
     join locations as l on u.location_id = l.id
     join subjects as s on s.teacher_id = t.id
-    join departments as d on s.department_id = d.id WHERE u.role_id=2
+    join departments as d on s.department_id = d.id WHERE u.role_id=2 AND u.status = 2
     ORDER BY u.name LIMIT ?, ?;`, [page, perPage]);
 };
 
@@ -38,7 +38,7 @@ const selectAllTeachersByState = (status, order = asc) => {
     join locations as l on u.location_id = l.id
     join subjects as s on s.teacher_id = t.id
     join departments as d on s.department_id = d.id
-    where u.status = ? AND u.role_id=2
+    where u.status = ? AND u.role_id=2 AND u.status = 2 
     ORDER BY u.name ?;`, [status, order]);
 };
 
@@ -48,7 +48,7 @@ const selectAllTeachersSortedBy = (field, order = asc) => { //field = campo para
     join users as u on t.user_id = u.id
     join locations as l on u.location_id = l.id
     join subjects as s on s.teacher_id = t.id
-    join departments as d on s.department_id = d.id WHERE u.role_id=2
+    join departments as d on s.department_id = d.id WHERE u.role_id=2 AND u.status = 2
     ORDER BY ? ?;`, [field, order]);
 };
 
@@ -58,18 +58,18 @@ const selectTeacherById = (id) => {
     join users as u on t.user_id = u.id
     join locations as l on u.location_id = l.id
     join subjects as s on s.teacher_id = t.id
-    join departments as d on s.department_id = d.id
+    join departments as d on s.department_id = d.id 
     where t.id = ?;`, [id]);
 };
 
-const selectTeacherByIdAllData = (id) => {
+const selectTeacherByIdUserAllData = (id) => {
     return db.query(`SELECT t.id, u.name, u.nickname, u.phone, u.email, u.date_of_birth, u.status, u.photo, l.latitude, l.longitude, l.address, l.city, l.province, t.experience, t.class_mode_online, t.class_mode_in_person, t.price_hour, t.about_me, s.subject, d.department_name 
     FROM teachers as t 
     join users as u on t.user_id = u.id
     join locations as l on u.location_id = l.id
     join subjects as s on s.teacher_id = t.id
-    join departments as d on s.department_id = d.id
-    where t.id = ?;`, [id]);
+    join departments as d on s.department_id = d.id 
+    where u.id = ? AND u.status = 2;`, [id]);
 };
 
 const selectTeacherOnlyTableById = (id) => {
@@ -106,4 +106,4 @@ const deleteTeacherById = (id) => {
     return UserModel.deleteUserById(id)
 };
 
-module.exports = { selectAllTeachers, selectTeacherOnlyTableById, selectTeacherByUserId, countAllTeachers, selectAllTeachersLimit, insertTeacher, selectTeacherById, updateTeacherById, deleteTeacherById, selectAllTeachersByState, selectAllTeachersSortedBy, updateFullTeacherById, selectTeacherByIdAllData };
+module.exports = { selectAllTeachers, selectTeacherOnlyTableById, selectTeacherByUserId, countAllTeachers, selectAllTeachersLimit, insertTeacher, selectTeacherById, updateTeacherById, deleteTeacherById, selectAllTeachersByState, selectAllTeachersSortedBy, updateFullTeacherById, selectTeacherByIdUserAllData };

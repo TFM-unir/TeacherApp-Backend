@@ -1,5 +1,5 @@
 const selectAllUsers = (id_role) => {
-    return db.query('SELECT u.id, u.name, u.nickname, u.email, u.phone, u.date_of_birth, u.status, u.photo, l.latitude, l.longitude, l.address, l.city, l.province FROM locations as l, users u where u.role_id=? and l.id = u.location_id ', [id_role]);
+    return db.query('SELECT u.id, u.name, u.nickname, u.email, u.phone, u.date_of_birth, u.status, u.photo, u.role_id, l.latitude, l.longitude, l.address, l.city, l.province FROM locations as l, users u where u.role_id=? and l.id = u.location_id ', [id_role]);
 };
 
 const selectUserById = (id) => {
@@ -30,8 +30,9 @@ const updateUserById = (id, { name, nickname, email, phone, update_date, date_of
     WHERE u.id = ?`, [name, nickname, email, phone, update_date, date_of_birth, photo, latitude, longitude, address, city, province, id]);
 };
 
-const deleteUserById = (id) => {
-    return db.query('UPDATE users set status=3 WHERE id = ?', [id]);
-};
+// Update para editar el estado de usuario. State: 1 = Not Validated, 2 = Validated, 3 = Deleted.
+const updateStatusById = (id, state) => {
+    return db.query("UPDATE users SET status = ? WHERE id = ?", [state, id]);
+}
 
-module.exports = { selectAllUsers, insertUser, selectUserById, selectUserByEmail, updateUserById, deleteUserById, selectUserByIdWhithOutLocation, updateUserLocationId }
+module.exports = { selectAllUsers, insertUser, selectUserById, selectUserByEmail, updateUserById, updateStatusById, selectUserByIdWhithOutLocation, updateUserLocationId }

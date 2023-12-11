@@ -30,7 +30,6 @@ const getAllTeachersPagination = async (req, res) => {
             results: result
         });
     } catch (error) {
-        console.log(error)
         res.json({ fatal: error.message });
     }
 };
@@ -61,20 +60,21 @@ const getTeacherById = async (req, res) => {
     }
 };
 
-const getTeacherByIdAllData = async (req, res) => {
+const getTeacherByIdUserAllData = async (req, res) => {
     /**#swagger.tags = ['Teachers']
        #swagger.description = 'Endpoint to get a Teacher.'
     */
     try {
-        const { teacherId } = req.params;
-        const [result] = await TeacherModel.selectTeacherByIdAllData(teacherId);
+        const { userId } = req.params;
+        const [result] = await TeacherModel.selectTeacherByIdUserAllData(userId);
+        console.log(result)
         res.json(result[0]);
     } catch (error) {
         res.json({ fatal: error.message });
     }
 };
 
-const getTeacherByUserId = async (req,res) => {
+const getTeacherByUserId = async (req, res) => {
     try {
         const { userId } = req.params;
         const [result] = await TeacherModel.selectTeacherByUserId(userId);
@@ -114,11 +114,11 @@ const updateTeacher = async (req, res) => {
     try {
         const { teacherId } = req.params;
         const result = await TeacherModel.updateFullTeacherById(teacherId, req.body);
-       /*  if (result.changedRows == 0) {
-            res.status(404).send('Teacher does not change ');
-        } else {
-           res.status(200).send("Teacher modified successfuly");
-        } */
+        /*  if (result.changedRows == 0) {
+             res.status(404).send('Teacher does not change ');
+         } else {
+            res.status(200).send("Teacher modified successfuly");
+         } */
         res.json(result)
     } catch (error) {
         res.json({ fatal: error.message });
@@ -143,4 +143,4 @@ const deleteTeacher = async (req, res) => {
     }
 };
 
-module.exports = { getAllTeachers, getTeacherById, createTeacher, updateTeacher, deleteTeacher, getAllTeachersByState, getAllTeachersPagination, getTeacherByIdAllData, getTeacherByUserId }
+module.exports = { getAllTeachers, getTeacherById, createTeacher, updateTeacher, deleteTeacher, getAllTeachersByState, getAllTeachersPagination, getTeacherByIdUserAllData, getTeacherByUserId }
