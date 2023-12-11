@@ -154,7 +154,6 @@ const updateUserStatusById = async (req, res) => {
         // Obtener respuestas
         res.json({ result });
     } catch (error) {
-        console.error('Error updating user status:', error);
         return res.json({ fatal: 'Internal Server Error' });
     }
 };
